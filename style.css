@@ -16,7 +16,7 @@
 
 body {
     color: #555;
-    font-family: Open Sans;
+    font-family:  'Dosis', sans-serif;
     font-size: 16px;
     position: relative;
     height: 100vh;
@@ -77,6 +77,8 @@ body {
 	
 	width: 50%;
 	float:left;
+	
+	padding-left:15px;
 }
 
 .selected__food__container {
@@ -151,8 +153,12 @@ body {
     cursor: pointer;
     display: inline-block;
     vertical-align: middle;
+	align-content: center;
     line-height: 1.1;
     margin-left: 10px;
+	font-family: inherit;
+	position:relative;
+	left:100%;
 }
 
 .calculate__btn:active { transform: translateY(2px); }
@@ -172,13 +178,18 @@ body {
 
 h2 {
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 400;
     margin-bottom: 15px;
 }
 
-.available__food__title { color: #28B9B5; }
-.selected__title { color: #FF5049; }
+.available__food__title { 
+	color: #28B9B5; 
+}
+.selected__title { 
+	color: #FF5049;
+	
+}
 
 .item {
     padding: 13px;
@@ -225,10 +236,12 @@ h2 {
     line-height: 0;
     
 }
-
+.item__add--btn {
+    color: #28B9B5;
+}
 .item__delete--btn:focus { outline: none; }
 .item__delete--btn:active { transform: translateY(2px); }
-
+.item__add--btn:active {transform: translateY(2px);}
 .item:hover .item__delete--btn { display: block; }
 
 
