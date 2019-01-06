@@ -15,7 +15,7 @@ var UIController = (function () {
 
 
 
-        }
+        };
         //on init get foods to make the list and show the list t
         
     //update user passed foods to menu in UI 
@@ -44,15 +44,15 @@ var UIController = (function () {
                         
                         allFoodsArray = Object.values(foods);
                         allFoodsArray.forEach(function (ele){
-                                var q = Object.values(ele)
+                                var q = Object.values(ele);
                                 q.forEach(function (ele) { 
                                         newArray.push(ele);
-                                })
-                        })
+                                });
+                        });
                         
                         newArray.forEach(function (foodObj) {
                                 UIController.addToAvailable(foodObj);
-                        })
+                        });
                 
                 },
                 getDOMStrings: function () {
@@ -68,7 +68,7 @@ var UIController = (function () {
                         }
                         //add food to selected list
 
-                        htmlTemplate = '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div>'
+                        htmlTemplate = '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div>';
                         
 
                         newHtml = htmlTemplate.replace('%id%', foodObj.id);
@@ -82,7 +82,7 @@ var UIController = (function () {
                         
                 },
                 removeFromSelected: function (foodObj) {
-                        var htmlTemplate, newHtml;
+                        
                         //remove it from selected list first so no duplicate ids
 
                         var el = document.getElementById(foodObj.id);
@@ -90,13 +90,7 @@ var UIController = (function () {
 
                         //add to available list
 
-                        htmlTemplate = '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__add"><button class="item__add--btn"><i class="ion-ios-close-outline"></i></button></div></div>'
-
-                        newHtml = htmlTemplate.replace('%id%', foodObj.id);
-                        newHtml = newHtml.replace('%foodname%', foodObj.name);
-                        console.log(newHtml);
-
-                        document.querySelector(DOMStrings.availableFoods).insertAdjacentHTML('afterbegin', newHtml);
+                        this.addToAvailable(foodObj);
 
                 },
                 addToAvailable: function (foodObj) {
@@ -110,7 +104,7 @@ var UIController = (function () {
                         }
                         //add food to selected list
 
-                        htmlTemplate = '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__add"><button class="item__add--btn"><i class="ion-ios-close-outline"></i></button></div></div>'
+                        htmlTemplate = '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__add"><button class="item__add--btn"><i class="ion-android-add"></i></button></div></div>';
                         
 
                         newHtml = htmlTemplate.replace('%id%', foodObj.id);
@@ -129,12 +123,12 @@ var UIController = (function () {
                         return {
                                 foodInput: document.querySelector(DOMStrings.foodAmountInput).value,
                                 simInput: document.querySelector(DOMStrings.simScaleInput).value,
-                        }
+                        };
                 },
                 displayResults: function (resultObject) {
                         var Html, newHtml;
 
-                        Html = '<div class="output"><div class="output__text"><p style="margin-bottom:20px">Simulation ran for <strong>%simNumber%</strong> times.</p><p style="margin-bottom:20px">At <strong>%simIndex%.</strong> try, found the best menu.</p><p style="margin-bottom:5px;"><strong>Maximum SP Gain:</strong>  %spGain%</p><p style="margin-bottom:5px;"><strong>Multiplier:</strong>  %multiplier%</p><p><strong>Menu:</strong>   %menu%</p></div></div>'
+                        Html = '<div class="output"><div class="output__text"><p style="margin-bottom:20px">Simulation ran for <strong>%simNumber%</strong> times.</p><p style="margin-bottom:20px">At <strong>%simIndex%.</strong> try, found the best menu.</p><p style="margin-bottom:5px;"><strong>Maximum SP Gain:</strong>  %spGain%</p><p style="margin-bottom:5px;"><strong>Multiplier:</strong>  %multiplier%</p><p><strong>Menu:</strong>   %menu%</p></div></div>';
 
                         newHtml = Html.replace('%simNumber%', this.getInput().simInput);
                         newHtml = newHtml.replace('%simIndex%', resultObject.foundAt)
@@ -142,12 +136,12 @@ var UIController = (function () {
                         newHtml = newHtml.replace('%multiplier%', resultObject.multiplier);
                         newHtml = newHtml.replace('%menu%', JSON.stringify(resultObject.resultMenu));
 
-                        document.querySelector(DOMStrings.rightContainer).insertAdjacentHTML('afterbegin', newHtml)
+                        document.querySelector(DOMStrings.rightContainer).insertAdjacentHTML('afterbegin', newHtml);
 
                 }
                 
 
-        }
+        };
     
 } 
 
@@ -189,50 +183,52 @@ var menuController = (function () {
                                
                 
                 
-        }
+        };
 })();
 
 
-function calculateSP (menu) {
-	//accepts an array of food objects
-        "use strict";
-        
-        var baseGain = 12;
-        var totalCarb = 0;
-        var totalProtein = 0;
-        var totalFat = 0;
-        var totalVitamin = 0;
-        var totalCal = 0 ;
-        var foodList = "";
-        
-        for(var i = 0; i < menu.length; i++) {
-                totalCal += menu[i].cal;
-                totalCarb += menu[i].cal * menu[i].carb;
-                totalProtein += menu[i].cal * menu[i].pro;
-                totalFat += menu[i].cal * menu[i].fat;
-                totalVitamin += menu[i].cal * menu[i].vit;
-                foodList = foodList + menu[i].name + "+";
-                }
-        var totalTotal = (totalCarb + totalProtein + totalFat + totalVitamin);
-        
-        var totalAverage =  totalTotal / totalCal;
-        
-        var maxTotal = Math.max(totalCarb,totalProtein,totalFat,totalVitamin);
-        
-        var balancedMultiplier = (totalTotal / (maxTotal * 4)) * 2; 
-        
-        return {
-                SP: baseGain + (totalAverage*balancedMultiplier),
-                foodList: foodList,
-                multiplier: balancedMultiplier,
-        };
-        
-}
+
 
 
 function testMenu (activeMenuArray,rollNumber,foodCount) {
 	//randomizes and tests the active menu array
-	"use strict";
+        "use strict";
+        
+        function calculateSP (menu) {
+                //accepts an array of food objects
+                "use strict";
+                
+                var baseGain = 12;
+                var totalCarb = 0;
+                var totalProtein = 0;
+                var totalFat = 0;
+                var totalVitamin = 0;
+                var totalCal = 0 ;
+                var foodList = "";
+                
+                for(var i = 0; i < menu.length; i++) {
+                        totalCal += menu[i].cal;
+                        totalCarb += menu[i].cal * menu[i].carb;
+                        totalProtein += menu[i].cal * menu[i].pro;
+                        totalFat += menu[i].cal * menu[i].fat;
+                        totalVitamin += menu[i].cal * menu[i].vit;
+                        foodList = foodList + menu[i].name + "+";
+                        }
+                var totalTotal = (totalCarb + totalProtein + totalFat + totalVitamin);
+                
+                var totalAverage =  totalTotal / totalCal;
+                
+                var maxTotal = Math.max(totalCarb,totalProtein,totalFat,totalVitamin);
+                
+                var balancedMultiplier = (totalTotal / (maxTotal * 4)) * 2; 
+                
+                return {
+                        SP: baseGain + (totalAverage*balancedMultiplier),
+                        foodList: foodList,
+                        multiplier: balancedMultiplier,
+                };
+                
+        }
 	
 	var menu = [];
 	var spArray = [];
@@ -259,7 +255,7 @@ function testMenu (activeMenuArray,rollNumber,foodCount) {
         }
         
         function indexOfMax(arr) {
-                "use strict";
+                
                     if (arr.length === 0) {
                     return -1;
                 }
@@ -330,26 +326,35 @@ function getFoodFromID (id) {
                 } else {
                         firstNumber = 0;
                 }
-
-                if (firstNumber == 0) {
+				
+				firstNumber = parseInt(firstNumber);
+			
+				//must be loosely equal else error
+                if (firstNumber === 0) {
                         return foods.campfire;
-                } else if (firstNumber == 1) {
+                } else if (firstNumber === 1) {
                         return foods.bakery;
-                } else if (firstNumber == 2) {
+                } else if (firstNumber === 2) {
                         return foods.kitchen;
-                } else if (firstNumber == 3) {
+                } else if (firstNumber === 3) {
                         return foods.cast_stove;
-                } else if (firstNumber == 4) {
+                } else if (firstNumber === 4) {
                         return foods.stove;
                 }
         }        
         var selectedFood,realID;
 
         //removes category id from start
-        realID = id.toString().slice(1);
+        if (id >= 10) {
+                
+                realID = id.toString().slice(1);
 
-        //convert to integer
-        realID = parseInt(realID);
+                //convert to integer
+                realID = parseInt(realID);
+        } else {
+                realID = id;
+        }
+        
         
 
         //select the corresponding food from the foods
@@ -380,7 +385,7 @@ var controller = (function (UICtrl, menuCtrl) {
                         
                 
                 //after pressing calculate 
-                document.querySelector(DOM.calculateButton).addEventListener('click', startSim)
+                document.querySelector(DOM.calculateButton).addEventListener('click', startSim);
                         
         };
 
@@ -395,7 +400,7 @@ var controller = (function (UICtrl, menuCtrl) {
 
                         
                         //add to selected food in UICtrl and remove from available foods
-                        UICtrl.addToSelected(selectedFood)
+                        UICtrl.addToSelected(selectedFood);
                                     
                         //update active menu in menuCtrl
                         menuCtrl.addActive(selectedFood);
@@ -413,7 +418,7 @@ var controller = (function (UICtrl, menuCtrl) {
                 if (parseInt(itemID)) {
                         selectedFood = getFoodFromID(itemID);
 
-                        console.log(selectedFood.name + 'selected')
+                        console.log(selectedFood.name + 'selected');
                         
                         //remove from selected food and add to available food
                         
@@ -445,9 +450,34 @@ var controller = (function (UICtrl, menuCtrl) {
                 
                 var result = testMenu(activeMenu, inputSim, inputFood);
                 console.log(result);
+			
+				//clear right container
+				var outputList = document.querySelector(DOM.rightContainer);
+				
+				UICtrl.clearLists(outputList);
 
                 UICtrl.displayResults(result);
         };
+
+        async function startAsyncSim() {
+                var activeMenu = menuCtrl.showActive(); 
+                var input = UICtrl.getInput();
+                
+                console.log(input);
+                
+                var inputFood = input.foodInput;
+                var inputSim = input.simInput;
+
+                var result = await testMenuAsync(activeMenu, inputSim, inputFood);
+
+                //clear right container
+                var outputList = document.querySelector(DOM.rightContainer);
+                
+                UICtrl.clearLists(outputList);
+
+                UICtrl.displayResults(result);
+
+        }
 
         return {
                 init: function () {
@@ -460,7 +490,7 @@ var controller = (function (UICtrl, menuCtrl) {
                         
                         
                 }
-        }
+        };
 })(UIController, menuController);
 
 controller.init();
