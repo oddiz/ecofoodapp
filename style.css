@@ -1,0 +1,234 @@
+/**********************************************
+*** GENERAL
+**********************************************/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+body {
+    color: #555;
+    font-family: Open Sans;
+    font-size: 16px;
+    position: relative;
+    height: 100vh;
+    font-weight: 400;
+}
+
+.right { float: right; }
+.red { color: #FF5049 !important; }
+.red-focus:focus { border: 1px solid #FF5049 !important; }
+
+/**********************************************
+*** TOP PART
+**********************************************/
+
+.top {
+    height: 40vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.top__title {
+	height: 40vh;
+	position:relative;
+}
+
+.page__title {
+	position: relative;
+	text-align: center;
+	top:50%;
+	color:aliceblue;
+}
+
+
+
+
+/**********************************************
+*** BOTTOM PART
+**********************************************/
+.left__container {
+	
+	float:left;
+	width:50%;
+	
+}
+.right__container {
+	
+	float:left;
+	width:50%;
+	padding-top:25px;
+	padding-left: 25px;
+	box-sizing: border-box;
+	
+}
+.available__food__container {
+	
+	
+	width: 50%;
+	float:left;
+}
+
+.selected__food__container {
+	
+	
+	width: 50%;
+	float:left;
+	border-left-width: 5px;
+}
+
+.output {
+    padding-top: 10px;
+    padding-left: 15px;
+    
+    width: 500px;
+    border-right:0px;
+}
+
+.output__text {
+    
+   
+    
+    font-size: 20px;
+}
+
+/***** FORM *****/
+
+.calculate {
+    height:70px;
+    padding: 14px;
+    border-bottom: 1px solid #e7e7e7;
+    background-color: #f7f7f7;
+    margin-bottom: 15px;
+   
+}
+
+.calculate__container {
+    margin: 0 auto;
+    text-align: center;
+    float:left
+}
+
+.input__container {
+    
+    float: left;
+    align: center;
+  
+    
+}
+
+.food__amount__input, .simulation__scale__input {
+    width: 200px;
+    height: 40px;
+    display:inline-block;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #ccc;
+    font-size: 16px;
+    font-family:inherit;
+    border-radius: 3px;
+     
+}
+
+.simulation__scale__input{width: 300px;}
+
+
+
+.calculate__btn {
+    font-size: 35px;
+    background: none;
+    border: none;
+    color: #28B9B5;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.1;
+    margin-left: 10px;
+}
+
+.calculate__btn:active { transform: translateY(2px); }
+
+
+
+
+
+/***** LISTS *****/
+
+
+
+
+
+
+
+
+h2 {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.available__food__title { color: #28B9B5; }
+.selected__title { color: #FF5049; }
+
+.item {
+    padding: 13px;
+    border-bottom: 1px solid #e7e7e7;
+	
+}
+
+.available__food__container .item {
+	border-right: 2px solid #e7e7e7;
+}
+
+.item:first-child { border-top: 1px solid #e7e7e7; }
+.item:nth-child(even) { background-color: #f7f7f7; }
+
+.item__description {
+    float: left;
+}
+
+
+.available__food__container .item__value,
+.available__food__container .item__delete--btn {
+    color: #28B9B5;
+}
+
+.selected__food__container .item__value,
+.selected__food__container .item__delete--btn {
+    color: #FF5049;
+}
+
+
+.item__delete, .item__add {
+    float: right;
+}
+
+
+
+.item__delete--btn, .item__add--btn {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+    vertical-align: middle;
+    line-height: 0;
+    
+}
+
+.item__delete--btn:focus { outline: none; }
+.item__delete--btn:active { transform: translateY(2px); }
+
+.item:hover .item__delete--btn { display: block; }
+
+
