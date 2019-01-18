@@ -152,7 +152,7 @@ module.exports = {
         "no-param-reassign": "error",
         "no-path-concat": "error",
         "no-plusplus": [
-            "error",
+            "off",
             {
                 "allowForLoopAfterthoughts": true
             }

@@ -2,8 +2,9 @@
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
 
-ecoFood.js
-ecoFoodv1.1.js
+
+/ecoFood.js
+/ecoFoodv1.1.js
 ### Node ###
 # Logs
 logs
