@@ -31,11 +31,15 @@
 		<div class="bottom">
 			<div class="calculate">
 				<div class="input__container">	
-					<input type="number" class="food__amount__input" placeholder="# of food in stomach">
-					<input type="number" class="simulation__scale__input" placeholder="How many tests will be performed">
+					<input type="number" class="food__amount__input" placeholder="Desired food # in menu. eg: 50">
+					<input type="number" class="simulation__scale__input" placeholder="Sim scale. Higher = better result eg: 500000">
 				</div>
 				<div class="calculate__container">
-					<button class="calculate__btn">Calculate <em class="ion-ios-checkmark-outline"></em></button>
+                    <button class="calculate__btn">Calculate <em class="ion-ios-checkmark-outline"></em></button>
+                    <button class="calculate__btn withAsync">Calc Async <em class="ion-ios-checkmark-outline"></em></button>
+                    <button class="calculate__btn withWorker">Calc w/ Worker <em class="ion-ios-checkmark-outline"></em></button>
+                    <-Recommended
+                    <div id="progress__bar"><div id="inner__bar">%0</div></div>
 				</div>
 			</div>
 			
@@ -120,7 +124,8 @@
             
         
 		<script src="foodData.js"></script>
-		<script src="testMenuAsync.js"></script>
+        <script src="testMenuAsync.js"></script>
+        <script src="testMenuWorker.js"></script>
 		<script src="ecoFood2.0.js"></script>
 		
    </body>

@@ -16,14 +16,14 @@ function Food (id,foodName,foodType,carb,pro,fat,vit,cal,weight) {
 var foods = {
 
    campfire: {
-           1: new Food (01,"Wheat Porrige", "Campfire", ),
-           2: new Food (02,"Fried Tomatoes","Campfire", ),
-           3: new Food (03,"Bannock","Campfire", ),
-           4: new Food (04,"Charred Sausage","Campfire", ),
-           5: new Food (05,"Fiddlehead Salad","Campfire", ),
-           6: new Food (06,"Campfire Roast","Campfire", ),
-           7: new Food (07,"Campfire Stew","Campfire",),
-           8: new Food (08,"Wild Stew","Campfire", ),
+           1: new Food (1,"Wheat Porrige", "Campfire", ),
+           2: new Food (2,"Fried Tomatoes","Campfire", ),
+           3: new Food (3,"Bannock","Campfire", ),
+           4: new Food (4,"Charred Sausage","Campfire", ),
+           5: new Food (5,"Fiddlehead Salad","Campfire", ),
+           6: new Food (6,"Campfire Roast","Campfire", ),
+           7: new Food (7,"Campfire Stew","Campfire",),
+           8: new Food (8,"Wild Stew","Campfire", ),
    },
 
    bakery: {
