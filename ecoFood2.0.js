@@ -16,11 +16,6 @@ var UIController = (function() {
         progressBar: "#inner__bar",
         
 	};
-	//on init get foods to make the list and show the list t
-
-	//update user passed foods to menu in UI
-
-	//return user selected menu when called
 
 	return {
 		initUI: function() {
@@ -33,9 +28,7 @@ var UIController = (function() {
 
 			//adds all foods to active menu
 			var allFoodsArray, newArray;
-
 			newArray = [];
-
 			allFoodsArray = Object.values(foods);
 			allFoodsArray.forEach(function(ele) {
 				var q = Object.values(ele);
@@ -144,7 +137,6 @@ var menuController = (function() {
 	return {
 		addActive: function(foodObj) {
 			//add to active menu
-
 			activeMenu.push(foodObj);
 		},
 		removeActive: function(foodObj) {
@@ -163,11 +155,6 @@ var menuController = (function() {
 function testMenu(activeMenuArray, rollNumber, foodCount) {
 	//randomizes and tests the active menu array
     "use strict";
-    
-    
-
-	
-
 	function calculateSP(menu) {
 		//accepts an array of food objects
 		"use strict";
@@ -221,7 +208,6 @@ function testMenu(activeMenuArray, rollNumber, foodCount) {
 			randomizer = Math.floor(Math.random() * activeMenuArray.length);
 			menu.push(activeMenuArray[randomizer]);
 		}
-
 		var result = calculateSP(menu);
 
 		if (result.SP > bestSP) {
@@ -234,20 +220,14 @@ function testMenu(activeMenuArray, rollNumber, foodCount) {
         progressPercent = Math.floor(i/rollNumber * 100);
 
         if (progressPercent !== progressPercentOld) {
-            
             progressPercentOld = progressPercent;
-            
             //update UI
             setTimeout(function() {
                 progressBar.style.width = progressPercent + '%';
                 progressBar.innerText = progressPercent * 1 + '%';
 
             },0)
-
-            
-
         }
-
 		menu = [];
 	}
 
@@ -255,7 +235,6 @@ function testMenu(activeMenuArray, rollNumber, foodCount) {
 	var listSplit = bestMenuNames.split("+");
 	//[3,1,2,4] => [1,2,3,4]
 	listSplit.sort();
-
 	listSplit.shift();
 	//console.log(listSplit);
 
@@ -270,12 +249,8 @@ function testMenu(activeMenuArray, rollNumber, foodCount) {
 			finalResult[foodName] = 1;
 		}
 	}
-
 	//console.log(finalResult);
 	//console.log(bestSP + " found at " + bestIndex + ". try.");
-
-	
-
 	return {
 		resultMenu: finalResult,
 		spAmount: bestSP,
@@ -293,10 +268,8 @@ function getFoodFromID(id) {
 		} else {
 			firstNumber = 0;
 		}
-
-		firstNumber = parseInt(firstNumber);
-
-		//must be loosely equal else error
+        firstNumber = parseInt(firstNumber);		
+        
 		if (firstNumber === 0) {
 			return foods.campfire;
 		} else if (firstNumber === 1) {
@@ -310,17 +283,14 @@ function getFoodFromID(id) {
 		}
 	}
 	var selectedFood, realID;
-
 	//removes category id from start
 	if (id >= 10) {
 		realID = id.toString().slice(1);
-
 		//convert to integer
 		realID = parseInt(realID);
 	} else {
 		realID = id;
 	}
-
 	//select the corresponding food from the foods
 	selectedFood = findCategory(id)[realID];
 	console.log("This food selected: " + selectedFood);
@@ -355,14 +325,11 @@ var controller = (function(UICtrl, menuCtrl) {
 		var itemID, selectedFood;
 		//get UI input
 		itemID = event.target.parentNode.parentNode.parentNode.id;
-
 		if (parseInt(itemID)) {
 			//find the food
 			selectedFood = getFoodFromID(itemID);
-
 			//add to selected food in UICtrl and remove from available foods
 			UICtrl.addToSelected(selectedFood);
-
 			//update active menu in menuCtrl
 			menuCtrl.addActive(selectedFood);
 		}
@@ -371,39 +338,29 @@ var controller = (function(UICtrl, menuCtrl) {
 	var deleteFoodfromActive = function(event) {
 		var itemID, selectedFood;
 		//get UI input for which one pressed
-
 		itemID = event.target.parentNode.parentNode.parentNode.id;
 
 		if (parseInt(itemID)) {
 			selectedFood = getFoodFromID(itemID);
-
 			console.log(selectedFood.name + "selected");
-
 			//remove from selected food and add to available food
-
 			UICtrl.removeFromSelected(selectedFood);
-
 			//update active menu in menuCtrl
-
 			menuCtrl.removeActive(selectedFood);
 		}
 	};
 	//eslint-disable-next-line no-unused-vars
 	var startSim = function() {
 		//get menu and sim input from UI
-
 		var activeMenu = menuCtrl.showActive();
 		var input = UICtrl.getInput();
-
 		console.log(input);
-
 		var inputFood = input.foodInput;
 		var inputSim = input.simInput;
 
 		console.log("Sim started");
 
 		//display the result in UI
-
 		var result = testMenu(activeMenu, inputSim, inputFood);
 		console.log(`Result is: ${result}`);
 
@@ -411,7 +368,6 @@ var controller = (function(UICtrl, menuCtrl) {
 		var outputList = document.querySelector(DOM.rightContainer);
 
 		UICtrl.clearLists(outputList);
-
 		UICtrl.displayResults(result);
 	};
 
@@ -420,77 +376,52 @@ var controller = (function(UICtrl, menuCtrl) {
 		try {
             console.log("Starting async");
             var activeMenu = menuCtrl.showActive();
-            var input = UICtrl.getInput();
-    
-            //console.log(input);
-    
+            var input = UICtrl.getInput(); 
             var inputFood = input.foodInput;
             var inputSim = input.simInput;
-    
-            var result = await testMenuAsync(activeMenu,inputSim,inputFood)
-            
-            
+            var outputList = document.querySelector(DOM.rightContainer);
+            var result = await testMenuAsync(activeMenu,inputSim,inputFood)   
             console.log(`Result is: ${result}`);
             
-            var outputList = document.querySelector(DOM.rightContainer);
-    
-            UICtrl.clearLists(outputList);
-    
-            UICtrl.displayResults(result);
-            
-            
-            
-            //clear right container
+            UICtrl.clearLists(outputList);    
+            UICtrl.displayResults(result);         
             
         }catch(err) {
             alert(err);
         }
-            
-        return
+        return;
     }
     
     function startWorkerSim() {
+
         console.log('Starting worker.')
 
         var activeMenu = menuCtrl.showActive();
         var input = UICtrl.getInput();
-
         var inputFood = input.foodInput;
         var inputSim = input.simInput;
-
+        
         var work = new Worker('testMenuWorker.js');
 
         work.postMessage([activeMenu,inputSim,inputFood])
 
         work.onmessage = function(result) {
-            
             if (typeof result.data === 'number') {
                 UICtrl.setPercentage(result.data)
             } else {
-                console.log(result);
-                
+                console.log(result);                
                 var outputList = document.querySelector(DOM.rightContainer);
         
-                UICtrl.clearLists(outputList);
-        
+                UICtrl.clearLists(outputList);        
                 UICtrl.displayResults(result.data);
-            }
-
-            
-
-            
+                work.terminate();
+            }           
         }
-
-        
-
     }
-
 	return {
 		init: function() {
 			setupEventListeners();
-
 			UICtrl.initUI();
-
 			console.log("Application has started.");
 		}
 	};

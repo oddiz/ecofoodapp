@@ -12,7 +12,6 @@ function Food (id,foodName,foodType,carb,pro,fat,vit,cal,weight) {
    
 }                                       
 
-//add food database
 var foods = {
 
    campfire: {
