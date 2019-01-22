@@ -1,3 +1,5 @@
+/*eslint-disable no-tabs */
+/*eslint-disable array-element-newline */
 /*eslint-disable no-undef */
 
 var UIController = (function() {
@@ -202,6 +204,11 @@ function testMenu(activeMenuArray, rollNumber, foodCount) {
     var progressBar = document.getElementById("inner__bar");
     var progressPercent = 0;
     var progressPercentOld= 0;
+    var updateProgressBar = function() {
+        progressBar.style.width = progressPercent + '%';
+        progressBar.innerText = Number(progressPercent) + '%';
+
+    };
 
 	for (var i = 0; i <= rollNumber; i++) {
 		for (var q = 0; q < foodCount; q++) {
@@ -222,11 +229,7 @@ function testMenu(activeMenuArray, rollNumber, foodCount) {
         if (progressPercent !== progressPercentOld) {
             progressPercentOld = progressPercent;
             //update UI
-            setTimeout(function() {
-                progressBar.style.width = progressPercent + '%';
-                progressBar.innerText = progressPercent * 1 + '%';
-
-            },0)
+            setTimeout(updateProgressBar,0)
         }
 		menu = [];
 	}
@@ -249,8 +252,11 @@ function testMenu(activeMenuArray, rollNumber, foodCount) {
 			finalResult[foodName] = 1;
 		}
 	}
-	//console.log(finalResult);
-	//console.log(bestSP + " found at " + bestIndex + ". try.");
+
+	/*
+	 *console.log(finalResult);
+	 *console.log(bestSP + " found at " + bestIndex + ". try.");
+	 */
 	return {
 		resultMenu: finalResult,
 		spAmount: bestSP,
@@ -267,7 +273,8 @@ function getFoodFromID(id) {
 			firstNumber = id.toString()[0];
 		} else {
 			firstNumber = 0;
-		}
+        }
+        
         firstNumber = parseInt(firstNumber);		
         
 		if (firstNumber === 0) {
@@ -314,7 +321,7 @@ var controller = (function(UICtrl, menuCtrl) {
 		//after pressing calculate
         document.querySelector(DOM.calculateButton).addEventListener("click", startSim);
         
-        document.querySelector(DOM.calculateAsyncButton).addEventListener("click", startAsyncSim);
+        //document.querySelector(DOM.calculateAsyncButton).addEventListener("click", startAsyncSim);
 
         document.querySelector(DOM.calculateWorkerButton).addEventListener("click", startWorkerSim);
 
@@ -372,26 +379,27 @@ var controller = (function(UICtrl, menuCtrl) {
 	};
 
 	//eslint-disable-next-line no-unused-vars
-	async function startAsyncSim() {
-		try {
-            console.log("Starting async");
-            var activeMenu = menuCtrl.showActive();
-            var input = UICtrl.getInput(); 
-            var inputFood = input.foodInput;
-            var inputSim = input.simInput;
-            var outputList = document.querySelector(DOM.rightContainer);
-            var result = await testMenuAsync(activeMenu,inputSim,inputFood)   
-            console.log(`Result is: ${result}`);
-            
-            UICtrl.clearLists(outputList);    
-            UICtrl.displayResults(result);         
-            
-        }catch(err) {
-            alert(err);
-        }
-        return;
-    }
-    
+	/*
+	 *async function startAsyncSim() {
+	 * try {
+	 * console.log("Starting async");
+	 * var activeMenu = menuCtrl.showActive();
+	 * var input = UICtrl.getInput(); 
+	 * var inputFood = input.foodInput;
+	 * var inputSim = input.simInput;
+	 * var outputList = document.querySelector(DOM.rightContainer);
+	 * var result = await testMenuAsync(activeMenu,inputSim,inputFood)   
+	 * console.log(`Result is: ${result}`);
+	 *
+	 * UICtrl.clearLists(outputList);    
+	 * UICtrl.displayResults(result);         
+	 *
+	 * }catch(err) {
+	 * alert(err);
+	 * }
+	 * return;
+	 * }
+	 */
     function startWorkerSim() {
 
         console.log('Starting worker.')
@@ -418,7 +426,8 @@ var controller = (function(UICtrl, menuCtrl) {
             }           
         }
     }
-	return {
+	
+return {
 		init: function() {
 			setupEventListeners();
 			UICtrl.initUI();
