@@ -330,8 +330,18 @@ var controller = (function(UICtrl, menuCtrl) {
 
 	var addFoodtoActive = function(event) {
 		var itemID, selectedFood;
-		//get UI input
-		itemID = event.target.parentNode.parentNode.parentNode.id;
+        //get UI input
+        console.log(event);
+
+		var isFirefox = typeof InstallTrigger !== 'undefined';
+        console.log(isFirefox);
+        //https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
+        if(isFirefox) {
+            
+            itemID = event.target.parentNode.parentNode.id;
+        } else {
+            itemID = event.target.parentNode.parentNode.parentNode.id;
+        }
 		if (parseInt(itemID)) {
 			//find the food
 			selectedFood = getFoodFromID(itemID);
@@ -344,8 +354,16 @@ var controller = (function(UICtrl, menuCtrl) {
 
 	var deleteFoodfromActive = function(event) {
 		var itemID, selectedFood;
-		//get UI input for which one pressed
-		itemID = event.target.parentNode.parentNode.parentNode.id;
+        //get UI input for which one pressed
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+
+        //https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
+        if(isFirefox) {
+            
+            itemID = event.target.parentNode.parentNode.id;
+        } else {
+            itemID = event.target.parentNode.parentNode.parentNode.id;
+        }
 
 		if (parseInt(itemID)) {
 			selectedFood = getFoodFromID(itemID);
