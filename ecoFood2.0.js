@@ -16,7 +16,7 @@ var UIController = (function() {
         rightContainer: ".right__container",
         calculateWorkerButton: ".withWorker",
         progressBar: "#inner__bar",
-        
+        highscoreContent: ".highscore__content"
 	};
 
 	return {
@@ -58,7 +58,7 @@ var UIController = (function() {
 			//add food to selected list
 
 			htmlTemplate =
-				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div>';
+				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__delete"><i class="ion-ios-close-outline item__delete--btn"></i></div></div>';
 
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
 			newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -87,7 +87,7 @@ var UIController = (function() {
 			//add food to selected list
 
 			htmlTemplate =
-				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__add"><button class="item__add--btn"><i class="ion-android-add"></i></button></div></div>';
+				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__add"><i class="ion-android-add item__add--btn"></i></div></div>';
 
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
 			newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -129,6 +129,18 @@ var UIController = (function() {
             progressBar.style.width = percentage + '%';
             progressBar.textContent = percentage + '%';
 
+        },
+        displayHighscore: function(result) {
+            var Html, newHtml, highscoreContent;
+
+            highscoreContent = document.querySelector(DOMStrings.highscoreContent);
+            Html = '<p>%message%</p><br><h2>Best found so far:</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
+
+            newHtml = Html.replace("%message%", result.message);
+            newHtml = newHtml.replace("%menu%", JSON.stringify(result.currentHighscore[0].menu));
+            newHtml = newHtml.replace("%SP%", result.currentHighscore[0].sp);
+
+            highscoreContent.innerHTML = newHtml;
         }
 	};
 })();
@@ -154,116 +166,6 @@ var menuController = (function() {
 	};
 })();
 
-function testMenu(activeMenuArray, rollNumber, foodCount) {
-	//randomizes and tests the active menu array
-    "use strict";
-	function calculateSP(menu) {
-		//accepts an array of food objects
-		"use strict";
-
-		var baseGain = 12;
-		var totalCarb = 0;
-		var totalProtein = 0;
-		var totalFat = 0;
-		var totalVitamin = 0;
-		var totalCal = 0;
-        var foodList = "";
-
-		for (var i = 0; i < menu.length; i++) {
-			totalCal += menu[i].cal;
-			totalCarb += menu[i].cal * menu[i].carb;
-			totalProtein += menu[i].cal * menu[i].pro;
-			totalFat += menu[i].cal * menu[i].fat;
-			totalVitamin += menu[i].cal * menu[i].vit;
-			foodList = foodList + menu[i].name + "+";
-		}
-		var totalTotal = totalCarb + totalProtein + totalFat + totalVitamin;
-
-		var totalAverage = totalTotal / totalCal;
-
-		var maxTotal = Math.max(totalCarb, totalProtein, totalFat, totalVitamin);
-
-		var balancedMultiplier = (totalTotal / (maxTotal * 4)) * 2;
-
-		return {
-			SP: baseGain + (totalAverage * balancedMultiplier),
-			foodList: foodList,
-			multiplier: balancedMultiplier
-		};
-	}
-
-	var menu = [];
-	var randomizer = 0;
-	var bestMenuNames;
-	var bestIndex = 0;
-	var bestMultiplier = 0;
-	var bestSP = 0;
-
-	//console.log("usedFoods check " + activeMenuArray);
-
-    var progressBar = document.getElementById("inner__bar");
-    var progressPercent = 0;
-    var progressPercentOld= 0;
-    var updateProgressBar = function() {
-        progressBar.style.width = progressPercent + '%';
-        progressBar.innerText = Number(progressPercent) + '%';
-
-    };
-
-	for (var i = 0; i <= rollNumber; i++) {
-		for (var q = 0; q < foodCount; q++) {
-			randomizer = Math.floor(Math.random() * activeMenuArray.length);
-			menu.push(activeMenuArray[randomizer]);
-		}
-		var result = calculateSP(menu);
-
-		if (result.SP > bestSP) {
-			bestSP = result.SP;
-			bestMenuNames = result.foodList;
-			bestIndex = i;
-			bestMultiplier = result.multiplier;
-		}
-
-        progressPercent = Math.floor(i/rollNumber * 100);
-
-        if (progressPercent !== progressPercentOld) {
-            progressPercentOld = progressPercent;
-            //update UI
-            setTimeout(updateProgressBar,0)
-        }
-		menu = [];
-	}
-
-	//"3+1+2+4" => [3,1,2,4]
-	var listSplit = bestMenuNames.split("+");
-	//[3,1,2,4] => [1,2,3,4]
-	listSplit.sort();
-	listSplit.shift();
-	//console.log(listSplit);
-
-	var finalResult = {};
-	var foodName = "";
-	for (var b = 0; b < listSplit.length; b++) {
-		foodName = listSplit[b];
-
-		if (finalResult[foodName] >= 0) {
-			finalResult[foodName] += 1;
-		} else {
-			finalResult[foodName] = 1;
-		}
-	}
-
-	/*
-	 *console.log(finalResult);
-	 *console.log(bestSP + " found at " + bestIndex + ". try.");
-	 */
-	return {
-		resultMenu: finalResult,
-		spAmount: bestSP,
-		foundAt: bestIndex,
-		multiplier: bestMultiplier
-	};
-}
 
 function getFoodFromID(id) {
 	function findCategory() {
@@ -319,11 +221,11 @@ var controller = (function(UICtrl, menuCtrl) {
 		document.querySelector(DOM.selectedFoods).addEventListener("click", deleteFoodfromActive);
 
 		//after pressing calculate
-        document.querySelector(DOM.calculateButton).addEventListener("click", startSim);
+        document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
         
         //document.querySelector(DOM.calculateAsyncButton).addEventListener("click", startAsyncSim);
 
-        document.querySelector(DOM.calculateWorkerButton).addEventListener("click", startWorkerSim);
+        //document.querySelector(DOM.calculateWorkerButton).addEventListener("click", startWorkerSim);
 
 
 	};
@@ -333,15 +235,7 @@ var controller = (function(UICtrl, menuCtrl) {
         //get UI input
         console.log(event);
 
-		var isFirefox = typeof InstallTrigger !== 'undefined';
-        console.log(isFirefox);
-        //https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
-        if(isFirefox) {
-            
-            itemID = event.target.parentNode.parentNode.id;
-        } else {
-            itemID = event.target.parentNode.parentNode.parentNode.id;
-        }
+        itemID = event.target.parentNode.parentNode.id;
 		if (parseInt(itemID)) {
 			//find the food
 			selectedFood = getFoodFromID(itemID);
@@ -355,15 +249,8 @@ var controller = (function(UICtrl, menuCtrl) {
 	var deleteFoodfromActive = function(event) {
 		var itemID, selectedFood;
         //get UI input for which one pressed
-        var isFirefox = typeof InstallTrigger !== 'undefined';
-
-        //https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
-        if(isFirefox) {
-            
-            itemID = event.target.parentNode.parentNode.id;
-        } else {
-            itemID = event.target.parentNode.parentNode.parentNode.id;
-        }
+        
+        itemID = event.target.parentNode.parentNode.id;
 
 		if (parseInt(itemID)) {
 			selectedFood = getFoodFromID(itemID);
@@ -374,50 +261,7 @@ var controller = (function(UICtrl, menuCtrl) {
 			menuCtrl.removeActive(selectedFood);
 		}
 	};
-	//eslint-disable-next-line no-unused-vars
-	var startSim = function() {
-		//get menu and sim input from UI
-		var activeMenu = menuCtrl.showActive();
-		var input = UICtrl.getInput();
-		console.log(input);
-		var inputFood = input.foodInput;
-		var inputSim = input.simInput;
 
-		console.log("Sim started");
-
-		//display the result in UI
-		var result = testMenu(activeMenu, inputSim, inputFood);
-		console.log(`Result is: ${result}`);
-
-		//clear right container
-		var outputList = document.querySelector(DOM.rightContainer);
-
-		UICtrl.clearLists(outputList);
-		UICtrl.displayResults(result);
-	};
-
-	//eslint-disable-next-line no-unused-vars
-	/*
-	 *async function startAsyncSim() {
-	 * try {
-	 * console.log("Starting async");
-	 * var activeMenu = menuCtrl.showActive();
-	 * var input = UICtrl.getInput(); 
-	 * var inputFood = input.foodInput;
-	 * var inputSim = input.simInput;
-	 * var outputList = document.querySelector(DOM.rightContainer);
-	 * var result = await testMenuAsync(activeMenu,inputSim,inputFood)   
-	 * console.log(`Result is: ${result}`);
-	 *
-	 * UICtrl.clearLists(outputList);    
-	 * UICtrl.displayResults(result);         
-	 *
-	 * }catch(err) {
-	 * alert(err);
-	 * }
-	 * return;
-	 * }
-	 */
     function startWorkerSim() {
 
         console.log('Starting worker.')
@@ -431,18 +275,43 @@ var controller = (function(UICtrl, menuCtrl) {
 
         work.postMessage([activeMenu,inputSim,inputFood])
 
+       
         work.onmessage = function(result) {
             if (typeof result.data === 'number') {
                 UICtrl.setPercentage(result.data)
             } else {
-                console.log(result);                
+                //console.log(result);                
                 var outputList = document.querySelector(DOM.rightContainer);
-        
+                
+                
                 UICtrl.clearLists(outputList);        
                 UICtrl.displayResults(result.data);
                 work.terminate();
-            }           
+
+                sendPostRequest(result.data);
+
+                
+            }          
         }
+
+
+    }
+
+    function sendPostRequest(message) {
+        fetch("http://13.59.222.11:8000/highscore", {
+            method: "POST", 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(message)
+        }).
+        then((res) => {
+            return res.json()
+        }).
+        then((json) => {
+            console.log("Request complete! response:", json);
+            UICtrl.displayHighscore(json);
+            
+        return json;
+        });
     }
 	
 return {

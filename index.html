@@ -22,22 +22,29 @@
         
 		<div class="top">
 			<div class="top__title">
-				<h1 class="page__title">Eco Menu Calculator</h1>
+				<h1 class="page__title">Eco Diet Calculator</h1>
 			</div>
 		</div>
         
 		<div class="bottom">
 			<div class="calculate">
-				<div class="input__container">	
-					<input type="number" class="food__amount__input" placeholder="Desired food # in menu. eg: 50">
-					<input type="number" class="simulation__scale__input" placeholder="Sim scale. Higher = better result eg: 500000">
+				<div class="input__container clearfix">
+					<div class="food__amount">
+						<div class= "info__text"><span style ="font-size: 20px">Desired number of food in diet</span><br><br>Simulation will make a diet with random <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span> until desired number is achieved and test it. </div>
+						<input type="number" class="food__amount__input" placeholder="Diet scale">
+					</div>
+					<div class="sim__amount">
+						<div class= "info__text"><span style ="font-size: 20px">Simulation cycle amount</span><br><br>Each cycle, it'll test a new diet and compare the results to find the best combination.<br><br>Higher number = better results<br><br>(unless you have found the best combination already.)</div>
+						<input type="number" class="simulation__scale__input" placeholder="Simulation scale">
+					</div>
+					<div id="progress__bar"><div id="inner__bar">%0</div></div>
 				</div>
 				<div class="calculate__container">
                     <button class="calculate__btn">Calculate <em class="ion-ios-checkmark-outline"></em></button>
                 <!-- <button class="calculate__btn withAsync">Calc Async <em class="ion-ios-checkmark-outline"></em></button>-->
-                    <button class="calculate__btn withWorker">Calc w/ Worker <em class="ion-ios-checkmark-outline"></em></button>
+                <!--    <button class="calculate__btn withWorker">Calc w/ Worker <em class="ion-ios-checkmark-outline"></em></button>
                     &lt;-Recommended
-                    <div id="progress__bar"><div id="inner__bar">%0</div></div>
+                    -->
 				</div>
 			</div>
 			
@@ -105,17 +112,24 @@
 			</div>
 		</div>
 
-		   <div class="right__container">
-				
-				
+        <div class="right__container">
+            
+            
 
-			</div>
+        </div>
+
+        <div class="highscore__container">
+            <h1>Highscores</h1>
+
+            <div class="highscore__content">
+                <!--<p><i>Run the sim to see highscores</i></p>-->
+                <p><i>Calculate a menu to see highscore<br><br>Highscores are categorised by diet scale</i></p>
+            </div>
+        </div>
    	</div>
 			
             
-        
-		<script src="foodData.js"></script>
-        <!--<script src="testMenuAsync.js"></script>-->
+        <script src="foodData.js"></script>
         <script src="testMenuWorker.js"></script>
 		<script src="ecoFood2.0.js"></script>
 		

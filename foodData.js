@@ -63,7 +63,7 @@ var foods = {
            3: new Food (43,"Fried Hare Haunches", "Stove", ),
            4: new Food (44,"Elk Taco", "Stove", ),
            5: new Food (45,"Boiled Sausage", "Stove", ),
-           6: new Food (46,"Bear S.U.P.R.E.M.E", "Stove", 8,20,22,10,1200,500)
+           6: new Food (46,"Bear SUPREME", "Stove", 8,20,22,10,1200,500)
    }
    /* 
    1: new Food(1,"Bear SUPREME","Stove",8,20,22,10,1200,500),
