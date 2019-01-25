@@ -127,6 +127,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount) {
 		resultMenu: finalResult,
 		spAmount: bestSP,
 		foundAt: bestIndex,
-		multiplier: bestMultiplier
+        multiplier: bestMultiplier,
+        foodQty: foodCount
 	});
 }

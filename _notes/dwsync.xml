@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="style.css" server="kaansarkaya.com//public_html/" local="131922823487752629" remote="131922474000000000" Dst="0" />
-<file name="index.html" server="kaansarkaya.com//public_html/" local="131926191350603653" remote="131925832200000000" Dst="0" />
+<file name="style.css" server="kaansarkaya.com//public_html/" local="131928003297618213" remote="131927670600000000" Dst="0" />
+<file name="index.html" server="kaansarkaya.com//public_html/" local="131928024122924123" remote="131927670600000000" Dst="0" />
 <file name="package.json" server="kaansarkaya.com//public_html/" local="131900863907953613" remote="131902930800000000" Dst="0" />
 <file name="back.png" server="kaansarkaya.com//public_html/" local="131877876970000000" remote="131907871800000000" Dst="0" />
-<file name="foodData.js" server="kaansarkaya.com//public_html/" local="131925685671585179" remote="131925811200000000" Dst="0" />
-<file name="ecoFood2.0.js" server="kaansarkaya.com//public_html/" local="131926208531057520" remote="131925849600000000" Dst="0" />
+<file name="foodData.js" server="kaansarkaya.com//public_html/" local="131927986779144429" remote="131927670600000000" Dst="0" />
+<file name="ecoFood2.0.js" server="kaansarkaya.com//public_html/" local="131928019560206435" remote="131927670600000000" Dst="0" />
 <file name=".eslintrc.js" server="kaansarkaya.com//public_html/" local="131912941801807455" remote="131922474000000000" Dst="0" />
 <file name=".gitignore" server="kaansarkaya.com//public_html/" local="131912943047636344" remote="131922474000000000" Dst="0" />
 <file name="testMenuAsync.js" server="kaansarkaya.com//public_html/" local="131922794940914325" remote="131922474000000000" Dst="0" />
-<file name="testMenuWorker.js" server="kaansarkaya.com//public_html/" local="131922811029483348" remote="131922474000000000" Dst="0" />
+<file name="testMenuWorker.js" server="kaansarkaya.com//public_html/" local="131927982730825659" remote="131927670600000000" Dst="0" />
+<file name=".eslintrc.js" server="kaansarkaya.com//" local="131912941801807455" remote="131927824200000000" Dst="0" />
+<file name=".gitignore" server="kaansarkaya.com//" local="131912943047636344" remote="131927824200000000" Dst="0" />
+<file name="ecoFood2.0.js" server="kaansarkaya.com//" local="131928897406612206" remote="131928538200000000" Dst="0" />
+<file name="foodData.js" server="kaansarkaya.com//" local="131927986779144429" remote="131927829000000000" Dst="0" />
+<file name="index.html" server="kaansarkaya.com//" local="131928898398649156" remote="131928538200000000" Dst="0" />
+<file name="back.png" server="kaansarkaya.com//" local="131877876970000000" remote="131927829000000000" Dst="0" />
+<file name="package.json" server="kaansarkaya.com//" local="131900863907953613" remote="131927836800000000" Dst="0" />
+<file name="style.css" server="kaansarkaya.com//" local="131928894841213036" remote="131928538200000000" Dst="0" />
+<file name="testMenuWorker.js" server="kaansarkaya.com//" local="131927982730825659" remote="131927836800000000" Dst="0" />
+<file name="testMenuAsync.js" server="kaansarkaya.com//" local="131922794940914325" remote="131927836800000000" Dst="0" />
 </dwsync>
