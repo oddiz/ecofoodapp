@@ -13,10 +13,11 @@
 	   
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
-        <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+        <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
 	   	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="style.css">
-        <title>Eco Food Calculator</title>
+        <title>Eco Diet Calculator</title>
+        <link rel="icon" href="meaticon.png" type="image/png" sizes="16x16">
    </head>
    <body>
         
@@ -26,8 +27,8 @@
 			</div>
 		</div>
         
-		<div class="bottom">
-			<div class="calculate">
+        
+        <div class="calculate">
 				<div class="input__container clearfix">
 					<div class="food__amount">
 						<div class= "info__text"><span style ="font-size: 20px">Desired number of food in diet</span><br><br>Simulation will make a diet with random <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span> until desired number is achieved and test it. </div>
@@ -37,16 +38,11 @@
 						<div class= "info__text"><span style ="font-size: 20px">Simulation cycle amount</span><br><br>Each cycle, it'll test a new diet and compare the results to find the best combination.<br><br>Higher number = better results<br><br>(unless you have found the best combination already.)</div>
 						<input type="number" class="simulation__scale__input" placeholder="Simulation scale">
 					</div>
-					<div id="progress__bar"><div id="inner__bar">%0</div></div>
+					
 				</div>
-				<div class="calculate__container">
-                    <button class="calculate__btn">Calculate <em class="ion-ios-checkmark-outline"></em></button>
-                <!-- <button class="calculate__btn withAsync">Calc Async <em class="ion-ios-checkmark-outline"></em></button>-->
-                <!--    <button class="calculate__btn withWorker">Calc w/ Worker <em class="ion-ios-checkmark-outline"></em></button>
-                    &lt;-Recommended
-                    -->
-				</div>
-			</div>
+				
+            </div>
+        <div class="bottom clearfix">
 			
 			<div class="left__container">
 			
@@ -118,20 +114,28 @@
 
         </div>
 
-        <div class="highscore__container">
-            <h1>Highscores</h1>
-
-            <div class="highscore__content">
-                <!--<p><i>Run the sim to see highscores</i></p>-->
-                <p><i>Calculate a menu to see highscore<br><br>Highscores are categorised by diet scale</i></p>
-            </div>
-        </div>
+        
    	</div>
+	   <footer>
+		   <div class="calculate__container">
+				<button class="calculate__btn">Calculate <em class="ion-ios-checkmark-outline"></em></button>
+			   	<div id="progress__bar"><div id="inner__bar">%0</div></div>
+		   </div>
+		   <div class="highscore__container">
+				<h1>Highscores</h1>
+
+				<div class="highscore__content">
+					<!--<p><i>Run the sim to see highscores</i></p>-->
+					<p><i>Calculate a menu to see highscore<br><br>Highscores are categorised by diet scale</i></p>
+				</div>
+
+			</div>
+		</footer>
 			
             
         <script src="foodData.js"></script>
         <script src="testMenuWorker.js"></script>
-		<script src="ecoFood2.0.js"></script>
+	<script src="ecoFood2.0.js"></script>
 		
    </body>
 </html>

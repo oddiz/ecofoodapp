@@ -58,10 +58,12 @@ var UIController = (function() {
 			//add food to selected list
 
 			htmlTemplate =
-				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__delete"><i class="ion-ios-close-outline item__delete--btn"></i></div></div>';
+				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img src="./resources/img/%imgid%.png"><div class="item__delete"><i class="ion-ios-close-outline item__delete--btn"></i></div></div>';
 
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
-			newHtml = newHtml.replace("%foodname%", foodObj.name);
+            newHtml = newHtml.replace("%foodname%", foodObj.name);
+            newHtml = newHtml.replace("%imgid%", foodObj.id);
+            newHtml = newHtml.replace("%foodtier%", foodObj.tier);
 
 			document.querySelector(DOMStrings.selectedFoods).insertAdjacentHTML("afterbegin", newHtml);
 		},
@@ -87,10 +89,12 @@ var UIController = (function() {
 			//add food to selected list
 
 			htmlTemplate =
-				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%</div><div class="item__add"><i class="ion-android-add item__add--btn"></i></div></div>';
+				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img src="./resources/img/%imgid%.png"><div class="item__add"><i class="ion-android-add item__add--btn"></i></div></div>';
 
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
 			newHtml = newHtml.replace("%foodname%", foodObj.name);
+			newHtml = newHtml.replace("%imgid%", foodObj.id);
+			newHtml = newHtml.replace("%foodtier%", foodObj.tier);
 
 			document.querySelector(DOMStrings.availableFoods).insertAdjacentHTML("afterbegin", newHtml);
 		},
@@ -106,23 +110,48 @@ var UIController = (function() {
 			};
 		},
 		displayResults: function(resultObject) {
-			var Html, newHtml;
+            var paperHtml, menuContent, line, menuObject;
+            
+            paperHtml = '<div class="menu__paper clearfix"><h1>Menu</h1><div class="horizontal__line"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p></div></div>';
 
-			Html =
-				'<div class="output"><div class="output__text"><p style="margin-bottom:20px">Simulation ran for <strong>%simNumber%</strong> times.</p><p style="margin-bottom:20px">At <strong>%simIndex%.</strong> try, found the best menu.</p><p style="margin-bottom:5px;"><strong>Maximum SP Gain:</strong>  %spGain%</p><p style="margin-bottom:5px;"><strong>Multiplier:</strong>  %multiplier%</p><p><strong>Menu:</strong>   %menu%</p></div></div>';
+            var paperHtmlEdited = paperHtml.
+            replace('%sp%', resultObject.spAmount).
+            replace('%multiplier%', resultObject.multiplier).
+            replace('%index%', resultObject.foundAt).
+            replace('%simcount%', this.getInput().simInput);
 
-			newHtml = Html.replace("%simNumber%", this.getInput().simInput);
-			if (resultObject.foundAt === 0) {
-				newHtml = newHtml.replace("%simIndex%", "1");
-			} else {
-				newHtml = newHtml.replace("%simIndex%", resultObject.foundAt);
-			}
+            document.querySelector(DOMStrings.rightContainer).innerHTML = paperHtmlEdited;
+            menuContent = document.querySelector(".menu__content");
+            
+            menuObject = resultObject.resultMenu;
+            
+            for(foodname in menuObject) {
+                if({}.hasOwnProperty.call(menuObject, foodname)){
+                    line = `<p>${menuObject[foodname]}x   ${foodname}</p>`;
+                    menuContent.insertAdjacentHTML('afterbegin', line);
 
-			newHtml = newHtml.replace("%spGain%", resultObject.spAmount);
-			newHtml = newHtml.replace("%multiplier%", resultObject.multiplier);
-			newHtml = newHtml.replace("%menu%", JSON.stringify(resultObject.resultMenu));
+                }
+            }
 
-			document.querySelector(DOMStrings.rightContainer).insertAdjacentHTML("afterbegin", newHtml);
+
+
+
+
+			// Html =
+			// 	'<div class="output"><div class="output__text"><p style="margin-bottom:20px">Simulation ran for <strong>%simNumber%</strong> times.</p><p style="margin-bottom:20px">At <strong>%simIndex%.</strong> try, found the best menu.</p><p style="margin-bottom:5px;"><strong>Maximum SP Gain:</strong>  %spGain%</p><p style="margin-bottom:5px;"><strong>Multiplier:</strong>  %multiplier%</p><p><strong>Menu:</strong>   %menu%</p></div></div>';
+
+			// newHtml = Html.replace("%simNumber%", this.getInput().simInput);
+			// if (resultObject.foundAt === 0) {
+			// 	newHtml = newHtml.replace("%simIndex%", "1");
+			// } else {
+			// 	newHtml = newHtml.replace("%simIndex%", resultObject.foundAt);
+			// }
+
+			// newHtml = newHtml.replace("%spGain%", resultObject.spAmount);
+			// newHtml = newHtml.replace("%multiplier%", resultObject.multiplier);
+			// newHtml = newHtml.replace("%menu%", JSON.stringify(resultObject.resultMenu));
+
+			// document.querySelector(DOMStrings.rightContainer).insertAdjacentHTML("afterbegin", newHtml);
         },
         setPercentage: function(percentage) {
             var progressBar = document.querySelector(DOMStrings.progressBar);
@@ -134,11 +163,25 @@ var UIController = (function() {
             var Html, newHtml, highscoreContent;
 
             highscoreContent = document.querySelector(DOMStrings.highscoreContent);
-            Html = '<p>%message%</p><br><h2>Best found so far:</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
+            Html = '<p>%message%</p><br><h2>Best in category: %foodqty%</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
 
             newHtml = Html.replace("%message%", result.message);
             newHtml = newHtml.replace("%menu%", JSON.stringify(result.currentHighscore[0].menu));
             newHtml = newHtml.replace("%SP%", result.currentHighscore[0].sp);
+            newHtml = newHtml.replace("%foodqty%", result.currentHighscore[0].foodQty);
+
+            highscoreContent.innerHTML = newHtml;
+        },
+
+        displayHighest: function(result) {
+
+            var Html, newHtml, highscoreContent;
+
+            highscoreContent = document.querySelector(DOMStrings.highscoreContent);
+            Html = '<p>This app stores the best SP combinations and categorize them by food number.</p><br><h2>Highest SP across all categories so far:</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
+
+            newHtml = Html.replace("%menu%", JSON.stringify(result.menu));
+            newHtml = newHtml.replace("%SP%", result.sp);
 
             highscoreContent.innerHTML = newHtml;
         }
@@ -171,23 +214,18 @@ function getFoodFromID(id) {
 	function findCategory() {
 		var firstNumber;
 
-		if (id >= 10) {
-			firstNumber = id.toString()[0];
-		} else {
-			firstNumber = 0;
-        }
-        
+        firstNumber = id.toString()[0];
         firstNumber = parseInt(firstNumber);		
         
-		if (firstNumber === 0) {
+		if (firstNumber === 1) {
 			return foods.campfire;
-		} else if (firstNumber === 1) {
-			return foods.bakery;
 		} else if (firstNumber === 2) {
-			return foods.kitchen;
+			return foods.bakery;
 		} else if (firstNumber === 3) {
-			return foods.cast_stove;
+			return foods.kitchen;
 		} else if (firstNumber === 4) {
+			return foods.cast_stove;
+		} else if (firstNumber === 5) {
 			return foods.stove;
 		}
 	}
@@ -265,12 +303,26 @@ var controller = (function(UICtrl, menuCtrl) {
     function startWorkerSim() {
 
         console.log('Starting worker.')
-
         var activeMenu = menuCtrl.showActive();
         var input = UICtrl.getInput();
         var inputFood = input.foodInput;
         var inputSim = input.simInput;
         
+        if(inputFood === "" || inputSim === "") {
+            
+            alert("Don't leave input fields blank.");
+            
+            return;
+        } else if (activeMenu.length === 0) {
+
+            alert("No food selected.");
+
+            return;
+        }
+
+         //disable calculate button
+         document.querySelector(DOM.calculateButton).removeEventListener("click", startWorkerSim);
+
         var work = new Worker('testMenuWorker.js');
 
         work.postMessage([activeMenu,inputSim,inputFood])
@@ -290,6 +342,8 @@ var controller = (function(UICtrl, menuCtrl) {
 
                 sendPostRequest(result.data);
 
+                //enable calculate button
+                document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
                 
             }          
         }
@@ -298,27 +352,38 @@ var controller = (function(UICtrl, menuCtrl) {
     }
 
     function sendPostRequest(message) {
-        fetch("http://13.59.222.11:8000/highscore", {
+        fetch("https://mongoawsserver.tk:8000/highscore", {
             method: "POST", 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(message)
         }).
-        then((res) => {
-            return res.json()
-        }).
+        then((res) => res.json()).
         then((json) => {
             console.log("Request complete! response:", json);
             UICtrl.displayHighscore(json);
             
-        return json;
+            return json;
         });
+    }
+
+    function getHighestScore() {
+        fetch("https://mongoawsserver.tk:8000/gethighest", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        }).then((res) => res.json()).
+        then((json) => {
+            console.log("Highest score get:" + json.sp);
+            UICtrl.displayHighest(json);
+        })
+        
     }
 	
 return {
 		init: function() {
 			setupEventListeners();
 			UICtrl.initUI();
-			console.log("Application has started.");
+            console.log("Application has started.");
+            getHighestScore();
 		}
 	};
 })(UIController, menuController);
