@@ -111,12 +111,12 @@ var UIController = (function() {
 		},
 		displayResults: function(resultObject) {
             var paperHtml, menuContent, line, menuObject;
-            
+            console.log(resultObject)
             paperHtml = '<div class="menu__paper clearfix"><h1>Menu</h1><div class="horizontal__line"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p></div></div>';
 
             var paperHtmlEdited = paperHtml.
-            replace('%sp%', resultObject.spAmount).
-            replace('%multiplier%', resultObject.multiplier).
+            replace('%sp%', resultObject.spAmount.toFixed(2)).
+            replace('%multiplier%', resultObject.multiplier.toFixed(2)).
             replace('%index%', resultObject.foundAt).
             replace('%simcount%', this.getInput().simInput);
 
