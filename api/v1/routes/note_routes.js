@@ -1,6 +1,15 @@
 module.exports=  function (app, db) {
     
     const highscoreCollection = db.collection(`highscores`);
+
+    app.post('/gethighest', (req, res) => {
+        console.log("got get");
+        const getthescore = highscoreCollection.find().sort({sp: -1}).limit(1).toArray();
+        getthescore.then((output) => {
+            res.send(output[0]);
+        })
+        
+    })
     
     app.post('/highscore', (req, res) => {
         
@@ -51,6 +60,9 @@ module.exports=  function (app, db) {
                 } 
             }
         });
+
+
+        
 
         // highscoreCollection.
         // insert(newHighScore, (err, result) => {

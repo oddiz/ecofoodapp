@@ -1,6 +1,21 @@
 /**********************************************
 *** GENERAL
 **********************************************/
+@font-face {
+    font-family: 'NexaRustSlab-BlackShadow01-Free';
+    src: url('vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff2') format('woff2'),
+         url('vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Milkshake';
+	src: url(vendor/fonts/Milkshake.ttf);
+	font-weight: normal;
+	font-style: normal;
+}
 
 * {
     margin: 0;
@@ -15,6 +30,9 @@
 }
 
 body {
+	min-width:1250px;        /* Suppose you want minimum width of 1000px */
+   width: auto !important;  /* Firefox will set width as auto */
+   width:1250px;
     color: #555;
     font-family:  'Dosis', sans-serif;
     font-size: 16px;
@@ -28,35 +46,7 @@ body {
 .red-focus:focus { border: 1px solid #FF5049 !important; }
 
 
-/**********************************************
-*** HIGH SCORE
-**********************************************/
 
-.highscore__container {
-    position: fixed;
-    width: 20%;
-    height: 40%;
-    right: 0px;
-    bottom: 0%;
-    background: rgba(247,247,247,1.00);
-	border: 3px solid rgba(40,185,181,1.00);
-	border-bottom: 0px;
-    border-radius: 10px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-    font-size: 20px;
-    color: #64707B;
-    font-family: inherit;
-}
-
-.highscore__container h1 {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.highscore__content {
-    margin-left: 15px;
-}
 
 
 /**********************************************
@@ -64,16 +54,18 @@ body {
 **********************************************/
 
 .top {
-    height: 150px;
+    height: 250px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png);
     background-size: cover;
-    background-position: center;
+    background-position: 50% 23%;
     position: relative;
+	z-index: 100;
 }
 
 .top__title {
 	height: 100%;
 	position:relative;
+	
 }
 
 .page__title {
@@ -89,21 +81,31 @@ body {
 /**********************************************
 *** BOTTOM PART
 **********************************************/
+.bottom {
+    padding-top: 15px;
+	
+	
+}
+
+body::after {
+	content: "";
+  	position: fixed;
+  	top: 0; left: 0;
+  	width: 100%; min-height: 100%;
+	background-image: url(resources/img/cocina.gif);
+	opacity: 0.05;
+	filter: saturate(100%);
+	
+	background-size: auto, cover;
+	z-index:-999;
+}
 .left__container {
 	
 	float:left;
 	width:50%;
 	
 }
-.right__container {
-	
-	float:left;
-	width:50%;
-	padding-top:25px;
-	padding-left: 25px;
-	box-sizing: border-box;
-	
-}
+
 .available__food__container {
 	
 	
@@ -140,29 +142,20 @@ body {
     height:70px;
     padding: 14px;
     border-bottom: 1px solid #e7e7e7;
+	background-image: linear-gradient(#f7f7f7, #f7f7f7);
     background-color: #f7f7f7;
-    margin-bottom: 15px;
    
 }
 
-.calculate__container {
-    
-    
-    margin: 0 auto;
-    text-align: start;
-    float:left
-    
-}
+
 
 .input__container {
 	display: inline-block;
 	position: relative;
     height:70px;
-	width:50%;
+	
     float: left;
     align: center;
-  
-    
 }
 
 .food__amount,
@@ -179,16 +172,21 @@ body {
 
 .food__amount__input, 
 .simulation__scale__input {
+	outline:0;
     width: 150px;
     height: 40px;
     display: block;
-    background-color: rgb(255, 255, 255);
+	padding-left:10px;
+	background-color: rgb(255, 255, 255);
     border: 2px solid #ccc;
     font-size: 16px;
     font-family:inherit;
 	float:left;
-    
-     
+	transition: border 0.5s;
+}
+.food__amount__input:focus, 
+.simulation__scale__input:focus {
+	border: 3px solid rgba(40,185,181,1.00);
 }
 
 
@@ -204,7 +202,12 @@ body {
 	top: 75%;
 	background: rgba(247,247,247,1.00);
 	border: 4px solid rgba(156,194,187,1.00);
-	border-radius: 5px;
+    border-radius: 5px;
+    
+    -moz-box-shadow: 6px 6px 10px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 6px 6px 10px rgba(0, 0, 0, .5);
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, .5);
+    
 	z-index: 999;
 	font: 15px;
 	font-family: inherit;
@@ -227,7 +230,7 @@ content: "";
 	left: 10%;
 }
 .sim__amount .info__text {
-	left: 20%;
+	left: 40%;
 	height: auto;
 }
 .sim__amount .info__text:after {
@@ -241,24 +244,7 @@ content: "";
 }
 
 
-.calculate__btn {
-    font-size: 35px;
-    background: none;
-    border: none;
-    color: #28B9B5;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-	align-content: center;
-    line-height: 1.1;
-    margin-left: 0px;
-    
-	font-family: inherit;
-	
-    left:100%;
-    border-width: 3px;
-    border-color: #28B9B5;
-}
+
 
 .withAsync {
     margin-left: 15px;
@@ -268,27 +254,7 @@ content: "";
     margin-left:15px;
 }
 
-.calculate__btn:active { transform: translateY(2px); }
 
-
-#progress__bar {
-    height: 35px;
-    width: 200px;
-    background: #ddd;
-    float: left;
-    left: 100px;
-    margin-top: 2px;
-    margin-left: 10px;
-    color: #FFFFFF;
-    text-align: center;
-    line-height:35px;
-}
-
-#inner__bar {
-    height: 100%;
-    width: 0%;
-    background: #28B9B5;
-}
 
 
 /***** LISTS *****/
@@ -299,6 +265,7 @@ h2 {
     font-size: 20px;
     font-weight: 400;
     margin-bottom: 15px;
+	letter-spacing: 1px;
 }
 
 .available__food__title { 
@@ -312,7 +279,24 @@ h2 {
 .item {
     padding: 13px;
     border-bottom: 1px solid #e7e7e7;
+    height: 50px;
+	background-color: #FFFFFF;
 	
+}
+
+.item img {
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    float: right;
+    margin-left: 4%;
+    position:relative;
+    bottom: 20%;
+}
+
+.item span {
+    margin-left: 15px;
 }
 
 .available__food__container .item {
@@ -324,6 +308,8 @@ h2 {
 
 .item__description {
     float: left;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 
@@ -362,4 +348,184 @@ h2 {
 .item__add--btn:active {transform: translateY(2px);}
 .item:hover .item__delete--btn { display: block; }
 
+/**************************************
+RIGHT CONTAINER
+**************************************/
+.right__container {
+	
+	float:left;
+	width:50%;
+	padding-top:25px;
+	padding-left: 25px;
+	box-sizing: border-box;
+	
+}
 
+.menu__paper {
+	position: relative;
+	display:block;
+	width: 40%;
+	min-height:250px;
+	
+	background-image: url(resources/img/paper.jpg); 
+	background-size: cover;
+	
+	box-shadow: 6px 6px 10px rgba(0, 0, 0, .5);
+	border-radius: 3px;
+	
+	transition: transform 0.3s;
+		
+}
+
+.menu__result {
+	margin-bottom:20px;
+}
+
+.menu__paper h1 {
+	text-align: center;
+	padding-top: 23px;
+	font-family: 'NexaRustSlab-BlackShadow01-Free';
+	letter-spacing: 2px;
+	font-size: 40px;
+}
+
+.menu__paper .horizontal__line {
+	width: 60%;
+	height: 3px;
+	background-color: rgba(0,0,0,0.25);
+	border-radius: 30px;
+	position: relative;
+	left: 20%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	
+}
+
+.menu__paper p {
+	margin-left: 15%;
+	font-size: 20px;
+	font-family: 'Milkshake';
+	line-height: 35px;
+	color: rgba(85,85,85,0.78);
+	word-spacing: 3px;
+	letter-spacing: 0.3px;
+	text-rendering: optimizeLegibility;
+}
+
+.menu__result p {
+	font-size: 22px;
+	word-spacing: 3px;
+	
+}
+
+.menu__paper:hover {
+	transform: scale(1.1);
+}
+
+/******************
+FOOTER
+******************/
+
+footer {
+	display:block;
+	position: fixed;
+	bottom:0px;
+	height: 50px;
+	width: 100%;
+	background-color: #F7F7F7;
+	border-top: 1px solid rgba(40,185,181,1.00);
+	z-index: 0;
+	
+
+}
+
+.calculate__container {
+    
+    width:auto;
+    height: 100%;
+	margin-left: 40%;
+	margin-top: 5px;
+	vertical-align: middle;
+    text-align: center;
+    
+    
+}
+
+.calculate__btn {
+    position: relative;
+    font-size: 35px;
+    background: none;
+    border: none;
+    color: #28B9B5;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+	align-content: center;
+    line-height: 1.1;
+    margin-left: 0px;
+	font-family: inherit;
+    border-width: 3px;
+    border-color: #28B9B5;
+	float:left;
+}
+.calculate__btn:active { transform: translateY(2px); }
+
+
+#progress__bar {
+    height: 35px;
+    width: 200px;
+    background: #ddd;
+	border: 2px solid rgba(30,139,136,1.00);
+	border-radius: 5px;
+    left: 100px;
+    margin-top: 2px;
+    margin-left: 10px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height:35px;
+	float:left;
+}
+
+#inner__bar {
+    height: 100%;
+    width: 0%;
+	
+    background: #28B9B5;
+}
+
+/**********************************************
+*** HIGH SCORE
+**********************************************/
+
+.highscore__container {
+    position: fixed;
+    width: 280px;
+    height: 40%;
+    right: 0px;
+    bottom: 49px;;
+    background: rgba(247,247,247,1.00);
+
+	border: 3px solid rgba(40,185,181,1.00);
+	border-bottom: 0px;
+    border-radius: 10px;
+	border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    font-size: 20px;
+    color: #64707B;
+    font-family: inherit;
+}
+
+.highscore__container h1 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.highscore__content h2 {
+    letter-spacing: 0px;
+}
+.highscore__content {
+    margin-left: 15px;
+}
+.highscore__content p {
+    font-size: 16px;
+}
