@@ -40,7 +40,7 @@ module.exports = {
             "never"
         ],
         "consistent-return": "off",
-        "consistent-this": "error",
+        "consistent-this": ["error","self"],
         "curly": "error",
         "default-case": "error",
         "dot-location": "error",
@@ -228,7 +228,7 @@ module.exports = {
         "prefer-numeric-literals": "error",
         "prefer-object-spread": "error",
         "prefer-promise-reject-errors": "error",
-        "prefer-reflect": "error",
+        "prefer-reflect": "off",
         "prefer-rest-params": "error",
         "prefer-spread": "error",
         "prefer-template": "off",

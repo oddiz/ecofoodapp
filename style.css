@@ -33,12 +33,15 @@ body {
 	min-width:1250px;        /* Suppose you want minimum width of 1000px */
    width: auto !important;  /* Firefox will set width as auto */
    width:1250px;
+	height: 100vh;
     color: #555;
     font-family:  'Dosis', sans-serif;
     font-size: 16px;
     position: relative;
-    height: 100vh;
+    height:100%;
+    
     font-weight: 400;
+	overflow-x: hidden;
 }
 
 .right { float: right; }
@@ -54,12 +57,13 @@ body {
 **********************************************/
 
 .top {
-    height: 250px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png);
-    background-size: cover;
-    background-position: 50% 23%;
+    height: 200px;
+    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(back.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+    background-position: 50% 49%;
     position: relative;
-	z-index: 100;
+	
 }
 
 .top__title {
@@ -71,9 +75,71 @@ body {
 .page__title {
 	position: relative;
 	text-align: center;
-	top:50%;
+	top:30%;
 	color:aliceblue;
 }
+
+/**********************************************
+*** INFOPAGE PART
+**********************************************/
+.info__container {
+	position: absolute;
+	display: none;
+	width: 80%;
+	height: auto;
+	text-align: center;
+	opacity:0;
+	transition: opacity 0.5s;
+	z-index: -1;
+	left:10%;
+}
+
+.info__container.visible {
+	opacity: 1;
+	display:inline-block;
+}
+.formula__info , .info {
+	text-align: left;
+	width: 60%;
+	
+}
+.info {
+	
+	margin:70px auto 100px auto;
+	
+}
+
+
+
+.formula__info {
+	margin:0px auto 0px auto;
+	vertical-align: middle;
+	padding: 20px 4px 20px 30px;
+	
+	background-image: url(resources/img/paper.jpg); 
+	background-size: cover; 
+	
+	color: rgba(46,46,46,0.90);
+	box-shadow: 6px 6px 5px rgba(0, 0, 0, .5);
+}
+
+.info p {
+	font-size: 16px;
+	letter-spacing: .04em;
+	margin-bottom: 35px;
+	
+}
+
+.formula__info table {
+	display:table;
+	
+}
+
+.formula__info table tbody tr td span {
+	margin: auto 0px auto 0px;
+	line-height: normal;
+}
+
 
 
 
@@ -82,9 +148,18 @@ body {
 *** BOTTOM PART
 **********************************************/
 .bottom {
-    padding-top: 15px;
 	
+	min-height: 420px;
+    padding-top: 45px;
+	transition: transform 0.5s;
+	z-index: 2;
 	
+}
+
+.hide__bottom.bottom {
+	transform: translateX(100vw);
+	height: 100vh;
+	overflow: hidden;
 }
 
 body::after {
@@ -100,62 +175,161 @@ body::after {
 	z-index:-999;
 }
 .left__container {
-	
-	float:left;
+    
+    float:left;
 	width:50%;
 	
+	margin-left: 23%;
+	margin-bottom: 100px;
+    transition: margin-left 1s;
+    display: inline-block;
+	
+}
+
+.sort__bar {
+    width:52px;
+    height:343px;
+    background: rgba(40,185,181,1.00);
+    border-top-left-radius: 15px;
+    float:left;
+    padding: 0 1px;
+}
+
+.sort__title {
+    color: #FFF;
+    margin: 8px 5px;
+    line-height: 15px;
+}
+.sort__options {
+    width: 48px;
+    text-align: center;
+    margin-left:1px;
+}
+.sort__options li {
+    list-style: none;
+    padding: 5px 0;
+    margin: 1px 0;
+    background: #f7f7f754;
+    border-top: 1px solid rgba(117, 117, 117, 0.212);
+    border-bottom: 1px solid rgba(117, 117, 117, 0.212);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.sort__options li.active {
+    background: #f7f7f794;
+   
+    transform:translateX(2px);
+}
+
+.sort__options li:hover {
+    background: #f7f7f774
 }
 
 .available__food__container {
 	
-	
+	height:auto;
 	width: 50%;
 	float:left;
-	
 	padding-left:15px;
 }
 
 .selected__food__container {
 	
 	
-	width: 50%;
+	width: 40%;
 	float:left;
 	border-left-width: 5px;
 }
 
-.output {
-    padding-top: 10px;
-    padding-left: 15px;
-    
-    width: 500px;
-    border-right:0px;
+.add__all {
+	position: relative;
+	right:48px;
+	top: 1px;
+	letter-spacing: -1px;
+	cursor: pointer;
+	color: rgba(40,185,181,1.00);
+	border: 1px solid rgba(46,185,181,1.00);
+	border-radius: 50px;
+	padding: 3px 5px 3px 5.5px;
+	float:right;
+	
 }
-
-.output__text {
-   
-    font-size: 20px;
+.remove__all {
+	position: relative;
+	top: 1px;
+	letter-spacing: -1px;
+	cursor: pointer;
+	border: 1px solid rgba(255,80,73,1.00);
+	border-radius: 50px;
+	color: rgba(255,80,73,1.00);
+	padding: 3px 5px 3px 5.5px;
+	float:left;
+	left: 48px;
+	transform: rotateY(180deg);
 }
 
 /***** FORM *****/
 
 .calculate {
-    height:70px;
+    height:7%;
+	min-height: 70px;
     padding: 14px;
     border-bottom: 1px solid #e7e7e7;
 	background-image: linear-gradient(#f7f7f7, #f7f7f7);
     background-color: #f7f7f7;
-   
+    text-align: center;
+    vertical-align: middle;
+    position:sticky;
+    top:0;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    z-index: 999;
 }
 
+.calculate__container {
+    display:inline-block;
+    width:auto;
+    height: 70px;
+    margin-left: 80px;
+	
+	vertical-align: middle;
+    text-align: center;
+    float:left;
+    
+}
+.calculate__container .visible {
+	display: inline-block;
+	cursor:pointer;
+}
 
+.info__button {
+	display: inline;
+	position: relative;
+	float: left;
+	font-size: 38px;
+	color: #28B9B5;
+	bottom:8%;
+	left: 5px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.clicked.info__button {
+	font-size: 64px;
+	color: #A1A1A1;
+	bottom:48%;
+	
+}
 
 .input__container {
 	display: inline-block;
-	position: relative;
+	position: relative;	
     height:70px;
 	
-    float: left;
+    float:left;
     align: center;
+    margin-left: 25%;
 }
 
 .food__amount,
@@ -226,6 +400,8 @@ content: "";
   border-color:  transparent transparent rgba(156,194,187,1.00) transparent;
 }
 
+
+
 .food__amount .info__text:after {
 	left: 10%;
 }
@@ -262,21 +438,25 @@ content: "";
 
 h2 {
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 400;
     margin-bottom: 15px;
 	letter-spacing: 1px;
+	text-align: center;
 }
 
 .available__food__title { 
 	color: #28B9B5; 
 }
 .selected__title { 
-	color: #FF5049;
+    color: #FF5049;
+    position: relative;
+    left:15px;
 	
 }
 
 .item {
+	position:relative;
     padding: 13px;
     border-bottom: 1px solid #e7e7e7;
     height: 50px;
@@ -284,7 +464,7 @@ h2 {
 	
 }
 
-.item img {
+.available__img {
     width: 30px;
     text-align: center;
     vertical-align: middle;
@@ -293,10 +473,85 @@ h2 {
     margin-left: 4%;
     position:relative;
     bottom: 20%;
+	filter: brightness(1.1);
 }
 
 .item span {
     margin-left: 15px;
+}
+
+.item .food__info {
+	display: none;
+	
+	position: relative;
+	min-width:192px;
+    width: 230px;
+	height: 160px;
+	background: rgba(0,0,0,0.92);
+	top:-49px;
+	left: 105%;
+	z-index: 9999;
+	
+	border: 3px ridge #5275a5;
+	border-radius: 5px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 16px;
+	color: #84d56a;
+	text-align: left;
+	 
+}
+.available__img:hover ~ .food__info {
+	display:block;
+}
+
+.item .food__info:after {
+content: "";
+  position: absolute;
+  bottom: 50%;
+	left: -18px;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: ridge;
+  border-color:  transparent #5275a5 transparent  transparent;
+}
+
+.item .food__info__title {
+	width:100%;
+	height: 40px;
+	display:block;
+	
+}
+
+.item .food__info img {
+	
+	height: 30px;
+	float:left;
+	position: absolute;
+	left:0%;
+	
+}
+.item .food__info h5 {
+	display: inline-block;
+	font-size: 18px;
+	float:left; 
+	position: absolute;
+	top:4px;
+	left: 35px;
+	text-align: left;
+}
+
+.food__info__nutrition h6 {
+	color: #FFF;
+	font-size: 12px;
+}
+
+.food__info__nutrition h6:first-child {
+	
+	margin-bottom: 7px;
+}
+.food__info__nutrition h6:last-child {
+	
+	margin-top: 7px;
 }
 
 .available__food__container .item {
@@ -352,29 +607,45 @@ h2 {
 RIGHT CONTAINER
 **************************************/
 .right__container {
-	
+	position:absolute;
+	left: 50vw;
 	float:left;
-	width:50%;
+	width:49vw;
 	padding-top:25px;
 	padding-left: 25px;
 	box-sizing: border-box;
+	pointer-events: none;
 	
 }
 
 .menu__paper {
 	position: relative;
-	display:block;
+	
 	width: 40%;
+	min-width:263px;
 	min-height:250px;
+	overflow: hidden;
 	
 	background-image: url(resources/img/paper.jpg); 
 	background-size: cover;
 	
-	box-shadow: 6px 6px 10px rgba(0, 0, 0, .5);
+	box-shadow: 6px 6px 10px rgba(109, 114, 116, 0.9);
 	border-radius: 3px;
 	
-	transition: transform 0.3s;
+	transition: transform 0.5s, filter 0.5s;
+	right:-110%;
+	transform: translateX(0%);
+	filter: blur(0px);
 		
+}
+
+.menu__visible {
+    transform: translateX(-250%);
+    filter:blur(0px);
+}
+
+.menu__visible:hover {
+    transform: translateX(-250%) scale(1.1);
 }
 
 .menu__result {
@@ -418,9 +689,6 @@ RIGHT CONTAINER
 	
 }
 
-.menu__paper:hover {
-	transform: scale(1.1);
-}
 
 /******************
 FOOTER
@@ -434,22 +702,27 @@ footer {
 	width: 100%;
 	background-color: #F7F7F7;
 	border-top: 1px solid rgba(40,185,181,1.00);
-	z-index: 0;
+	z-index: 999;
 	
 
 }
 
-.calculate__container {
-    
-    width:auto;
-    height: 100%;
-	margin-left: 40%;
-	margin-top: 5px;
-	vertical-align: middle;
-    text-align: center;
-    
-    
+
+.stop__button {
+	display: none;
+	
+	color: red;
+	padding:2px 7px 2px 7px;
+	margin-left: 10px;
+	height: auto;
+	width: auto;
+	float:left;
+	font-size: 24px;
+	border: 2px solid red;
+	border-radius: 100px;
 }
+
+
 
 .calculate__btn {
     position: relative;
@@ -500,7 +773,7 @@ footer {
 .highscore__container {
     position: fixed;
     width: 280px;
-    height: 40%;
+    min-height: 20%;
     right: 0px;
     bottom: 49px;;
     background: rgba(247,247,247,1.00);
@@ -514,6 +787,7 @@ footer {
     font-size: 20px;
     color: #64707B;
     font-family: inherit;
+	z-index: 9999;
 }
 
 .highscore__container h1 {
@@ -525,6 +799,7 @@ footer {
 }
 .highscore__content {
     margin-left: 15px;
+	padding-bottom: 15px;
 }
 .highscore__content p {
     font-size: 16px;
