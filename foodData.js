@@ -70,12 +70,12 @@ var foods = {
    },
 
    stove: {
-           1: new Food (51,"Corn Fritters", "Stove", 2.5,15,7,17,8,500,100),
+           1: new Food (51,"Corn Fritters", "Stove", 2.5,15,7,17,8,500,0.1),
            2: new Food (52,"Seared Meat", "Stove", 2.5,),
-           3: new Food (53,"Fried Hare Haunches", "Stove", 2.5,6,15,27,4,700,100),
-           4: new Food (54,"Elk Taco", "Stove", 2.5,12,15,10,14,650,200),
-           5: new Food (55,"Boiled Sausage", "Stove", 2.5,0,27,22,0,600,300),
-           6: new Food (56,"Bear SUPREME", "Stove", 2.5, 8,20,22,10,1200,500)
+           3: new Food (53,"Fried Hare Haunches", "Stove", 2.5,6,15,27,4,700,0.1),
+           4: new Food (54,"Elk Taco", "Stove", 2.5,12,15,10,14,650,0.2),
+           5: new Food (55,"Boiled Sausage", "Stove", 2.5,0,27,22,0,600,0.3),
+           6: new Food (56,"Bear SUPREME", "Stove", 2.5, 8,20,22,10,1200,0.5)
    }
    /* 
    1: new Food(1,"Bear SUPREME","Stove",8,20,22,10,1200,500),
