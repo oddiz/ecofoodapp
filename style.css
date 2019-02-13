@@ -61,7 +61,7 @@ body {
     background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(back.jpg);
 	background-attachment: fixed;
 	background-size: cover;
-    background-position: 50% 49%;
+    background-position: 50% 30%;
     position: relative;
 	
 }
@@ -226,6 +226,14 @@ body::after {
     background: #f7f7f774
 }
 
+.quick__add {
+	display:block;
+	height: 30px;
+	width: auto;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
 .available__food__container {
 	
 	height:auto;
@@ -242,10 +250,7 @@ body::after {
 	border-left-width: 5px;
 }
 
-.add__all {
-	position: relative;
-	right:48px;
-	top: 1px;
+.add__all, .t1__add, .t1_5__add, .t2__add, .t2_5__add {
 	letter-spacing: -1px;
 	cursor: pointer;
 	color: rgba(40,185,181,1.00);
@@ -253,8 +258,21 @@ body::after {
 	border-radius: 50px;
 	padding: 3px 5px 3px 5.5px;
 	float:right;
-	
+	font-size: 14px;
+	margin-right: 6px;
+	margin-top:-10px;
+	margin-bottom: 5px;
 }
+
+.double__chevron {
+	margin-left: 5px;
+}
+
+.t1__add i, .t1_5__add i, .t2__add i, .t2_5__add i {
+	font-size: 10px;
+	margin-left: 
+}
+
 .remove__all {
 	position: relative;
 	top: 1px;
@@ -266,7 +284,8 @@ body::after {
 	padding: 3px 5px 3px 5.5px;
 	float:left;
 	left: 48px;
-	transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    z-index: 5;
 }
 
 /***** FORM *****/
@@ -452,13 +471,15 @@ h2 {
     color: #FF5049;
     position: relative;
     left:15px;
-	
+	margin-bottom:45px;
 }
 
 .item {
 	position:relative;
     padding: 13px;
     border-bottom: 1px solid #e7e7e7;
+    border-left: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
     height: 50px;
 	background-color: #FFFFFF;
 	
@@ -475,6 +496,7 @@ h2 {
     bottom: 20%;
 	filter: brightness(1.1);
 }
+
 
 .item span {
     margin-left: 15px;
@@ -554,11 +576,9 @@ content: "";
 	margin-top: 7px;
 }
 
-.available__food__container .item {
-	border-right: 2px solid #e7e7e7;
-}
 
-.item:first-child { border-top: 1px solid #e7e7e7; }
+
+.item:first-child { border-top: 3px solid #e7e7e7; }
 .item:nth-child(even) { background-color: #f7f7f7; }
 
 .item__description {

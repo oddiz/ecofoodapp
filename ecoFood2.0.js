@@ -2,6 +2,11 @@
 /*eslint-disable array-element-newline */
 /*eslint-disable no-undef */
 
+/*
+ *  TODO:
+ *  -add a column for manually entering prices and setting budget limit so it'll only display best diet lower than your budget
+ */
+
 var UIController = (function() {
 	var DOMStrings = {
 		foodAddBtn: ".item__add",
@@ -25,7 +30,8 @@ var UIController = (function() {
         infoContainer: ".info__container",
         addAll: ".add__all",
         removeAll: ".remove__all",
-        sortBar: ".sort__options"
+        sortBar: ".sort__options",
+        quickAdd: ".quick__add"
 	};
 
 	return {
@@ -71,12 +77,9 @@ var UIController = (function() {
 
         sortAvailable: function(property) {
             var availableList = this.getAvailableList();
-    
             availableList.sort(function (a,b) {
                 var nameA, nameB;
-
                 if (property === ("name" || "type")) {
-
                     nameA = a[property].toUpperCase();
                     nameB = b[property].toUpperCase();
                 } else {
@@ -85,13 +88,13 @@ var UIController = (function() {
                 }
                 if (nameA < nameB) {
                     return 1;
-                  }
-                  if (nameA > nameB) {
+                }
+                if (nameA > nameB) {
                     return -1;
-                  }
+                }
                 
                     //names must be equal
-                  return 0;
+                return 0;
             });
             var self = this;
             this.clearLists(document.querySelector(DOMStrings.availableFoods));
@@ -105,10 +108,10 @@ var UIController = (function() {
 
             bottom = document.querySelector(DOMStrings.bottom);
             bottom.classList.toggle("hide__bottom");
-
+            
             infoButton = document.querySelector(DOMStrings.infoButton);
             infoButton.classList.toggle("clicked");
-
+            
             infoContainer = document.querySelector(DOMStrings.infoContainer)
             //if opening info
             if (bottom.classList.contains("hide__bottom")) {
@@ -118,7 +121,6 @@ var UIController = (function() {
             } else {
                 infoContainer.classList.toggle("visible");
             }
-
         },
         
 		getDOMStrings: function() {
@@ -127,7 +129,6 @@ var UIController = (function() {
         
 		addToSelected: function(foodObj) {
 			var htmlTemplate, newHtml;
-
 			//remove it from available list first so no duplicate ids
 			var el = document.getElementById(foodObj.id);
 			if (el) {
@@ -135,11 +136,9 @@ var UIController = (function() {
 				el.parentNode.removeChild(el);
 			}
 			//add food to selected list
-
 			htmlTemplate =
             '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img class="available__img" src="./resources/img/%imgid%.png"><div class="item__delete"><i class="ion-ios-close-outline item__delete--btn"></i></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
-
-                
+            
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
             newHtml = newHtml.replace("%foodname%", foodObj.name);
             newHtml = newHtml.replace("%imgid%", foodObj.id);
@@ -153,9 +152,7 @@ var UIController = (function() {
             newHtml = newHtml.replace("%vit%", foodObj.vit);
             newHtml = newHtml.replace("%calorie%", foodObj.cal);
             newHtml = newHtml.replace("%foodtype%", foodObj.type);
-
             
-
 			document.querySelector(DOMStrings.selectedFoods).insertAdjacentHTML("afterbegin", newHtml);
         },
         
@@ -208,9 +205,13 @@ var UIController = (function() {
         },
         
 		getInput: function() {
-			return {
-				foodInput: document.querySelector(DOMStrings.foodAmountInput).value,
-				simInput: document.querySelector(DOMStrings.simScaleInput).value
+            var regex = /,/gm;
+            var foodInput = document.querySelector(DOMStrings.foodAmountInput).value;
+            var simInput = document.querySelector(DOMStrings.simScaleInput).value;
+            
+            return {
+				foodInput: foodInput.replace(regex, ""),
+				simInput: simInput.replace(regex, "")
 			};
         },
         
@@ -384,16 +385,65 @@ var controller = (function(UICtrl, menuCtrl) {
         //infobutton
         document.querySelector(DOM.infoButton).addEventListener("click", infoClicked);
 
-        //add all button
-        document.querySelector(DOM.addAll).addEventListener("click", function () { 
-            addAll("selected") 
-        });
+        /*
+         *add all button
+         *document.querySelector(DOM.addAll).addEventListener("click", function () { 
+         *    addAll("selected") 
+         *});
+         */
 
         //remove all button
         document.querySelector(DOM.removeAll).addEventListener("click", removeAll);
 
+        //quick add section
+        document.querySelector(DOM.quickAdd).addEventListener("click", function(event) {
+            var clickedOn, clickedOnTier;
+            if (event.target.classList == "ion-chevron-right") {
+                clickedOn = event.target.parentNode.parentNode.classList
+            } else {
+                clickedOn = event.target.classList;
+            }
+            
+            switch(clickedOn[0]) {
+                case "t1__add":
+                    clickedOnTier = 1;
+                    break;
+                case "t1_5__add":
+                    clickedOnTier = 1.5;
+                    break;
+                case "t2__add":
+                    clickedOnTier = 2;
+                    break;
+                case "t2_5__add":
+                    clickedOnTier = 2.5;
+                    break;
+                case "add__all":
+                    clickedOnTier = "all";
+                    break;
+                default:
+                    clickedOnTier = -1;
+                    break;
+            } 
+            
+            if (clickedOnTier === "all") {
+                addAll("selected")
+            } else {
+                addAllTier(clickedOnTier);
+            }
+        }) 
         //sort button
         document.querySelector(DOM.sortBar).addEventListener("click", sortClicked)
+
+        //input formatting
+        var simInputFormat = new Cleave(".simulation__scale__input", {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand'
+        });
+        var dietInputFormat = new Cleave(".food__amount__input", {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand'
+        });
+        
         
         /*
          *food images opens info
@@ -432,7 +482,6 @@ var controller = (function(UICtrl, menuCtrl) {
         var lies = document.querySelectorAll(".sort__options")[0].firstElementChild.childNodes;
         lies.forEach(function(node) {
             if (node.classList && node.classList.contains("active")) {
-                console.log(node.textContent)
                 var sortName = node.textContent.toLowerCase();
                 if (sortName === "protein") {
                     sortName = "pro";
@@ -477,6 +526,18 @@ var controller = (function(UICtrl, menuCtrl) {
             menuCtrl.clearActive();
             UICtrl.initUI("available");
         }
+    }
+
+    function addAllTier(tier) {
+        var availList = UICtrl.getAvailableList();
+        console.log(availList)
+
+        availList.forEach(function(ele) {
+            if (ele.tier === tier) {
+                menuCtrl.addActive(ele)
+                UIController.addToSelected(ele);
+            }
+        })
     }
 
     function infoClicked() {
@@ -566,7 +627,7 @@ var controller = (function(UICtrl, menuCtrl) {
             stopBtn.removeEventListener("click", terminateWorker);
             stopBtn.classList.remove("visible")
         }
- 
+
         work.onmessage = function(result) {
             if (typeof result.data === 'number') {
                 UICtrl.setPercentage(result.data)
@@ -585,8 +646,6 @@ var controller = (function(UICtrl, menuCtrl) {
                 terminateWorker();
             }          
         }
-
-
     }
 
     function sendPostRequest(message) {
@@ -617,13 +676,13 @@ var controller = (function(UICtrl, menuCtrl) {
     }
 	
 return {
-		init: function() {
-            UICtrl.initUI();
-			setupEventListeners();
-            console.log("Application has started.");
-            getHighestScore();
-		}
-	};
+    init: function() {
+        UICtrl.initUI();
+        setupEventListeners();
+        console.log("Application has started.");
+        getHighestScore();
+    }
+};
 })(UIController, menuController);
 
 controller.init();
