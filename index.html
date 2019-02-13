@@ -35,11 +35,11 @@
 				<div class="input__container clearfix">
 					<div class="food__amount">
 						<div class= "info__text"><span style ="font-size: 20px">Desired number of food in diet</span><br><br>Determines the size of the diets which will be tested with random <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span>. </div>
-						<input type="number" class="food__amount__input" placeholder="Diet scale" autofocus>
+						<input class="food__amount__input" placeholder="Diet scale" autofocus>
 					</div>
 					<div class="sim__amount">
 						<div class= "info__text"><span style ="font-size: 20px">Simulation cycle amount</span><br><br>Each cycle, it'll test a new diet and compare the results to find the best combination.<br><br>Higher number = better results<br><br>(unless you have found the best possible combination already.)</div>
-						<input type="number" class="simulation__scale__input" placeholder="Simulation scale">
+						<input class="simulation__scale__input" placeholder="Simulation scale">
 					</div>
                     
 				</div>
@@ -97,146 +97,142 @@
 			<div class="info" style="margin-top:250px;">
 				<p>This project is made by Kaan "oddiz" Şarkaya.<br> If you have any suggestions or feed back, you can find me on discord <span style="color:rgba(50,57,63,1.00)"><strong>@oddiz#9659</strong></span></p>
 			</div>
-	   	</div>
+        </div>
+        
         <div class="bottom clearfix">
 			
 			<div class="left__container clearfix">
-			<div class="sort__bar">
-                <div class="sort__title">
-                    <p><strong>Sort by:</strong></p>
+                <div class="sort__bar">
+                    <div class="sort__title">
+                        <p><strong>Sort by:</strong></p>
+                    </div>
+                    <div class="sort__options">
+                        <ul>
+                            <li class="active">Type</li>
+                            <li>Name</li>
+                            <li>Tier</li>
+                            <li>Weight</li>
+                            <li>Cal</li>
+                            <li>Carb</li>
+                            <li>Protein</li>
+                            <li>Vitamin</li>
+                            <li>Fat</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="sort__options">
-                    <ul>
-                        <li class="active">Type</li>
-                        <li>Name</li>
-                        <li>Tier</li>
-                        <li>Weight</li>
-                        <li>Cal</li>
-                        <li>Carb</li>
-                        <li>Protein</li>
-                        <li>Vitamin</li>
-                        <li>Fat</li>
-
-                    </ul>
-                </div>
-
-            </div>
 			
 			
 			
-			<div class="available__food__container">
-				<div class="add__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>
-				<h2 class="available__food__title">Available food</h2>
-
-				<div class="available__food__list">
-
-					
-					<div class="item clearfix" id="46">
-						<div class="item__description">Bear Supreme</div>
-						<div class="item__add">
-							<button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
-						</div>
-						<div class="food__info">
-							<div class="food__info__title">
-								<img class="info__img" src="./resources/img/56.png">
-								<h5>%name%</h5>
-							</div>
-							<div class="food__info__nutrition">
-								<h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6>
-								<h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6>
-								<h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6>
-								<h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6>
-								<h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6>
-								<h6>Calories: %calorie% kcal</h6>
-							
-							</div>
-                        </div>
+                <div class="available__food__container">
+					<h2 class="available__food__title">Available food</h2>
+                    <div class="quick__add">
+						<div class="add__all">All   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+						<div class="t2_5__add">Tier 2.5   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+						<div class="t2__add">Tier 2   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+						<div class="t1_5__add">Tier 1.5   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>						
+						<div class="t1__add">Tier 1   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
 					</div>
-				
-			
-					<div class="item clearfix" id="22">
-						<div class="item__description">Sweet Salad</div>
-							<div class="item__add">
-								<button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
-							</div>
-					</div>
-
-
-				</div>
-
-			</div>
-
-			<div class="selected__food__container">
-				<div class="remove__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>
-				<h2 class="selected__title">Selected food</h2>
-
-				<div class="selected__list">
-		<!--list starts here-->
-                    <div class="item clearfix" id="%id%">
-                        <div class="item__description">
-                            %foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i>
+                    <div class="available__food__list">
+                        
+                        <div class="item clearfix" id="46">
+                            <div class="item__description">Bear Supreme</div>
+                            <div class="item__add">
+                                <button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
+                            </div>
+                            <div class="food__info">
+                                <div class="food__info__title">
+                                    <img class="info__img" src="./resources/img/56.png">
+                                    <h5>%name%</h5>
+                                </div>
+                                <div class="food__info__nutrition">
+                                    <h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6>
+                                    <h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6>
+                                    <h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6>
+                                    <h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6>
+                                    <h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6>
+                                    <h6>Calories: %calorie% kcal</h6>
+                                
+                                </div>
+                            </div>
                         </div>
-                        
-                        <img class="available__img" src="./resources/img/56.png">
-                        
-                        <div class="item__add">
-                            <i class="ion-android-add item__add--btn"></i>
+                    
+                
+                        <div class="item clearfix" id="22">
+                            <div class="item__description">Sweet Salad</div>
+                                <div class="item__add">
+                                    <button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
+                                </div>
                         </div>
-						
-                        
-                    </div>    
 
 
-                    <div class="item clearfix" id="44">
-                        
-                        <div class="item__description">Elk Taco</div>
-            
-                        <div class="item__delete">
-                            <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
-                        </div>						
                     </div>
 
+                </div>
+
+                <div class="selected__food__container">
+                    <div class="remove__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>
+                    <h2 class="selected__title">Selected food</h2>
+
+                    <div class="selected__list">
+                    <!--list starts here-->
+                        <div class="item clearfix" id="%id%">
+                            <div class="item__description">
+                                %foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i>
+                            </div>
+                            
+                            <img class="available__img" src="./resources/img/56.png">
+                            
+                            <div class="item__add">
+                                <i class="ion-android-add item__add--btn"></i>
+                            </div>
+                            
+                            
+                        </div>    
 
 
-                    <div class="item clearfix" id="23">
-                        <div class="item__description">Crimson Salad</div>
-                        
+                        <div class="item clearfix" id="44">
+                            
+                            <div class="item__description">Elk Taco</div>
+                
                             <div class="item__delete">
                                 <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
-                            </div>
+                            </div>						
+                        </div>
+
+
+
+                        <div class="item clearfix" id="23">
+                            <div class="item__description">Crimson Salad</div>
+                            
+                                <div class="item__delete">
+                                    <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
+                                </div>
+                        </div>
+                        <!--list ends here -->				
                     </div>
+                </div>
+		    </div>
 
-		<!--list ends here -->				
-				</div>
-
-			</div>
-		</div>
-
-        <div class="right__container">
-            <div class="menu__paper clearfix">
+            <div class="right__container">
+                <div class="menu__paper clearfix">
+                </div>
             </div>
-
         </div>
-
-        
-   	</div>
-	   <footer>
-		  
-		   <div class="highscore__container">
+	    <footer>
+		    <div class="highscore__container">
 				<h1>Highscores</h1>
-
 				<div class="highscore__content">
 					<!--<p><i>Run the sim to see highscores</i></p>-->
 					<p><i>Calculate a menu to see highscore<br><br>Highscores are categorised by diet scale</i></p>
 				</div>
-
 			</div>
-		</footer>
-			
+        </footer>
+        
+		<script src="vendor/js/cleave.js"></script>	
         <script src="foodData.js"></script>
         <script src="testMenuWorker.js"></script>
         <script src="ecoFood2.0.js"></script>
             
 		
-   </body>
+    </body>
 </html>
