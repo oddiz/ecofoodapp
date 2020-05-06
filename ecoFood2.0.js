@@ -12,7 +12,7 @@ var UIController = (function() {
 		foodAddBtn: ".item__add",
 		foodDeleteBtn: ".item__delete",
 		availableFoods: ".available__food__list",
-		selectedFoods: ".selected__list",
+		selectedFoods: ".selected__food__list",
         calculateButton: ".calculate__btn",
         calculateAsyncButton: ".withAsync",
 		foodAmountInput: ".food__amount__input",
