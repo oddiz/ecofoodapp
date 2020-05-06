@@ -16,7 +16,9 @@ var UIController = (function() {
         calculateButton: ".calculate__btn",
         calculateAsyncButton: ".withAsync",
 		foodAmountInput: ".food__amount__input",
-		simScaleInput: ".simulation__scale__input",
+        simScaleInput: ".simulation__scale__input",
+        budgetInput: ".budget__amount__input",
+        calorieInput: ".calorie__amount__input",
 		output: ".output",
         rightContainer: ".right__container",
         leftContainer: ".left__container",
@@ -31,11 +33,21 @@ var UIController = (function() {
         addAll: ".add__all",
         removeAll: ".remove__all",
         sortBar: ".sort__options",
-        quickAdd: ".quick__add"
-	};
+        quickAdd: ".quick__add",
+        priceTagInput: ".item__price__input"
+
+    };
+    
+    
 
 	return {
-		initUI: function(option = "available") {
+        
+		initUI: function(option) {
+
+            if (!option) {
+                option = "available"; 
+            }
+            
 			//clear lists
 			var availableList = document.querySelector(DOMStrings.availableFoods);
 			var selectedList = document.querySelector(DOMStrings.selectedFoods);
@@ -137,7 +149,7 @@ var UIController = (function() {
 			}
 			//add food to selected list
 			htmlTemplate =
-            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img class="available__img" src="./resources/img/%imgid%.png"><div class="item__delete"><i class="ion-ios-close-outline item__delete--btn"></i></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
+            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img class="available__img" src="./resources/img/%imgid%.png"><div class="item__delete"><i class="ion-ios-close-outline item__delete--btn"></i></div><div class="item__price"><div class="item__price__container"><img src="resources/img/ptag.png"><input type="number" class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
             
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
             newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -152,6 +164,7 @@ var UIController = (function() {
             newHtml = newHtml.replace("%vit%", foodObj.vit);
             newHtml = newHtml.replace("%calorie%", foodObj.cal);
             newHtml = newHtml.replace("%foodtype%", foodObj.type);
+            newHtml = newHtml.replace("%price%", UIController.getCookiePrice(foodObj.id) || foodObj.price);
             
 			document.querySelector(DOMStrings.selectedFoods).insertAdjacentHTML("afterbegin", newHtml);
         },
@@ -208,16 +221,26 @@ var UIController = (function() {
             var regex = /,/gm;
             var foodInput = document.querySelector(DOMStrings.foodAmountInput).value;
             var simInput = document.querySelector(DOMStrings.simScaleInput).value;
-            
+            var budgetInput = parseInt(document.querySelector(DOMStrings.budgetInput).value);
+            var calorieInput = parseInt(document.querySelector(DOMStrings.calorieInput).value);
+            if(budgetInput === 0 || budgetInput === -1) {
+                budgetInput = Infinity;
+            }
+            if(calorieInput === 0 || calorieInput === -1) {
+                calorieInput = Infinity;
+            }
+
             return {
 				foodInput: foodInput.replace(regex, ""),
-				simInput: simInput.replace(regex, "")
+                simInput: simInput.replace(regex, ""),
+                budgetInput: budgetInput,
+                calorieInput: calorieInput
 			};
         },
         
 		displayResults: function(resultObject) {
             var paperHtml, menuContent, line, menuObject, foundAt;
-            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p></div>';
+            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p></div>';
 
             if(resultObject.foundAt === 0) {
                 foundAt = 1
@@ -225,10 +248,13 @@ var UIController = (function() {
                 foundAt = resultObject.foundAt;
             }
             var paperHtmlEdited = paperHtml.
-            replace('%sp%', resultObject.spAmount.toFixed(2)).
-            replace('%multiplier%', resultObject.multiplier.toFixed(2)).
-            replace('%index%', foundAt).
-            replace('%simcount%', this.getInput().simInput);
+                replace('%sp%', resultObject.spAmount.toFixed(2)).
+                replace('%multiplier%', resultObject.multiplier.toFixed(2)).
+                replace('%index%', foundAt).
+                replace('%simcount%', this.getInput().simInput).
+                replace('%price%', resultObject.totalPrice).
+                replace('%calories%', resultObject.totalCalorie)
+                
 
             document.querySelector(DOMStrings.menuPaper).innerHTML = paperHtmlEdited;
             menuContent = document.querySelector(".menu__content");
@@ -295,6 +321,56 @@ var UIController = (function() {
             newHtml = newHtml.replace("%SP%", result.sp);
 
             highscoreContent.innerHTML = newHtml;
+        },
+
+        getInputPrices: function () {
+            var prices = [];
+            var pricesNodeList = document.querySelectorAll(DOMStrings.priceTagInput);
+            
+            if(pricesNodeList.length > 0) {
+                pricesNodeList.forEach(function(node) {
+                    var id = node.parentNode.parentNode.parentNode.id;
+                    var price = node.value;
+                    prices.push([id, price]);
+                })
+            }
+
+            return prices;
+        },
+
+        savePrices: function () {
+            var prices = UIController.getInputPrices();
+            var expires = `expires=Fri, December 31, 9999 3:00:00 UTC; path=/`;
+            prices.forEach(function (ele) {
+                var foodString = `${ele[0]}=${ele[1]};`
+                foodString = foodString.concat(expires);
+                document.cookie = foodString;
+                menuController.updatePrice(ele[0], ele[1]);
+            });
+            
+            
+            console.log(document.cookie)
+
+        },
+
+        getCookiePrice: function (id) {
+            var cId = id + "=";
+            var cookies = document.cookie;
+            cookies = cookies.split(";");
+            console.log(cookies);
+            for (var cookie of cookies) {
+                if(cookie.charAt(0) === " ") {
+                    cookie = cookie.substring(1);
+                }
+                if(cookie.indexOf(cId) === 0) {
+                    cookie = cookie.substring(cookies.indexOf(cId) + cId.length + 1);
+    
+                    console.log(cookie);
+                    menuController.updatePrice(id, cookie);
+
+                    return cookie;
+                }
+            }
         }
 	};
 })();
@@ -327,6 +403,9 @@ var menuController = (function() {
                     activeMenu.push(foods[foodType][id])
                 }
             }
+        },
+        updatePrice: function (id, price) {
+            getFoodFromID(id).price = price;
         }
 	};
 })();
@@ -443,38 +522,12 @@ var controller = (function(UICtrl, menuCtrl) {
             numeral: true,
             numeralThousandsGroupStyle: 'thousand'
         });
+        //price keypress event listener
+        document.addEventListener("keyup", UICtrl.savePrices);
         
         
-        /*
-         *food images opens info
-         * USED CSS TO ACHIEVE SAME 
-         * 
-         * document.querySelector(DOM.availableFoods).addEventListener("mouseover", function(event) {
-         * if (event.target.localName === "img") {
-         * event.path[1].childNodes[3].style.display = "block"
-         * console.log(event.fromElement.childNodes[3]);
-         * event.target.onpointerleave = function () {
-         * event.path[1].childNodes[3].style.display = "none"
-         * }
-         * }
-         * });
-         */
-
-        /*
-         *var foodImgs= document.querySelectorAll(".available__img");
-         * foodImgs.forEach(function(elements) {
-         *     elements.addEventListener("mouseover", function(event) {
-         *         event.path[1].childNodes[3].style.display = "block"
-         *        // console.log(event.fromElement.childNodes[3]);
-         *     });
-         *     elements.addEventListener("mouseleave", function(event) {
-         *         //console.log(event);
-         *         event.path[1].childNodes[3].style.display = "none"
-         *     });
-         * })
-         */
-        
-	};
+    };
+    
 
     function removeAll() {
         
@@ -585,7 +638,8 @@ var controller = (function(UICtrl, menuCtrl) {
         var input = UICtrl.getInput();
         var inputFood = input.foodInput;
         var inputSim = input.simInput;
-        
+        var inputBudget = input.budgetInput;
+        var inputCalorie = input.calorieInput;
         if(inputFood === "" || inputSim === "") {
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
             swal("Don't leave input fields blank.", "", "error");
@@ -612,7 +666,7 @@ var controller = (function(UICtrl, menuCtrl) {
 
         var work = new Worker('testMenuWorker.js');
 
-        work.postMessage([activeMenu,inputSim,inputFood])
+        work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie])
 
         //enable stop button
         var stopBtn = document.querySelector(DOM.stopButton);
@@ -631,6 +685,11 @@ var controller = (function(UICtrl, menuCtrl) {
         work.onmessage = function(result) {
             if (typeof result.data === 'number') {
                 UICtrl.setPercentage(result.data)
+            } else if (result.data === 'error') {
+                swal("No diets found with specified limits.", "", "error");
+                document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(0)"
+                terminateWorker();
+
             } else {
                 var outputList = document.querySelector(DOM.rightContainer);
                 
@@ -649,7 +708,7 @@ var controller = (function(UICtrl, menuCtrl) {
     }
 
     function sendPostRequest(message) {
-        fetch("https://mongoawsserver.tk:8000/highscore", {
+        fetch("http://api.kaansarkaya.com:8000/highscore", {
             method: "POST", 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(message)
@@ -664,7 +723,7 @@ var controller = (function(UICtrl, menuCtrl) {
     }
 
     function getHighestScore() {
-        fetch("https://mongoawsserver.tk:8000/gethighest", {
+        fetch("http://api.kaansarkaya.com:8000/gethighest", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'}
         }).then((res) => res.json()).

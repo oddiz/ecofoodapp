@@ -3,8 +3,9 @@ module.exports=  function (app, db) {
     const highscoreCollection = db.collection(`highscores`);
 
     app.post('/gethighest', (req, res) => {
-        console.log("got get");
-        const getthescore = highscoreCollection.find().sort({sp: -1}).limit(1).toArray();
+        
+        
+        const getthescore = highscoreCollection.find({foodQty: {$lt: 20}}).sort({sp: -1}).limit(1).toArray();
         getthescore.then((output) => {
             res.send(output[0]);
         })
@@ -61,8 +62,11 @@ module.exports=  function (app, db) {
             }
         });
 
-
-        
+        //update all foodQty to integer
+        // highscoreCollection.find().forEach(function (x) {
+        //     x.foodQty = parseInt(x.foodQty);
+        //     highscoreCollection.save(x);
+        // });
 
         // highscoreCollection.
         // insert(newHighScore, (err, result) => {
