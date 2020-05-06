@@ -533,6 +533,12 @@ h2 {
 	
 }
 
+.available__food__list,
+.selected__food__list {
+    border-top: 3px solid #e7e7e7;
+}
+
+
 .item {
 	position:relative;
     padding: 13px;
@@ -545,14 +551,14 @@ h2 {
 }
 
 .available__img {
-    width: 30px;
+    width: 40px;
     text-align: center;
     vertical-align: middle;
     display: inline-block;
     float: right;
     margin-left: 4%;
     position:relative;
-    bottom: 20%;
+    bottom: 25%;
 	filter: brightness(1.1);
 }
 
@@ -636,8 +642,6 @@ content: "";
 }
 
 
-
-.item:first-child { border-top: 3px solid #e7e7e7; }
 .item:nth-child(even) { background-color: #f7f7f7; }
 
 .item__description {
@@ -707,7 +711,8 @@ content: "";
 	font-size: 16px;
 	border: 1px rgba(247,247,247,1.00);
 	border-radius: 5px;
-	text-align: center;
+    text-align: center;
+    transform: rotate(-2deg);
 }
 
 
