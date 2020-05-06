@@ -1,15 +1,16 @@
-function Food (id,foodName,foodType,foodTier,carb,pro,fat,vit,cal,weight) {
+function Food (id,foodName,foodType,foodTier,carb,pro,fat,vit,cal,weight,price) {
     "use strict";
     this.id = id;
     this.name = foodName;
     this.type = foodType;
-    this.tier = foodTier
+    this.tier = foodTier;
     this.carb = carb;
     this.pro = pro;
     this.fat = fat;
     this.vit = vit;
     this.cal = cal;
     this.weight = weight;
+    this.price = price || 0;
     
 }                                       
 
@@ -27,7 +28,7 @@ var foods = {
         9: new Food(19,"Boiled Shoots","Campfire",          1, 3, 0, 1, 9, 510, 0.1),
         10: new Food(110,"Camas Mash","Campfire",           1, 1, 2, 9, 1, 500, 0.1),
         11: new Food(111,"Campfire Beans","Campfire",       1, 2, 3, 7, 1, 510, 0.1),
-        12: new Food(112,"Charred Beet","Campfire",         1, 1, 9, 3, 0, 500, 0.1),
+        12: new Food(112,"Charred Beet","Campfire",         1, 3, 0, 3, 7, 470, 0.1),
         13: new Food(113,"Charred Camas Bulb","Campfire",   1, 2, 3, 7, 1, 510, 0.1),
         14: new Food(114,"Charred Corn","Campfire",         1, 8, 1, 0, 4, 530, 0.1),
         15: new Food(115,"Charred Fish","Campfire",         1, 0, 9, 4, 0, 550, 0.5),
@@ -37,7 +38,7 @@ var foods = {
         19: new Food(119,"Wilted Witherheads","Campfire",   1, 4, 1, 0, 8, 500, 0.2),
         20: new Food(120,"Charred Agave", "Campfire",       1, 5, 1, 4, 1, 350, 0.1),
         21: new Food(121,"Charred Papaya", "Campfire",      1, 6, 1, 0, 6, 460, 0.1),
-        22: new Food(122,"Charred Papaya", "Campfire",      1, 9, 1, 0, 3, 540, 0.1),
+        22: new Food(122,"Charred Pineapple", "Campfire",   1, 9, 1, 0, 3, 540, 0.1),
         23: new Food(123,"Charred Taro", "Campfire",        1, 11, 1, 0, 1, 490, 0.1)
 
     },

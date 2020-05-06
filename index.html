@@ -41,6 +41,16 @@
 						<div class= "info__text"><span style ="font-size: 20px">Simulation cycle amount</span><br><br>Each cycle, it'll test a new diet and compare the results to find the best combination.<br><br>Higher number = better results<br><br>(unless you have found the best possible combination already.)</div>
 						<input class="simulation__scale__input" placeholder="Simulation scale">
 					</div>
+					<div class="budget__amount">
+						<div class= "info__text"><span style ="font-size: 20px">Budget <i>(Optional)</i></span><br><br>If you specify prices for foods, you can use this option to set a budget limit.<br><br>Only the best menu less than your budget will be shown.</div>
+						<input class="budget__amount__input" placeholder="Budget">
+					
+					</div>
+					<div class="calorie__amount">
+						<div class= "info__text"><span style ="font-size: 20px">Calorie Limit <i>(Optional)</i></span><br><br>Only the best menu less than your calorie limit will be shown.</div>
+						<input class="calorie__amount__input" placeholder="Calorie">
+					
+					</div>
                     
 				</div>
 				<div class="calculate__container">
@@ -59,6 +69,7 @@
 				<p><i>Calculate</i> button calculates SPs of all generated diets and outputs the highest yield.</p>
 				<p>After a calculation has been made. The output is then stored in highscore database, which will be compared with all previous results.</p>
 				<p>Highscores are categorised by <i>Diet Scale</i>. Also you can see the best diet accross all categories on page load.</p>
+				<span style="margin-top:40px;"><p>NEW: Now you can also specify prices for food and set a budget limit to generate results less or equal than your specified budget. The prices are saved automatically as cookies so you don't have to write them every time.</p></span>
 			
 			</div>
 			<div class="formula__info clearfix">
@@ -93,10 +104,15 @@
 					<li>Base skill gain can be modified in EcoSim.eco. It defaults to 12.</li>
 				</ul>
 				<p style="font-size: 12px;"><i>Source: https://eco.gamepedia.com/Skill_Points</i></p>
-			</div>
+            </div>
+            <div class="info" style="margin-top:100px ;">
+                <p> My SP algorithm and inspiration for this project is based from <a href="https://docs.google.com/spreadsheets/d/1-rWq6R3mqnbKuB-VtQXYACS-2FexyxzR3okeMhz1Wjc/edit#gid=189984926">this spreadsheet</a>.</p>
+            </div>
+			
 			<div class="info" style="margin-top:250px;">
 				<p>This project is made by Kaan "oddiz" Şarkaya.<br> If you have any suggestions or feed back, you can find me on discord <span style="color:rgba(50,57,63,1.00)"><strong>@oddiz#9659</strong></span></p>
 			</div>
+			
         </div>
         
         <div class="bottom clearfix">
@@ -170,24 +186,15 @@
                 </div>
 
                 <div class="selected__food__container">
-                    <div class="remove__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>
-                    <h2 class="selected__title">Selected food</h2>
-
+					<div class="selected__food__header">
+						<i class="ion-cash cash__icon"></i>
+	                    <div class="remove__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>				
+						<h2 class="selected__title">Selected food</h2>
+						
+					</div>
+						
                     <div class="selected__list">
-                    <!--list starts here-->
-                        <div class="item clearfix" id="%id%">
-                            <div class="item__description">
-                                %foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i>
-                            </div>
-                            
-                            <img class="available__img" src="./resources/img/56.png">
-                            
-                            <div class="item__add">
-                                <i class="ion-android-add item__add--btn"></i>
-                            </div>
-                            
-                            
-                        </div>    
+                    <!--list starts here-->  
 
 
                         <div class="item clearfix" id="44">
@@ -196,7 +203,13 @@
                 
                             <div class="item__delete">
                                 <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
-                            </div>						
+                            </div>
+							<div class="item__price">
+								<div class="item__price__container">
+									<img src="resources/img/ptag.png">								
+									<input class="item__price__input" type="number" value="0"><p>$</p>
+								</div>
+						 	</div>
                         </div>
 
 
@@ -207,6 +220,12 @@
                                 <div class="item__delete">
                                     <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
                                 </div>
+							<div class="item__price">
+								<div class="item__price__container">
+									<img src="resources/img/ptag.png">								
+									<input type="number" value="0"><p>$</p>
+								</div>
+						 	</div>
                         </div>
                         <!--list ends here -->				
                     </div>
