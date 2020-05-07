@@ -1,3 +1,9 @@
+/* eslint-disable spaced-comment */
+/* eslint-disable multiline-comment-style */
+/* eslint-disable capitalized-comments */
+
+
+
 module.exports=  function (app, db) {
     
     const highscoreCollection = db.collection(`highscores`);
@@ -5,7 +11,11 @@ module.exports=  function (app, db) {
     app.post('/gethighest', (req, res) => {
         
         
-        const getthescore = highscoreCollection.find({foodQty: {$lt: 20}}).sort({sp: -1}).limit(1).toArray();
+        const getthescore = highscoreCollection.find({foodQty: {$lt: 20}}).
+        sort({sp: -1}).
+        limit(1).
+        toArray();
+
         getthescore.then((output) => {
             res.send(output[0]);
         })
@@ -34,8 +44,10 @@ module.exports=  function (app, db) {
             console.log(error);
         })
         findScore.then((output) => {
-            console.log('Search database output:' + output);
-            let foundSP = 0;
+            //output from database find function, will give result as array 
+            let time = new (Date)();
+            console.log(time + ': Search database output:' + output);
+
             if (output.length === 0) {
                 highscoreCollection.insertOne(newHighScore);
                 res.send({
@@ -43,19 +55,24 @@ module.exports=  function (app, db) {
                     currentHighscore: [newHighScore]
                 })
             } else {
+
+                let foundSP = 0;
                 foundSP = output[0].sp;
                 if (reqSP > foundSP) {
+                    //if recieved(from request) SP is higher than the one on the database
                     
                     highscoreCollection.deleteOne({'foodQty': reqFoodQty})             
                     highscoreCollection.insertOne(newHighScore);
                     
+                    //delete the old db value insert the new one.
+
                     res.send({
-                        message: 'new SP is bigger! replacing old one',
+                        message: 'New SP is bigger! Replacing old one',
                         currentHighscore: [newHighScore]   
                     });
                 } else {
                     res.send({
-                        message: 'you didn\'t beat the highscore.',
+                        message: 'You didn\'t beat the highscore.',
                         currentHighscore: output 
                     });
                 } 
