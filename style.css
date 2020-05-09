@@ -823,24 +823,6 @@ RIGHT CONTAINER
 }
 
 
-/******************
-FOOTER
-******************/
-
-footer {
-	display:block;
-	position: fixed;
-	bottom:0px;
-	height: 50px;
-	width: 100%;
-	background-color: #F7F7F7;
-	border-top: 1px solid rgba(40,185,181,1.00);
-	z-index: 999;
-	
-
-}
-
-
 .stop__button {
 	display: none;
 	
@@ -897,6 +879,38 @@ footer {
     width: 0%;
 	
     background: #28B9B5;
+}
+
+/******************
+FOOTER
+******************/
+
+footer {
+	display:block;
+	position: fixed;
+	bottom:0px;
+	height: 50px;
+	width: 100%;
+	background-color: #F7F7F7;
+	border-top: 1px solid rgba(40,185,181,1.00);
+	z-index: 999;
+	
+
+}
+
+.stomach__button {
+	display: inline-block;
+	position:inherit;
+	width: 100px;
+	text-align: center;
+	padding-right:5px;
+	padding-top: 1px;
+	margin-top: 3px;
+	margin-left:80px;
+	border-radius: 10px;
+	float:left;
+	background-color:rgba(233,155,88,1.00);
+	box-shadow: 0 5px #7E3E00;
 }
 
 /**********************************************
