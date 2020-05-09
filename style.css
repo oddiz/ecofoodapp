@@ -923,10 +923,41 @@ footer {
 	z-index: 9999;
 }
 
-.highscore__container h1 {
-    text-align: center;
+.highscore__container .highscore__title {
     margin-bottom: 15px;
+    width: inherit;
+    height: 50px;
+    padding: 0 0 0 13%;
+    cursor: pointer;
 }
+.highscore__container h1 {
+    float: left;
+}
+.highscore__container .trophy__icon {
+    position:relative;
+    top:6px;
+    font-size: 32px;
+    color: rgb(174, 255, 253);
+    background-color: rgb(40, 185, 181);
+    border-radius: 5px;
+    padding: 2px 6px 2px 6px;
+    float: left;
+    margin-left: 5%;
+    transform-origin: center;
+    -webkit-box-shadow: 3px 5px 0px 3px rgb(40, 185, 181);
+    -moz-box-shadow: 3px 5px 0px 3px rgb(40, 185, 181);
+    box-shadow: 2px 2px 0px 2px rgb(36, 145, 142);
+    transition: background-color 1s ease-out;
+}
+.highscore__title:hover .trophy__icon {
+    background-color: rgb(45, 230, 223);
+}
+
+.trophy__icon:active {
+    box-shadow: none;
+    top: 10px;
+    left: 4px;
+
 .highscore__content h2 {
     letter-spacing: 0px;
 }

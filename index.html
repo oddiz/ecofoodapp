@@ -19,7 +19,7 @@
         <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <link type="text/css" rel="stylesheet" href="style.min.css">
+        <link type="text/css" rel="stylesheet" href="style.css">
         <title>Eco Diet Calculator</title>
         <link rel="icon" href="meaticon.png" type="image/png" sizes="16x16">
    </head>
@@ -60,7 +60,7 @@
                        <div id="progress__bar"><div id="inner__bar">%0</div></div>
                        <div class="stop__button"><em class="ion-android-hand"></em></div>
                </div>
-            </div>
+        </div>
 	   
 	   	<div class="info__container">
 			<div class="info">
@@ -241,10 +241,14 @@
         </div>
 	    <footer>
 		    <div class="highscore__container">
-				<h1>Highscores</h1>
+                <div class="highscore__title">
+                    <h1>Highscore</h1>
+                    <div class="trophy__icon"><i class="ion-trophy"></i></div>   
+                </div>
+                
 				<div class="highscore__content">
 					<!--<p><i>Run the sim to see highscores</i></p>-->
-					<p><i>Calculate a menu to see highscore<br><br>Highscores are categorised by diet scale</i></p>
+					<p><i>If you are seeing this, that means the highscore database is currently not online or still loading.<br></i></p>
 				</div>
 			</div>
         </footer>
@@ -252,7 +256,7 @@
 		<script src="vendor/js/cleave.js"></script>	
         <script src="foodData.js"></script>
         <script src="testMenuWorker.js"></script>
-        <script src="ecoFood2.0.min.js"></script>
+        <script src="ecoFood2.0.js"></script>
             
 		
     </body>

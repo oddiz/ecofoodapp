@@ -3,7 +3,7 @@
 /* eslint-disable capitalized-comments */
 
 
-
+const calculateSP = require('../validateMenu')
 module.exports=  function (app, db) {
     
     const highscoreCollection = db.collection(`highscores`);
@@ -32,8 +32,23 @@ module.exports=  function (app, db) {
         const request = req;
         const reqSP = request.body.spAmount, 
         reqMenu = request.body.resultMenu, 
-        reqFoodQty = request.body.foodQty;
-        
+        reqFoodQty = request.body.foodQty,
+        reqMenuArray = request.body.resultMenuArray,
+        serverSP = calculateSP(reqMenuArray).SP;
+        //console.log(reqMenuArray)
+        console.log('reqSP is :' + reqSP);
+        console.log('serverSP is :' + serverSP);
+        if (reqSP !== serverSP) {
+            console.log('SP invalid!')
+            res.send({
+                message: 'Could not validate the new highscore. Please contact the owner if problem persists.'
+            })
+
+            return;
+        }
+
+
+        //console.log(reqMenu);
         const findScore = highscoreCollection.find({'foodQty': reqFoodQty}).toArray();
         const newHighScore = { 
             sp: reqSP, 
@@ -45,6 +60,7 @@ module.exports=  function (app, db) {
         })
         findScore.then((output) => {
             //output from database find function, will give result as array 
+            //eslint-disable-next-line prefer-const
             let time = new (Date)();
             console.log(time + ': Search database output:' + output);
 

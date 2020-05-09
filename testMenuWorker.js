@@ -68,6 +68,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
     var bestSP = 0;
     var bestTotalPrice = 0;
     var bestTotalCalorie = 0;
+    var bestMenuArray = [];
 
 	//console.log("usedFoods check " + activeMenuArray);
 
@@ -114,6 +115,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
             bestMultiplier = result.multiplier;
             bestTotalPrice = totalPrice;
             bestTotalCalorie = totalCalorie;
+            bestMenuArray = menu;
         }
         
         
@@ -155,11 +157,12 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
             multiplier: bestMultiplier,
             foodQty: parseInt(foodCount),
             totalPrice: bestTotalPrice,
-            totalCalorie: bestTotalCalorie
+            totalCalorie: bestTotalCalorie,
+            resultMenuArray: bestMenuArray
         });
     } else {
         //postMessage("error");
         
-        return console.log("error");
+        //return console.log("error");
     }
 }
