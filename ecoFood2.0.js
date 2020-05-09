@@ -2,7 +2,6 @@
 /*eslint-disable no-tabs */
 /*eslint-disable array-element-newline */
 /*eslint-disable no-undef */
-
 var UIController = (function() {
 	var DOMStrings = {
 		foodAddBtn: ".item__add",
@@ -31,11 +30,13 @@ var UIController = (function() {
         sortBar: ".sort__options",
         quickAdd: ".quick__add",
         priceTagInput: ".item__price__input",
-        highscoreTitle: ".highscore__title"
-
+        highscoreTitle: ".highscore__title",
+        highscoreTrophy: ".trophy__icon"
     };
     
-    
+    var lastResult;
+    var highestResult;
+    var isShowingHighest;
 
 	return {
         
@@ -281,17 +282,22 @@ var UIController = (function() {
         displayHighscore: function(result) {
             var Html, newHtml, highscoreContent,line,menuObject;
             highscoreContent = document.querySelector(DOMStrings.highscoreContent);
-            
 
+            document.querySelector(DOMStrings.highscoreTrophy).style = ""
+
+
+            if (result) {
+                lastResult = result;
+            } else {
+                console.log(lastResult)
+                result = lastResult;       
+            }
 
             if (result.currentHighscore) {
-
                 //if server responds with a highscore
+
                 Html = '<p>%message%</p><br><h2>Best in category: %foodqty%</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
-
                 
-                    //if server sends highscore data
-
                 menuObject = result.currentHighscore[0].menu;
                 line= "";
                 for(foodname in menuObject) {
@@ -299,7 +305,6 @@ var UIController = (function() {
                         line += `<p>${menuObject[foodname]}x   ${foodname}</p>`;
                     }
                 }
-
                 newHtml = Html.replace("%message%", result.message);
                 newHtml = newHtml.replace("%menu%", line);
                 newHtml = newHtml.replace("%SP%", result.currentHighscore[0].sp);
@@ -307,16 +312,26 @@ var UIController = (function() {
             } else {
                 //if server responds with only a message
                 Html = '<p>%message%</p>'
-
                 newHtml = Html.replace("%message%", result.message);
+            }
+            highscoreContent.innerHTML = newHtml;
+
+            isShowingHighest = false;
+        },
+        displayHighest: function(result) {
+            //button clicked effect
+            document.querySelector(DOMStrings.highscoreTrophy).style = "box-shadow: none;top: 10px;left: 4px;"
+            if (!highestResult) {
+                highestResult = result;
+            }
+
+            if (!result) {
+                result = highestResult;
             }
 
 
-            highscoreContent.innerHTML = newHtml;
-        },
-
-        displayHighest: function(result) {
             var Html, newHtml, highscoreContent,line;
+
 
             menuObject = result.menu;
             line= "";
@@ -333,6 +348,19 @@ var UIController = (function() {
             newHtml = newHtml.replace("%SP%", result.sp);
 
             highscoreContent.innerHTML = newHtml;
+
+            isShowingHighest = true;
+        },
+
+        trophyClicked: function () {
+
+            if (isShowingHighest && lastResult) {
+                UIController.displayHighscore();
+                console.log("1")
+            } else if (!isShowingHighest) {
+                UIController.displayHighest();
+                console.log("2")
+            }
         },
 
         getInputPrices: function () {
@@ -532,7 +560,7 @@ var controller = (function(UICtrl, menuCtrl) {
         document.querySelector(DOM.sortBar).addEventListener("click", sortClicked);
 
         //highscore refresh
-        document.querySelector(DOM.highscoreTitle).addEventListener("click", getHighestScore);
+        document.querySelector(DOM.highscoreTitle).addEventListener("click", UICtrl.trophyClicked);
 
         //input formatting
         var simInputFormat = new Cleave(".simulation__scale__input", {
@@ -728,9 +756,7 @@ var controller = (function(UICtrl, menuCtrl) {
         }
     }
 
-    let isShowingHighestScore = false;
     function sendPostRequest(message) {
-        isShowingHighestScore = false;
         fetch("http://api.kaansarkaya.com:8000/highscore", {
             method: "POST", 
             headers: {'Content-Type': 'application/json'},
@@ -747,7 +773,7 @@ var controller = (function(UICtrl, menuCtrl) {
 
     function getHighestScore() {
         //console.log(isShowingHighestScore);
-        if (!isShowingHighestScore) {
+        
             fetch("http://api.kaansarkaya.com:8000/gethighest", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'}
@@ -756,14 +782,10 @@ var controller = (function(UICtrl, menuCtrl) {
             then((json) => {
                 console.log("Highest score get:" + json.sp);
                 UICtrl.displayHighest(json);
-                isShowingHighestScore = true;
             }).
             catch((error) => {
                 console.error(error);
-                isShowingHighestScore = false;
             });
-        }
-        
     }
 	
 return {
