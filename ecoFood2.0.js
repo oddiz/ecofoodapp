@@ -1,11 +1,7 @@
+/*eslint-disable no-unused-vars */
 /*eslint-disable no-tabs */
 /*eslint-disable array-element-newline */
 /*eslint-disable no-undef */
-
-/*
- *  TODO:
- *  -add a column for manually entering prices and setting budget limit so it'll only display best diet lower than your budget
- */
 
 var UIController = (function() {
 	var DOMStrings = {
@@ -34,7 +30,8 @@ var UIController = (function() {
         removeAll: ".remove__all",
         sortBar: ".sort__options",
         quickAdd: ".quick__add",
-        priceTagInput: ".item__price__input"
+        priceTagInput: ".item__price__input",
+        highscoreTitle: ".highscore__title"
 
     };
     
@@ -283,22 +280,37 @@ var UIController = (function() {
 
         displayHighscore: function(result) {
             var Html, newHtml, highscoreContent,line,menuObject;
-
             highscoreContent = document.querySelector(DOMStrings.highscoreContent);
-            Html = '<p>%message%</p><br><h2>Best in category: %foodqty%</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
+            
 
-            menuObject = result.currentHighscore[0].menu;
-            line= "";
-            for(foodname in menuObject) {
-                if({}.hasOwnProperty.call(menuObject, foodname)){
-                    line += `<p>${menuObject[foodname]}x   ${foodname}</p>`;
+
+            if (result.currentHighscore) {
+
+                //if server responds with a highscore
+                Html = '<p>%message%</p><br><h2>Best in category: %foodqty%</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
+
+                
+                    //if server sends highscore data
+
+                menuObject = result.currentHighscore[0].menu;
+                line= "";
+                for(foodname in menuObject) {
+                    if({}.hasOwnProperty.call(menuObject, foodname)){
+                        line += `<p>${menuObject[foodname]}x   ${foodname}</p>`;
+                    }
                 }
+
+                newHtml = Html.replace("%message%", result.message);
+                newHtml = newHtml.replace("%menu%", line);
+                newHtml = newHtml.replace("%SP%", result.currentHighscore[0].sp);
+                newHtml = newHtml.replace("%foodqty%", result.currentHighscore[0].foodQty);
+            } else {
+                //if server responds with only a message
+                Html = '<p>%message%</p>'
+
+                newHtml = Html.replace("%message%", result.message);
             }
 
-            newHtml = Html.replace("%message%", result.message);
-            newHtml = newHtml.replace("%menu%", line);
-            newHtml = newHtml.replace("%SP%", result.currentHighscore[0].sp);
-            newHtml = newHtml.replace("%foodqty%", result.currentHighscore[0].foodQty);
 
             highscoreContent.innerHTML = newHtml;
         },
@@ -357,7 +369,7 @@ var UIController = (function() {
             var cId = id + "=";
             var cookies = document.cookie;
             cookies = cookies.split(";");
-            console.log(cookies);
+            //console.log(cookies);
             for (var cookie of cookies) {
                 if(cookie.charAt(0) === " ") {
                     cookie = cookie.substring(1);
@@ -399,8 +411,14 @@ var menuController = (function() {
         addActiveAll: function () {
             activeMenu = [];
             for(foodType in foods) {
-                for(id in foods[foodType]) {
-                    activeMenu.push(foods[foodType][id])
+                if ({}.hasOwnProperty.call(foodType, foods)) {
+
+                    for(id in foods[foodType]) {
+                        if ({}.hasOwnProperty.call(id, foods[foodType])) {
+                            activeMenu.push(foods[foodType][id])
+
+                        }
+                    }
                 }
             }
         },
@@ -511,7 +529,10 @@ var controller = (function(UICtrl, menuCtrl) {
             }
         }) 
         //sort button
-        document.querySelector(DOM.sortBar).addEventListener("click", sortClicked)
+        document.querySelector(DOM.sortBar).addEventListener("click", sortClicked);
+
+        //highscore refresh
+        document.querySelector(DOM.highscoreTitle).addEventListener("click", getHighestScore);
 
         //input formatting
         var simInputFormat = new Cleave(".simulation__scale__input", {
@@ -691,7 +712,7 @@ var controller = (function(UICtrl, menuCtrl) {
                 terminateWorker();
 
             } else {
-                var outputList = document.querySelector(DOM.rightContainer);
+                //var outputList = document.querySelector(DOM.rightContainer);
                 
                 
                 setTimeout(function() {
@@ -701,13 +722,15 @@ var controller = (function(UICtrl, menuCtrl) {
                 },500)
 
                 sendPostRequest(result.data);
-
+                console.log(result.data)
                 terminateWorker();
             }          
         }
     }
 
+    let isShowingHighestScore = false;
     function sendPostRequest(message) {
+        isShowingHighestScore = false;
         fetch("http://api.kaansarkaya.com:8000/highscore", {
             method: "POST", 
             headers: {'Content-Type': 'application/json'},
@@ -723,14 +746,23 @@ var controller = (function(UICtrl, menuCtrl) {
     }
 
     function getHighestScore() {
-        fetch("http://api.kaansarkaya.com:8000/gethighest", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        }).then((res) => res.json()).
-        then((json) => {
-            console.log("Highest score get:" + json.sp);
-            UICtrl.displayHighest(json);
-        })
+        //console.log(isShowingHighestScore);
+        if (!isShowingHighestScore) {
+            fetch("http://api.kaansarkaya.com:8000/gethighest", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            }).
+            then((res) => res.json()).
+            then((json) => {
+                console.log("Highest score get:" + json.sp);
+                UICtrl.displayHighest(json);
+                isShowingHighestScore = true;
+            }).
+            catch((error) => {
+                console.error(error);
+                isShowingHighestScore = false;
+            });
+        }
         
     }
 	
@@ -740,7 +772,11 @@ return {
         setupEventListeners();
         console.log("Application has started.");
         getHighestScore();
+    },
+    showHighestScore: function() {
+        getHighestScore();
     }
+
 };
 })(UIController, menuController);
 

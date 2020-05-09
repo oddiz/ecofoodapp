@@ -1,4 +1,6 @@
 Stomach content
 Iterate through all possible combinations option
-Show highest SP button
+Check the submitted highscore serverside
+
+Show highest SP button - done
 Mongodb on server - done
