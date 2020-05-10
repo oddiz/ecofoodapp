@@ -31,12 +31,15 @@ var UIController = (function() {
         quickAdd: ".quick__add",
         priceTagInput: ".item__price__input",
         highscoreTitle: ".highscore__title",
-        highscoreTrophy: ".trophy__icon"
+        highscoreTrophy: ".trophy__icon",
+        stomachContainer: ".stomach__container",
+        stomachButton: ".stomach__button"
     };
     
     var lastResult;
     var highestResult;
     var isShowingHighest;
+    var isStomachMenuOpen = false;
 
 	return {
         
@@ -283,7 +286,7 @@ var UIController = (function() {
             var Html, newHtml, highscoreContent,line,menuObject;
             highscoreContent = document.querySelector(DOMStrings.highscoreContent);
 
-            document.querySelector(DOMStrings.highscoreTrophy).style = ""
+            document.querySelector(DOMStrings.highscoreTrophy).classList.remove("clicked");
 
 
             if (result) {
@@ -320,7 +323,7 @@ var UIController = (function() {
         },
         displayHighest: function(result) {
             //button clicked effect
-            document.querySelector(DOMStrings.highscoreTrophy).style = "box-shadow: none;top: 10px;left: 4px;"
+            document.querySelector(DOMStrings.highscoreTrophy).classList.add("clicked");
             if (!highestResult) {
                 highestResult = result;
             }
@@ -411,6 +414,22 @@ var UIController = (function() {
                     return cookie;
                 }
             }
+        },
+
+        stomachButtonClicked: function () {
+
+            var stomachContainer = document.querySelector(DOMStrings.stomachContainer);
+            var stomachButton = document.querySelector(DOMStrings.stomachButton);
+
+            if (stomachContainer.classList.contains("visible")) {
+                stomachContainer.classList.remove("visible");
+                stomachButton.classList.remove("clicked");
+            } else {
+                stomachContainer.classList.add("visible");
+                stomachButton.classList.add("clicked");
+            }
+
+
         }
 	};
 })();
@@ -559,8 +578,11 @@ var controller = (function(UICtrl, menuCtrl) {
         //sort button
         document.querySelector(DOM.sortBar).addEventListener("click", sortClicked);
 
-        //highscore refresh
-        document.querySelector(DOM.highscoreTitle).addEventListener("click", UICtrl.trophyClicked);
+        //highscore trophy
+        document.querySelector(DOM.highscoreTrophy).addEventListener("click", UICtrl.trophyClicked);
+
+        //stomach button 
+        document.querySelector(DOM.stomachButton).addEventListener("click", UICtrl.stomachButtonClicked);
 
         //input formatting
         var simInputFormat = new Cleave(".simulation__scale__input", {

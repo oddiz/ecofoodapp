@@ -17,7 +17,7 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <link type="text/css" rel="stylesheet" href="style.css">
         <title>Eco Diet Calculator</title>
@@ -142,14 +142,17 @@
 			
 			
                 <div class="available__food__container">
-					<h2 class="available__food__title">Available food</h2>
-                    <div class="quick__add">
-						<div class="add__all">All   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
-						<div class="t2_5__add">Tier 2.5   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
-						<div class="t2__add">Tier 2   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
-						<div class="t1_5__add">Tier 1.5   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>						
-						<div class="t1__add">Tier 1   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
-					</div>
+                    <div class="available__food__header">
+                        <h2 class="available__food__title">Available food</h2>
+                        <div class="quick__add">
+                            <div class="add__all">All   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                            <div class="t2_5__add">Tier 2.5   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                            <div class="t2__add">Tier 2   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                            <div class="t1_5__add">Tier 1.5   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>						
+                            <div class="t1__add">Tier 1   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                        </div>
+
+                    </div>
                     <div class="available__food__list">
                         
                         <div class="item clearfix" id="46">
@@ -232,28 +235,65 @@
                         <!--list ends here -->				
                     </div>
                 </div>
-		    </div>
-
-            <div class="right__container">
                 <div class="menu__paper clearfix">
                 </div>
             </div>
+            <div class="right__container">
+                
+            </div>
         </div>
-	    <footer>
-			<div class=stomach__button>
-			<img src="resources/stomach.svg" height="35px">
-			</div>
+        
+        <div class="stomach__container">
+            <h1>Stomach Contents</h1>
+            <div class="stomach__list__container">
+                <div class="item" >
+                    <div class="item__description">WIP</div>
+                    <input class="stomach__food__input" placeholder="#">
+                    <i class="ion-close stomach__item__delete--btn"></i>
+                        
+                </div>
+                <div class="item" >
+                    <div class="item__description">WIP</div>
+                    <input class="stomach__food__input" placeholder="#">
+                    <i class="ion-close stomach__item__delete--btn"></i>
+                        
+                </div>
+                <div class="item" >
+                    <div class="item__description">WIP</div>
+                    <input class="stomach__food__input" placeholder="#">
+                    <i class="ion-close stomach__item__delete--btn"></i>
+                        
+                </div>
+                <div class="item" >
+                    <div class="item__description">WIP</div>
+                    <input class="stomach__food__input" placeholder="#">
+                    <i class="ion-close stomach__item__delete--btn"></i>
+                        
+                </div>
+                
+                
+                
+
+            </div>
+        </div>
+        
+        <footer>
+			<div class="stomach__button">
+			    <img src="resources/stomach.svg" height="35px">
+            </div>
+            
+            
 		    <div class="highscore__container">
                 <div class="highscore__title">
                     <h1>Highscore</h1>
-                    <div class="trophy__icon"><i class="ion-trophy"></i></div>   
                 </div>
                 
 				<div class="highscore__content">
-					<!--<p><i>Run the sim to see highscores</i></p>-->
+                    <!--<p><i>Run the sim to see highscores</i></p>-->
 					<p><i>If you are seeing this, that means the highscore database is currently not online or still loading.<br></i></p>
 				</div>
 			</div>
+            <div class="trophy__icon"> <div>#1 </div> <i class="ion-trophy"></i></div>   
         </footer>
         
 		<script src="vendor/js/cleave.js"></script>	
