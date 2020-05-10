@@ -69,7 +69,8 @@ body {
 .top__title {
 	height: 100%;
 	position:relative;
-	
+    
+    
 }
 
 .page__title {
@@ -187,6 +188,10 @@ body::after {
 }
 
 .sort__bar {
+    position: relative;
+    top: 73px;
+    left: 15px;
+
     width:52px;
     height:343px;
     background: rgba(40,185,181,1.00);
@@ -227,11 +232,11 @@ body::after {
 }
 
 .quick__add {
-	display:block;
-	height: 30px;
+    display:flex;
+    justify-content: center;
+	height: 20px;
 	width: auto;
-	padding-left: 10%;
-	padding-right: 10%;
+	padding-left: 0%;
 }
 
 .available__food__container {
@@ -243,15 +248,24 @@ body::after {
 }
 
 .selected__food__container {
-	width: 40%;
+    width: 40%;
+    
 	float:left;
 	border-left-width: 5px;
 }
+
+
 
 .selected__food__header {
 	position:relative;
 	height: 73px;
 	width: 100%;
+}
+
+.available__food__header{
+    position:relative;
+    height: 73px;
+    width: 100%;
 }
 
 .selected__food__header h2 {
@@ -350,16 +364,16 @@ body::after {
 	float: left;
 	font-size: 38px;
 	color: #28B9B5;
-	bottom:8%;
 	left: 5px;
+	bottom:5px;
 	transition: all 0.5s;
 	cursor: pointer;
 }
 
 .clicked.info__button {
-	font-size: 64px;
+	transform: scale(1.8);
 	color: #A1A1A1;
-	bottom:48%;
+	
 	
 }
 
@@ -516,7 +530,7 @@ content: "";
 h2 {
     text-transform: uppercase;
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 15px;
 	letter-spacing: 1px;
 	text-align: center;
@@ -539,7 +553,7 @@ h2 {
 }
 
 
-.item {
+.left__container .item {
 	position:relative;
     padding: 13px;
     border-bottom: 1px solid #e7e7e7;
@@ -644,7 +658,7 @@ content: "";
 
 .item:nth-child(even) { background-color: #f7f7f7; }
 
-.item__description {
+.left__container .item__description {
     float: left;
     font-size: 20px;
     font-weight: 500;
@@ -662,7 +676,8 @@ content: "";
 }
 
 
-.item__delete, .item__add {
+.left__container .item__delete,
+.left__container .item__add {
     float: right;
 }
 
@@ -751,9 +766,9 @@ RIGHT CONTAINER
 }
 
 .menu__paper {
-	position: relative;
+	position: absolute;
 	
-	width: 40%;
+	width: 200px;
 	min-width:263px;
 	min-height:250px;
 	overflow: hidden;
@@ -764,21 +779,22 @@ RIGHT CONTAINER
 	box-shadow: 6px 6px 10px rgba(109, 114, 116, 0.9);
 	border-radius: 3px;
 	
-	transition: transform 0.5s, filter 0.5s;
-	right:-120%;
+	transition: all 0.5s;
+    right:-170%;
+
 	transform: translateX(0%);
     filter: blur(0px);
-    z-index: 1000;
-		
+    
+    z-index:100;
 }
 
 .menu__visible {
-    transform: translateX(-250%);
+    right: 20%;
     filter:blur(0px);
 }
 
 .menu__visible:hover {
-    transform: translateX(-250%) scale(1.1);
+    transform: scale(1.1);
 }
 
 .menu__result {
@@ -893,24 +909,163 @@ footer {
 	width: 100%;
 	background-color: #F7F7F7;
 	border-top: 1px solid rgba(40,185,181,1.00);
-	z-index: 999;
+	z-index: 9999;
 	
 
 }
 
+
+/***********************************************
+***STOMACH CONTAINER
+***********************************************/
+
 .stomach__button {
 	display: inline-block;
 	position:inherit;
-	width: 100px;
+    width: 100px;
+    cursor:pointer;
 	text-align: center;
 	padding-right:5px;
-	padding-top: 1px;
+	padding-top: 0px;
 	margin-top: 3px;
 	margin-left:80px;
 	border-radius: 10px;
 	float:left;
 	background-color:rgba(233,155,88,1.00);
 	box-shadow: 0 5px #7E3E00;
+}
+
+.stomach__button.clicked {
+    margin-top: 6px;
+    box-shadow: 0 2px #7E3E00;
+}
+
+.stomach__container {
+	position: fixed;
+    
+    width: 280px;
+	height: 400px;
+	bottom: -365px;
+	left: 80px;
+	
+    background: rgba(240,146,70,1);
+    background: -moz-linear-gradient(top, rgba(240,146,70,1) 0%, rgba(242,203,169,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(240,146,70,1)), color-stop(100%, rgba(242,203,169,1)));
+    background: -webkit-linear-gradient(top, rgba(240,146,70,1) 0%, rgba(242,203,169,1) 100%);
+    background: -o-linear-gradient(top, rgba(240,146,70,1) 0%, rgba(242,203,169,1) 100%);
+    background: -ms-linear-gradient(top, rgba(240,146,70,1) 0%, rgba(242,203,169,1) 100%);
+    background: linear-gradient(to bottom, rgba(240,146,70,1) 0%, rgba(242,203,169,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09246', endColorstr='#f2cba9', GradientType=0 );
+
+	
+	border: 4px double rgb(255, 200, 137);
+    border-radius: 20px;
+    
+    transition: all 0.4s;
+
+    z-index: 1000;
+}
+
+.stomach__container.visible {
+    bottom: 63px;
+
+}
+
+.stomach__container h1 {
+    text-align: center;
+
+    margin-top:10px;
+    font-size: 34px;
+    font-weight: 700;
+    color: rgb(94, 41, 41);
+
+    
+
+}
+
+.stomach__container::after {
+	content: "";
+	position: relative;
+	bottom:-17px;
+	left:30px;
+	
+	border-width: 20px;
+  	border-style: solid;
+ 	border-color: rgb(255, 200, 137) transparent transparent transparent;
+}
+
+.stomach__list__container {
+    display: inline-block;
+
+    overflow:auto;
+
+    margin: 20px 0 0 6px;
+    height: 315px;
+    border-radius: 20px;
+    width: 260px;
+    background-color: rgb(237, 102, 122);;
+    box-shadow: inset 0px 0px 4px 1px rgb(104, 56, 1);
+
+    
+    
+    }
+
+
+.stomach__list__container .item {
+    display:flex;
+    flex-direction: row;
+    align-items:flex-start;
+    
+    padding: 5px 0px 0px 6px;
+    margin: 1px 0 0 15px;
+    
+    height: 40px;
+    width: 230px;
+    
+    background-color:rgba(162, 65, 65, 0.96);;
+
+    border-radius: 5px;
+    border: 2px solid #ec7b7b;
+}
+
+.stomach__list__container .item:first-child {
+    margin-top: 8px;
+}
+
+.stomach__list__container .item .item__description {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(248, 205, 156)
+}
+
+.stomach__list__container .item .stomach__food__input  {
+    margin: -2px 5px 0 auto;
+    padding-left: 4px;
+    width: 35px;
+    height: 30px;
+    border:none;
+    background:rgb(255, 153, 168);
+    border-radius: 4px;
+    font-size: 20px;
+
+    box-shadow: inset 0px 0px 2px 1px rgb(104, 56, 1);
+}
+
+
+
+.stomach__list__container .item  .stomach__item__delete--btn {
+    
+    padding: 1px 6px 0 0;
+    
+
+    color:rgb(253, 124, 144);
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 0;
+
+    font-size:24px;
 }
 
 /**********************************************
@@ -938,40 +1093,54 @@ footer {
 }
 
 .highscore__container .highscore__title {
+    display:flex;
+    justify-content: center;
     margin-bottom: 15px;
     width: inherit;
     height: 50px;
-    padding: 0 0 0 13%;
+    
     cursor: pointer;
 }
 .highscore__container h1 {
     float: left;
 }
-.highscore__container .trophy__icon {
+.trophy__icon {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+
+    width:100px;
+    height: 40px;
     position:relative;
-    top:6px;
+    
+    right:80px;
+    float:right;
     font-size: 32px;
     color: rgb(174, 255, 253);
     background-color: rgb(40, 185, 181);
     border-radius: 5px;
     padding: 2px 6px 2px 6px;
-    float: left;
-    margin-left: 5%;
+
+    cursor:pointer;
+    
+    
     transform-origin: center;
     -webkit-box-shadow: 3px 5px 0px 3px rgb(40, 185, 181);
     -moz-box-shadow: 3px 5px 0px 3px rgb(40, 185, 181);
-    box-shadow: 2px 2px 0px 2px rgb(36, 145, 142);
-    transition: background-color 1s ease-out;
+    box-shadow: 0px 5px rgb(36, 145, 142);
+    transition: background-color 1s ease-out, top 1.2s;
+    
 }
-.highscore__title:hover .trophy__icon {
+.trophy__icon:hover {
     background-color: rgb(45, 230, 223);
 }
 
-.trophy__icon:active {
-    box-shadow: none;
-    top: 10px;
-    left: 4px;
-
+.trophy__icon.clicked{
+    background-color: rgb(45, 230, 223);
+    box-shadow: 0px 2px rgb(36, 145, 142);
+    top: 2px;
+    
+}
 .highscore__content h2 {
     letter-spacing: 0px;
 }
