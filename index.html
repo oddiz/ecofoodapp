@@ -160,6 +160,7 @@
                             <div class="item__add">
                                 <button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
                             </div>
+                            <div class="stomach__add"><img class="stomach__add--icon" src="./resources/stomach.svg"></div>
                             <div class="food__info">
                                 <div class="food__info__title">
                                     <img class="info__img" src="./resources/img/56.png">
@@ -246,54 +247,37 @@
         <div class="stomach__container">
             <h1>Stomach Contents</h1>
             <div class="stomach__list__container">
-                <div class="item" >
-                    <div class="item__description">WIP</div>
-                    <input class="stomach__food__input" placeholder="#">
-                    <i class="ion-close stomach__item__delete--btn"></i>
-                        
-                </div>
-                <div class="item" >
-                    <div class="item__description">WIP</div>
-                    <input class="stomach__food__input" placeholder="#">
-                    <i class="ion-close stomach__item__delete--btn"></i>
-                        
-                </div>
-                <div class="item" >
-                    <div class="item__description">WIP</div>
-                    <input class="stomach__food__input" placeholder="#">
-                    <i class="ion-close stomach__item__delete--btn"></i>
-                        
-                </div>
-                <div class="item" >
-                    <div class="item__description">WIP</div>
-                    <input class="stomach__food__input" placeholder="#">
-                    <i class="ion-close stomach__item__delete--btn"></i>
-                        
-                </div>
-                
-                
-                
+            
 
+            </div>
+            <div class="stomach__apply__button__container">
+                <div class="stomach__apply__button__flipper">
+                    <div class="stomach__apply__button__front-face">Apply Changes</div>
+                    <div class="stomach__apply__button__back-face">Saved</div>
+                </div>
+            </div>
+        </div>
+        <div class="highscore__container">
+            <div class="highscore__title">
+                <h1>Highscore</h1>
+                <div class ="best__button"><div class="best__text"># 1</div></div>
+            </div>
+            
+            <div class="highscore__content">
+                <!--<p><i>Run the sim to see highscores</i></p>-->
+                <p><i>If you are seeing this, that means the highscore database is currently not online or still loading.<br></i></p>
             </div>
         </div>
         
         <footer>
-			<div class="stomach__button">
+			<div class="footer__button stomach__button">
 			    <img src="resources/stomach.svg" height="35px">
             </div>
             
-            
-		    <div class="highscore__container">
-                <div class="highscore__title">
-                    <h1>Highscore</h1>
-                </div>
-                
-				<div class="highscore__content">
-                    <!--<p><i>Run the sim to see highscores</i></p>-->
-					<p><i>If you are seeing this, that means the highscore database is currently not online or still loading.<br></i></p>
-				</div>
-			</div>
-            <div class="trophy__icon"> <div>#1 </div> <i class="ion-trophy"></i></div>   
+            <div class="footer__button highscore__button">
+                <div class="trophy__icon"> <i class="ion-trophy"></i></div>   
+
+            </div>
         </footer>
         
 		<script src="vendor/js/cleave.js"></script>	
