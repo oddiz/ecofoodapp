@@ -1,23 +1,24 @@
-var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW;
+var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, stomachContentW;
 
 onmessage = function(e) {
     if (!e) {
         return;
     }
-    console.log(e);
+    
     activeMenuW = e.data[0];
     rollNumberW = e.data[1];
     foodCountW = e.data[2];
     budgetW = e.data[3];
     calorieW = e.data[4];
+    stomachContentW = e.data[5];
 
-    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW);
+    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, stomachContentW);
 }
 
 
 
 
-function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie) {
+function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, stomachContent) {
 	//randomizes and tests the active menu array
     "use strict";
     
@@ -59,8 +60,20 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
 			multiplier: balancedMultiplier
 		};
 	}
+    
+    var stomachFoods = stomachContent
+    
+    var menu = function () {
+        var returnMenu = []
+        if (stomachFoods && stomachFoods.length > 0) {
+            stomachFoods.forEach(function (ele) {
+                returnMenu.push(ele);
+            })
+        }
 
-	var menu = [];
+        return returnMenu
+    }
+    
 	var randomizer = 0;
 	var bestMenuNames;
 	var bestIndex = 0;
@@ -76,13 +89,20 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
     var progressPercentOld= 0;
     var totalPrice = 0;
     var totalCalorie = 0;
+    var calcMenu = menu();
 
 	for (var i = 0; i <= rollNumber; i++) {
+        
+
+        
+
+        
+        
         totalPrice = 0;
         totalCalorie = 0;
 		for (var q = 0; q < foodCount; q++) {
             randomizer = Math.floor(Math.random() * activeMenuArray.length);
-            menu.push(activeMenuArray[randomizer]);
+            calcMenu.push(activeMenuArray[randomizer]);
             totalPrice += parseInt(activeMenuArray[randomizer].price);
             totalCalorie += parseInt(activeMenuArray[randomizer].cal);
         }
@@ -100,12 +120,15 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
 
         if(((parseInt(budget) != -1) && totalPrice > parseInt(budget)) || ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie))) {
             
-            menu = [];          
+                menu = [];
+            
             continue;
         }
 
-		var result = calculateSP(menu);
-
+        
+		var result = calculateSP(calcMenu);
+           
+        
        
 
 		if (result.SP > bestSP) {
@@ -115,12 +138,14 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
             bestMultiplier = result.multiplier;
             bestTotalPrice = totalPrice;
             bestTotalCalorie = totalCalorie;
-            bestMenuArray = menu;
+            bestMenuArray = calcMenu;
         }
         
         
 
-		menu = [];
+		
+            calcMenu = menu();
+        
 	}
     if(bestMenuNames) {
         //"3+1+2+4" => [3,1,2,4]
@@ -142,9 +167,9 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
                 finalResult[foodName] = 1;
             }
         }
-    
+        
+        
         /*
-         *console.log(finalResult);
          *console.log(bestSP + " found at " + bestIndex + ". try.");
          */
     
@@ -155,7 +180,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie)
             spAmount: bestSP,
             foundAt: bestIndex,
             multiplier: bestMultiplier,
-            foodQty: parseInt(foodCount),
+            foodQty: parseInt(foodCount) + stomachFoods.length,
             totalPrice: bestTotalPrice,
             totalCalorie: bestTotalCalorie,
             resultMenuArray: bestMenuArray

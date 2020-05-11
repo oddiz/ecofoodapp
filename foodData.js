@@ -1,3 +1,6 @@
+/*eslint-disable camelcase*/
+/*eslint-disable no-unused-vars*/
+
 function Food (id,foodName,foodType,foodTier,carb,pro,fat,vit,cal,weight,price) {
     "use strict";
     this.id = id;

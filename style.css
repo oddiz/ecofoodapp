@@ -391,7 +391,7 @@ body::after {
 .sim__amount,
 .budget__amount,
 .calorie__amount {
-	diplay: block;
+	display: block;
 	height: auto;
 	float: left;
 }
@@ -691,6 +691,7 @@ content: "";
     display: block;
     vertical-align: middle;
     line-height: 0;
+    float:right;
     
 }
 .item__add--btn {
@@ -750,6 +751,16 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
+.item .stomach__add {
+    height:25px;
+    width:25px;
+    float:right;
+    margin-right:10px;
+
+    cursor: pointer;
+
+}
+
 /**************************************
 RIGHT CONTAINER
 **************************************/
@@ -789,7 +800,7 @@ RIGHT CONTAINER
 }
 
 .menu__visible {
-    right: 20%;
+    right: 8%;
     filter:blur(0px);
 }
 
@@ -905,13 +916,30 @@ footer {
 	display:block;
 	position: fixed;
 	bottom:0px;
-	height: 50px;
+	height: 53px;
 	width: 100%;
 	background-color: #F7F7F7;
-	border-top: 1px solid rgba(40,185,181,1.00);
+	border-top: 3px solid rgba(40,185,181,1.00);
 	z-index: 9999;
 	
 
+}
+
+.footer__button {
+    display:inline-block;
+    position: inherit;
+    height: 38px;
+    width:100px;
+
+    margin-top: 3px;
+    
+    cursor:pointer;
+
+    text-align:center;
+
+    border-radius: 10px;
+
+    transition: background-color 0.4s ease-out;
 }
 
 
@@ -921,16 +949,13 @@ footer {
 
 .stomach__button {
 	display: inline-block;
-	position:inherit;
-    width: 100px;
-    cursor:pointer;
-	text-align: center;
-	padding-right:5px;
+    position:inherit;
+    
+    padding-right:5px;
 	padding-top: 0px;
-	margin-top: 3px;
-	margin-left:80px;
-	border-radius: 10px;
-	float:left;
+    margin-left:80px;
+    
+    float:left;
 	background-color:rgba(233,155,88,1.00);
 	box-shadow: 0 5px #7E3E00;
 }
@@ -938,6 +963,11 @@ footer {
 .stomach__button.clicked {
     margin-top: 6px;
     box-shadow: 0 2px #7E3E00;
+    background-color:rgb(247, 176, 115)
+}
+
+.stomach__button:hover {
+    background-color:rgb(247, 176, 115)
 }
 
 .stomach__container {
@@ -967,7 +997,7 @@ footer {
 }
 
 .stomach__container.visible {
-    bottom: 63px;
+    bottom: 68px;
 
 }
 
@@ -985,8 +1015,8 @@ footer {
 
 .stomach__container::after {
 	content: "";
-	position: relative;
-	bottom:-17px;
+	position: absolute;
+	bottom:-40px;
 	left:30px;
 	
 	border-width: 20px;
@@ -994,16 +1024,80 @@ footer {
  	border-color: rgb(255, 200, 137) transparent transparent transparent;
 }
 
+
+
+.stomach__apply__button__container {
+    display:inline-block;
+    text-align: center;
+    width:176px;
+    height: 40px;
+    margin-left:47px;
+    
+}
+
+.stomach__apply__button__flipper {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 11em; height: 2.5em;
+    background-color: rgb(241, 198, 161);
+    box-shadow: 0 3px 5px rgb(238, 166, 104);
+    transition: all 0.6s cubic-bezier(.36,.65,.37,1.39);
+    transform-style: preserve-3d;
+    
+    cursor:pointer;
+    
+}
+
+.stomach__apply__button__flipper.clicked {
+    transform: rotateX(90deg);
+}
+
+.stomach__apply__button__front-face, .stomach__apply__button__back-face {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    
+    letter-spacing: 2px;
+    line-height: 2.5em;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    box-shadow: inset 0px 0px 3px 2px rgba(255, 255, 255, 0.158);
+    
+}
+
+.stomach__apply__button__front-face {
+    background-color: #77341F;
+    color: #fff;
+    text-shadow: 0 1px 1px black;
+    
+    transform: rotateX(0deg) translateZ(1.25em);
+    
+    
+}
+
+.stomach__apply__button__back-face {
+    background-color: #3FC258;
+    color: white; 
+    transform: rotateX(-90deg) translateZ(1.25em);
+    
+}
+
 .stomach__list__container {
     display: inline-block;
 
     overflow:auto;
+    overflow-x: hidden;
 
+    scrollbar-color: rgb(128, 46, 58) rgb(237, 102, 122);
+    scrollbar-width: thin;
     margin: 20px 0 0 6px;
-    height: 315px;
+    height: 270px;
     border-radius: 20px;
     width: 260px;
-    background-color: rgb(237, 102, 122);;
+    background-color: rgb(237, 102, 122);
     box-shadow: inset 0px 0px 4px 1px rgb(104, 56, 1);
 
     
@@ -1068,16 +1162,46 @@ footer {
     font-size:24px;
 }
 
+
+
 /**********************************************
 *** HIGH SCORE
 **********************************************/
 
+.highscore__button {
+
+    position:relative;
+
+    right:80px;
+    float:right;
+    font-size: 32px;
+    color: rgb(174, 255, 253);
+    background-color: rgb(40, 185, 181);
+
+    
+    transform-origin: center;
+    box-shadow: 0px 5px rgb(36, 145, 142);
+    
+    
+}
+.highscore__button:hover {
+    background-color: rgb(45, 230, 223);
+}
+
+.highscore__button.clicked{
+    background-color: rgb(45, 230, 223);
+    box-shadow: 0px 2px rgb(36, 145, 142);
+    margin-top:6px;
+    
+}
+
 .highscore__container {
     position: fixed;
     width: 280px;
+
     min-height: 20%;
     right: 0px;
-    bottom: 49px;;
+    bottom: -280px;;
     background: rgba(247,247,247,1.00);
 
 	border: 3px solid rgba(40,185,181,1.00);
@@ -1089,7 +1213,14 @@ footer {
     font-size: 20px;
     color: #64707B;
     font-family: inherit;
-	z-index: 9999;
+
+    transition: all 0.5s;
+
+	z-index: 999;
+}
+
+.highscore__container.visible {
+    bottom:49px;
 }
 
 .highscore__container .highscore__title {
@@ -1098,49 +1229,37 @@ footer {
     margin-bottom: 15px;
     width: inherit;
     height: 50px;
-    
-    cursor: pointer;
 }
+
+.highscore__container .highscore__title .best__button {
+    width:35px;
+    height: 35px;
+    background-color: rgba(40,185,181,1.00);
+    
+    align-self: center; 
+    text-align: center;
+
+    padding-top:3px;
+    margin: 6px 0 0 15px;
+
+    cursor: pointer;
+    color:white;
+    font-weight: 700;
+
+    border-radius: 10px;
+    box-shadow: 0px 5px rgb(36, 145, 142);
+    
+    
+}
+.highscore__container .highscore__title .best__button.clicked{
+    box-shadow:none;
+    margin: 11px 0 0 15px;
+}
+
 .highscore__container h1 {
     float: left;
 }
-.trophy__icon {
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
 
-    width:100px;
-    height: 40px;
-    position:relative;
-    
-    right:80px;
-    float:right;
-    font-size: 32px;
-    color: rgb(174, 255, 253);
-    background-color: rgb(40, 185, 181);
-    border-radius: 5px;
-    padding: 2px 6px 2px 6px;
-
-    cursor:pointer;
-    
-    
-    transform-origin: center;
-    -webkit-box-shadow: 3px 5px 0px 3px rgb(40, 185, 181);
-    -moz-box-shadow: 3px 5px 0px 3px rgb(40, 185, 181);
-    box-shadow: 0px 5px rgb(36, 145, 142);
-    transition: background-color 1s ease-out, top 1.2s;
-    
-}
-.trophy__icon:hover {
-    background-color: rgb(45, 230, 223);
-}
-
-.trophy__icon.clicked{
-    background-color: rgb(45, 230, 223);
-    box-shadow: 0px 2px rgb(36, 145, 142);
-    top: 2px;
-    
-}
 .highscore__content h2 {
     letter-spacing: 0px;
 }
