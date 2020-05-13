@@ -302,7 +302,7 @@ var UIController = (function() {
             if (result) {
                 lastResult = result;
             } else {
-                console.log(lastResult)
+                //console.log(lastResult)
                 result = lastResult;       
             }
 
@@ -373,11 +373,11 @@ var UIController = (function() {
                 UIController.displayHighscore();
                 //bestButtonClasses.add("clicked")
 
-                console.log("1")
+                
             } else if (!isShowingHighest) {
                 UIController.displayHighest();
                 //bestButtonClasses.remove("clicked")
-                console.log("2")
+                
             }
         },
 
@@ -545,7 +545,7 @@ var menuController = (function(UIController) {
 
                 
                 if (node.childNodes[1]) {
-                    console.log(node.childNodes[1].value)
+                    //console.log(node.childNodes[1].value)
 
                     if (node.childNodes[1].value > 0) {
                         nodeFoodAmount = parseInt(node.childNodes[1].value)
@@ -553,9 +553,9 @@ var menuController = (function(UIController) {
                         nodeFoodAmount = 0;
                     }
 
-                    console.log("nodeFoodAmount:" + nodeFoodAmount)
+                    //console.log("nodeFoodAmount:" + nodeFoodAmount)
                     nodeFood = getFoodFromID(node.getAttribute("food-id")); 
-                    console.log(nodeFood)
+                    //console.log(nodeFood)
                     for (var i = 0; i < node.childNodes[1].value; i++) {
                         stomachFoodList.push(nodeFood)
                     }
@@ -564,7 +564,7 @@ var menuController = (function(UIController) {
 
                 
             })
-            console.log(stomachFoodList);
+            //console.log(stomachFoodList);
 
             stomachContent = stomachFoodList;
         },
@@ -804,7 +804,7 @@ var controller = (function(UICtrl, menuCtrl) {
 
     function addAllTier(tier) {
         var availList = UICtrl.getAvailableList();
-        console.log(availList)
+        //console.log(availList)
 
         availList.forEach(function(ele) {
             if (ele.tier === tier) {
@@ -875,7 +875,7 @@ var controller = (function(UICtrl, menuCtrl) {
 
     function stomachContainerListener(event) {
         var selectedFood;
-        console.log(event);
+        //console.log(event);
 
         if(event.target.className.includes("stomach__item__delete--btn")) {
             selectedFoodId = event.target.parentElement.getAttribute("food-id");
@@ -952,6 +952,7 @@ var controller = (function(UICtrl, menuCtrl) {
         }
 
         work.onmessage = function(result) {
+            
             if (typeof result.data === 'number') {
                 UICtrl.setPercentage(result.data)
             } else if (result.data === 'error') {
@@ -970,7 +971,7 @@ var controller = (function(UICtrl, menuCtrl) {
                 },500)
 
                 sendPostRequest(result.data);
-                console.log(result.data)
+                //console.log(result.data)
                 terminateWorker();
             }          
         }
@@ -984,7 +985,7 @@ var controller = (function(UICtrl, menuCtrl) {
         }).
         then((res) => res.json()).
         then((json) => {
-            console.log("Request complete! response:", json);
+            //console.log("Request complete! response:", json);
             UICtrl.displayHighscore(json);
             
             return json;

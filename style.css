@@ -184,7 +184,8 @@ body::after {
 	margin-bottom: 100px;
     transition: margin-left 1s;
     display: inline-block;
-	
+    
+    background-color: white;
 }
 
 .sort__bar {
@@ -394,14 +395,7 @@ body::after {
 	display: block;
 	height: auto;
 	float: left;
-}
-.food__amount,
-.sim__amount,
-.budget__amount,
-.calorie__amount {
-	
-	width: auto;
-	
+    width: auto;
 }
 
 
@@ -510,7 +504,10 @@ content: "";
 	opacity: 1;
 }
 
-
+.food__amount .info__text .menu__size__example {
+    text-align: left;
+    margin: 5px 0 0 15px;
+}
 
 
 .withAsync {

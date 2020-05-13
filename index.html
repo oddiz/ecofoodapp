@@ -2,13 +2,13 @@
 <html lang="en">
    <head>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544596-1"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544596-2"></script>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 
-		  gtag('config', 'UA-131544596-1');
+		  gtag('config', 'UA-131544596-2');
 		</script>
 	   
         <meta charset="UTF-8">
@@ -36,12 +36,27 @@
 				<div class="info__button"><i class="ion-ios-information-outline"></i></div>
 				<div class="input__container clearfix">
 					<div class="food__amount">
-						<div class= "info__text"><span style ="font-size: 20px">Desired number of food in diet</span><br><br>Determines the size of the diets which will be tested with random <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span>. </div>
-						<input class="food__amount__input" placeholder="Diet scale" autofocus>
+						<div class= "info__text">
+                            <span style ="font-size: 20px">Desired number of food in menu calculation</span> 
+                            <div class ="menu__size__example"> <span style="font-weight: 600; font-size: 1.2em;">Example:</span> 
+                                <br><span style="font-size:1.1em;">Menu size:</span> 10 
+                                <br><span style="font-size:1.1em;">Output:</span> 
+                                <br> 3 x Wheat Porrige 
+                                <br> 5 x Baked Meat 
+                                <br> 2 x Corn Fritters 
+                                <br>+ Stomach content if you specifed 
+                            </div> 
+                        </div>
+						<input class="food__amount__input" placeholder="Menu Size" autofocus>
 					</div>
 					<div class="sim__amount">
-						<div class= "info__text"><span style ="font-size: 20px">Simulation cycle amount</span><br><br>Each cycle, it'll test a new diet and compare the results to find the best combination.<br><br>Higher number = better results<br><br>(unless you have found the best possible combination already.)</div>
-						<input class="simulation__scale__input" placeholder="Simulation scale">
+                        <div class= "info__text">
+                            <span style ="font-size: 20px">Calculation cycle amount</span>
+                            <br>
+                            <br>Each cycle, it'll test a new diet and try to find the best combination of foods based on your <span style="color: #FF5049">SELECTED FOOD</span>s.
+                            <br>
+                            <br>Higher number = better results<br><br></div>
+						<input class="simulation__scale__input" placeholder="Calculation scale">
 					</div>
 					<div class="budget__amount">
 						<div class= "info__text"><span style ="font-size: 20px">Budget <i>(Optional)</i></span><br><br>If you specify prices for foods, you can use this option to set a budget limit.<br><br>Only the best menu less than your budget will be shown.</div>

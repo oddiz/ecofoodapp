@@ -186,7 +186,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             resultMenuArray: bestMenuArray
         });
     } else {
-        //postMessage("error");
+        postMessage("error");
         
         //return console.log("error");
     }
