@@ -419,11 +419,17 @@ body::after {
 	transition: all 0.5s;
 }
 
-.food__amount__input, 
-.simulation__scale__input {	
+.food__amount__input {	
 	border: 2px solid #ccc;
     width: 150px;
 }
+
+.simulation__scale__input {
+    border: 2px dashed #ccc;
+    width: 150px;
+}
+
+
 
 .budget__amount__input,
 .calorie__amount__input {
@@ -433,11 +439,13 @@ body::after {
 }
 
 .food__amount__input:focus, 
-.simulation__scale__input:focus {
+{
 	border: 2px solid rgba(40,185,181,1.00);
 }
 
-.budget__amount__input:focus{
+.budget__amount__input:focus,
+.simulation__scale__input:focus,
+.calorie__amount__input:focus {
 	border: 2px dashed rgba(40,185,181,1.00);
 }
 
@@ -667,17 +675,20 @@ content: "";
     color: #28B9B5;
 }
 
-.selected__food__container .item__value,
-.selected__food__container .item__delete--btn {
+.selected__food__container .item__value {
     color: #FF5049;
-}
 
+}
 
 .left__container .item__delete,
 .left__container .item__add {
     float: right;
 }
 
+.left__container .item__delete {
+    height: 22px;
+	width: 22px;
+}
 
 
 .item__delete--btn, .item__add--btn {
@@ -691,8 +702,31 @@ content: "";
     float:right;
     
 }
+
+.item__delete--btn {
+	padding-top: 1px;
+    
+    color:#FF5049;
+    
+    font-size: 26px;
+    border-radius: 25px;
+	
+	text-align: center;
+	font-weight: bold;
+}
+
+
 .item__add--btn {
-    color: #28B9B5;
+	padding-top: 1px;
+    margin-top: 1px;
+
+    color: white;
+	background: #28B9B5;
+	border-radius: 25px;
+	height: 25px;
+	width: 25px;
+	text-align: center;
+	font-weight: bold;
 }
 .item__delete--btn:focus { outline: none; }
 .item__delete--btn:active { transform: translateY(2px); }

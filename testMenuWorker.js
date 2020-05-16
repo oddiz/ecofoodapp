@@ -1,30 +1,34 @@
-var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, stomachContentW;
-
 onmessage = function(e) {
+    
+    var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, stomachContentW,option;
     if (!e) {
         return;
     }
-    
     activeMenuW = e.data[0];
     rollNumberW = e.data[1];
     foodCountW = e.data[2];
-    budgetW = e.data[3];
-    calorieW = e.data[4];
+    budgetW = e.data[3] || Infinity;
+    calorieW = e.data[4] || Infinity;
     stomachContentW = e.data[5];
-
-    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, stomachContentW);
+    option = e.data[6];
+    
+    
+    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, stomachContentW,option);
 }
 
 
 
 
-function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, stomachContent) {
+function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, stomachContent, option) {
 	//randomizes and tests the active menu array
     "use strict";
-    
-    
 
-	
+    if (calorie !== Infinity) {
+        calorie = parseInt(calorie);
+    }
+    if (budget !== Infinity) {
+        budget = parseInt(budget);
+    }
 
 	function calculateSP(menu) {
 		//accepts an array of food objects
@@ -61,17 +65,15 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
 		};
 	}
     
-    var stomachFoods = stomachContent
     
-    var menu = function () {
-        var returnMenu = []
-        if (stomachFoods && stomachFoods.length > 0) {
-            stomachFoods.forEach(function (ele) {
-                returnMenu.push(ele);
-            })
+    var getMenu = function () {
+        
+        return {
+            //returns array of foods
+            all: activeMenuArray.concat(stomachContent),
+            stomach: stomachContent || [],
+            active: activeMenuArray
         }
-
-        return returnMenu
     }
     
 	var randomizer = 0;
@@ -82,6 +84,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     var bestTotalPrice = 0;
     var bestTotalCalorie = 0;
     var bestMenuArray = [];
+    var totalIterations;
 
 	//console.log("usedFoods check " + activeMenuArray);
 
@@ -89,64 +92,185 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     var progressPercentOld= 0;
     var totalPrice = 0;
     var totalCalorie = 0;
-    var calcMenu = menu();
+    
+    if (option === "random" || !option){
+        totalIterations = rollNumber;
+        console.log("Starting random")
+        for (var i = 0; i <= rollNumber; i++) {
+            var randomMenu = [];
 
-	for (var i = 0; i <= rollNumber; i++) {
-        
-
-        
-
-        
-        
-        totalPrice = 0;
-        totalCalorie = 0;
-		for (var q = 0; q < foodCount; q++) {
-            randomizer = Math.floor(Math.random() * activeMenuArray.length);
-            calcMenu.push(activeMenuArray[randomizer]);
-            totalPrice += parseInt(activeMenuArray[randomizer].price);
-            totalCalorie += parseInt(activeMenuArray[randomizer].cal);
-        }
-
-        progressPercent = Math.floor(i/rollNumber * 100);
-
-        if (progressPercent !== progressPercentOld) {
             
-            progressPercentOld = progressPercent;
             
+            totalPrice = 0;
+            totalCalorie = 0;
+    
+            if (option === "random") {
+    
+                for (var q = 0; q < foodCount; q++) {
+                    randomizer = Math.floor(Math.random() * activeMenuArray.length);
+                    randomMenu.push(activeMenuArray[randomizer]);
+                    totalPrice += parseInt(activeMenuArray[randomizer].price);
+                    totalCalorie += parseInt(activeMenuArray[randomizer].cal);
+                }
+            }
 
-            postMessage(progressPercent);
-
-        }
-
-        if(((parseInt(budget) != -1) && totalPrice > parseInt(budget)) || ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie))) {
             
-                menu = [];
-            
-            continue;
-        }
+    
+    
+            progressPercent = Math.floor(i/rollNumber * 100);
+    
+            if (progressPercent !== progressPercentOld) {
+                
+                progressPercentOld = progressPercent;
+                
+    
+                postMessage(progressPercent);
+    
+            }
+    
+            if(((parseInt(budget) != -1) && totalPrice > parseInt(budget)) || ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie))) {
+                
+                randomMenu = [];
 
-        
-		var result = calculateSP(calcMenu);
+                
+                
+                continue;
+            }
+            randomMenu = randomMenu.concat(getMenu().stomach)
+            var result = calculateSP(randomMenu);
+               
+            
            
-        
-       
-
-		if (result.SP > bestSP) {
-			bestSP = result.SP;
-			bestMenuNames = result.foodList;
-			bestIndex = i;
-            bestMultiplier = result.multiplier;
-            bestTotalPrice = totalPrice;
-            bestTotalCalorie = totalCalorie;
-            bestMenuArray = calcMenu;
+    
+            if (result.SP > bestSP) {
+                bestSP = result.SP;
+                bestMenuNames = result.foodList;
+                bestIndex = i;
+                bestMultiplier = result.multiplier;
+                bestTotalPrice = totalPrice;
+                bestTotalCalorie = totalCalorie;
+                bestMenuArray = randomMenu;
+            }
+            
+            
+    
+            
+            
+            
         }
-        
+    }
+
+    if (option === "definitive") {
+        console.log("Starting definitive")
+        calculateAllIterations();
+    }
+    
+   
+    function calculateAllIterations () {
+
+        var inputMenu = getMenu().active;
+        console.log(inputMenu)
+        var items = parseInt(foodCount);
+        var groups = inputMenu.length;
+        totalIterations = (factorial(items+groups-1)) / (factorial(items)*factorial(groups-1))
+        var counter = 0;
+
+
         
 
-		
-            calcMenu = menu();
-        
-	}
+        partiteIdentical(items, groups);
+        function partiteIdentical(items, groups, args = [0], index = 0) {
+            
+            
+            
+            if (groups === 0) {
+                //eslint-disable-next-line brace-style
+                //eslint-disable-next-line max-statements-per-line
+                var argsTotal = args.reduce(function(a,b) { 
+                    return a+b 
+                })
+
+                if (argsTotal === items) {
+                    
+                    var definitiveMenu = constructMenuFromArgs(args, getMenu().stomach);
+                    
+                    if((totalPrice <= budget) && (totalCalorie <= calorie)) {
+                        
+                        var result = calculateSP(definitiveMenu);
+                        if (result.SP > bestSP) {
+                            bestSP = result.SP;
+                            bestMenuNames = result.foodList;
+                            bestIndex = counter;
+                            bestMultiplier = result.multiplier;
+                            bestTotalPrice = totalPrice;
+                            bestTotalCalorie = totalCalorie;
+                            bestMenuArray = constructMenuFromArgs(args, getMenu().stomach);
+                        }
+                    }
+                    
+
+                    
+                    counter += 1;
+                    
+                    progressPercent = Math.floor(counter/totalIterations * 100);
+                    
+                    
+                    if (progressPercent !== progressPercentOld) {
+                        
+                        progressPercentOld = progressPercent;
+                        postMessage(progressPercent);
+                        
+                    }
+                    
+            }
+                    
+            } else {
+    
+                var groupRest = groups-1;        
+                
+                for (args[index] = 0; args[index] < items+1; ++args[index]) {
+                    
+                    partiteIdentical(items, groupRest, args, index + 1);
+            
+                }
+            }
+        }
+    
+        function constructMenuFromArgs(args,stomach) {
+            //[3,0,2,3]
+            if (!stomach) {
+                stomach = []
+            }
+
+            totalCalorie = 0
+            totalPrice = 0
+            
+            var calculateMenu = [];
+    
+            args.forEach(function(ele,index) {
+    
+                for (var i = 0; i < ele; i++) {
+                    calculateMenu.push(inputMenu[index]);
+                    totalPrice += parseInt(inputMenu[index].price);
+                    totalCalorie += parseInt(inputMenu[index].cal);
+                }
+            })
+            
+            return calculateMenu.concat(stomach);
+        }
+
+        function factorial (number) {
+            var result = 1;
+            for (var i = 2; i <= number; i++) {
+                result *= i;
+            }
+            
+            return result;
+        }
+    
+    }
+
+
     if(bestMenuNames) {
         //"3+1+2+4" => [3,1,2,4]
         var listSplit = bestMenuNames.split("+");
@@ -180,10 +304,11 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             spAmount: bestSP,
             foundAt: bestIndex,
             multiplier: bestMultiplier,
-            foodQty: parseInt(foodCount) + stomachFoods.length,
+            foodQty: parseInt(foodCount) + stomachContent.length,
             totalPrice: bestTotalPrice,
             totalCalorie: bestTotalCalorie,
-            resultMenuArray: bestMenuArray
+            resultMenuArray: bestMenuArray,
+            totalIterations: totalIterations
         });
     } else {
         postMessage("error");

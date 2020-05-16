@@ -1,3 +1,4 @@
+/*eslint-disable no-useless-escape */
 /*eslint-disable no-unused-vars */
 /*eslint-disable no-tabs */
 /*eslint-disable array-element-newline */
@@ -160,7 +161,7 @@ var UIController = (function() {
 			}
 			//add food to selected list
 			htmlTemplate =
-            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img class="available__img" src="./resources/img/%imgid%.png"><div class="item__delete"><i class="ion-ios-close-outline item__delete--btn"></i></div><div class="item__price"><div class="item__price__container"><img src="resources/imgWebP/ptag.png"><input type="number" class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/imgWebP/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
+            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img class="available__img" src="./resources/img/%imgid%.png"><i class="ion-ios-close item__delete--btn"></i><div class="item__price"><div class="item__price__container"><img src="resources/imgWebP/ptag.png"><input type="number" class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/imgWebP/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
             
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
             newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -262,7 +263,7 @@ var UIController = (function() {
                 replace('%sp%', resultObject.spAmount.toFixed(2)).
                 replace('%multiplier%', resultObject.multiplier.toFixed(2)).
                 replace('%index%', foundAt).
-                replace('%simcount%', this.getInput().simInput).
+                replace('%simcount%', resultObject.totalIterations).
                 replace('%price%', resultObject.totalPrice).
                 replace('%calories%', resultObject.totalCalorie)
                 
@@ -595,10 +596,12 @@ var menuController = (function(UIController) {
         addActiveAll: function () {
             activeMenu = [];
             for(foodType in foods) {
-                if ({}.hasOwnProperty.call(foodType, foods)) {
-
+                
+                if ({}.hasOwnProperty.call(foods, foodType)) {
+                    console.log("test")
                     for(id in foods[foodType]) {
-                        if ({}.hasOwnProperty.call(id, foods[foodType])) {
+                        if ({}.hasOwnProperty.call(foods[foodType], id)) {
+                            
                             activeMenu.push(foods[foodType][id])
 
                         }
@@ -696,6 +699,7 @@ var controller = (function(UICtrl, menuCtrl) {
         document.querySelector(DOM.stomachContainer).addEventListener("click", stomachContainerListener);
 
         //input formatting
+        
         var simInputFormat = new Cleave(".simulation__scale__input", {
             numeral: true,
             numeralThousandsGroupStyle: 'thousand'
@@ -862,8 +866,10 @@ var controller = (function(UICtrl, menuCtrl) {
 	function deleteFoodfromActive(event) {
 		var itemID, selectedFood;
         //get UI input for which one pressed
-        
-        itemID = event.target.parentNode.parentNode.id;
+        if (event.target.className.includes("item__delete--btn")) {
+            console.log(event);
+        }
+        itemID = event.target.parentNode.id;
 		if (parseInt(itemID)) {
 			selectedFood = getFoodFromID(itemID);
 			//remove from selected food and add to available food
@@ -893,14 +899,11 @@ var controller = (function(UICtrl, menuCtrl) {
     }
     
     
-
+    highCountAdvisorShown = false;
     function startWorkerSim() {
         //disable calculate button
         document.querySelector(DOM.calculateButton).removeEventListener("click", startWorkerSim);
         
-
-        
-
 
         var activeMenu = menuCtrl.showActive();
         var stomachContent = menuCtrl.showStomachContent();
@@ -909,40 +912,85 @@ var controller = (function(UICtrl, menuCtrl) {
         var inputSim = input.simInput;
         var inputBudget = input.budgetInput;
         var inputCalorie = input.calorieInput;
-        if(inputFood === "" || inputSim === "") {
+        if(inputFood === "") {
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
-            swal("Don't leave input fields blank.", "", "error");
+            showError("no_blank")
             
             return;
+
+            
         } else if (activeMenu.length === 0) {
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
-            swal("No food selected.", "" , "error");
+            showError("no_food")
 
             return;
         }
-
-        //swipe left container to left
-        document.querySelector(DOM.leftContainer).style.marginLeft = "5%";
-        document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(4px)";
-        
         var menuPaper;
-        menuPaper = document.querySelector(DOM.menuPaper)
-        if(menuPaper) {
-            menuPaper.style.tranform ='translateX(0);';
-        }
+        var stopBtn = document.querySelector(DOM.stopButton);
+        
 
-        console.log('Starting worker.') 
+        console.log('Starting Worker.') 
 
         var work = new Worker('testMenuWorker.js');
 
-        work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent])
+        if (inputSim === "") {
 
-        //enable stop button
-        var stopBtn = document.querySelector(DOM.stopButton);
-        stopBtn.classList.add("visible");
-        stopBtn.addEventListener("click", terminateWorker);
+            var iterationCount = Math.pow(activeMenu.length, inputFood);
+            console.log(iterationCount)
+            if (iterationCount > 3656158440062976 && highCountAdvisorShown === false) {
+                Swal.fire({
+                    title: "This might take a while",
+                    html: "The amount of iterations for this calculation is high. <br><br> However you can cancel the calculation any time if it's taking too long. <br><br> You can also consider setting a custom calculation scale.",
+                    input: "checkbox",
+                    inputPlaceholder: "Don't show this again.",
+                    icon: "warning",
+                    showCancelButton: true
+                }).then(function(result) {
+                    console.log(result)
+                    if(result.value === 0 || result.value === 1) {
+                        uiStartWorker()
+                        work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "definitive"])
+                        if(result.value === 1) {
+                            //don't show this again ticked
+                            highCountAdvisorShown = true
+                        }
+                    } else {
+                        terminateWorker();
+                        
+                    }
+                })
+
+            } else {
+                console.log("ping")
+                uiStartWorker()
+                work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "definitive"])    
+            }
+        } else {
+            uiStartWorker()
+            work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "random"])
+        }
+
+        
+        function uiStartWorker() {
+            document.querySelector(DOM.leftContainer).style.marginLeft = "5%";
+            document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(4px)";
+            
+           
+            menuPaper = document.querySelector(DOM.menuPaper)
+            if(menuPaper) {
+                menuPaper.style.tranform ='translateX(0);';
+            }
+    
+            //enable stop button
+            
+            stopBtn.classList.add("visible");
+            stopBtn.addEventListener("click", terminateWorker);
+        }
+        //swipe left container to left
+       
 
         function terminateWorker () {
+            console.log("Terminating Worker.")
             work.terminate();
             //enable calculate button
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
@@ -956,7 +1004,7 @@ var controller = (function(UICtrl, menuCtrl) {
             if (typeof result.data === 'number') {
                 UICtrl.setPercentage(result.data)
             } else if (result.data === 'error') {
-                swal("No diets found with specified limits.", "", "error");
+                showError("not_found")
                 document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(0)"
                 terminateWorker();
 
@@ -974,6 +1022,24 @@ var controller = (function(UICtrl, menuCtrl) {
                 //console.log(result.data)
                 terminateWorker();
             }          
+        }
+    }
+
+    function showError(type) {
+        
+        switch(type) {
+            default:
+                console.log("no error type found");
+                break;
+            case "not_found":
+                Swal.fire("No diets found with specified limits.", "", "error");
+                break;
+            case "no_blank":
+                Swal.fire("Don't leave input fields blank.", "", "error");
+                break;
+            case "no_food":
+                Swal.fire("No food selected.", "" , "error");
+                break;
         }
     }
 
