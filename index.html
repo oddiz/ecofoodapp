@@ -18,7 +18,7 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
         <link type="text/css" rel="stylesheet" href="style.css">
         <title>Eco Diet Calculator</title>
         <link rel="icon" href="meaticon.png" type="image/png" sizes="16x16">
@@ -51,9 +51,11 @@
 					</div>
 					<div class="sim__amount">
                         <div class= "info__text">
-                            <span style ="font-size: 20px">Calculation cycle amount</span>
+                            <span style ="font-size: 20px">Calculation cycle amount (Optional)</span>
                             <br>
                             <br>Each cycle, it'll test a new diet and try to find the best combination of foods based on your <span style="color: #FF5049">SELECTED FOOD</span>s.
+                            <br>
+                            <br>If left empty, simulation will test all possible combinations.
                             <br>
                             <br>Higher number = better results<br><br></div>
 						<input class="simulation__scale__input" placeholder="Calculation scale">
@@ -299,6 +301,7 @@
         <script src="foodData.js"></script>
         <script src="testMenuWorker.js"></script>
         <script src="ecoFood2.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
             
 		
     </body>
