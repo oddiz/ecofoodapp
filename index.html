@@ -53,15 +53,23 @@
                         <div class= "info__text">
                             <span style ="font-size: 20px">Calculation cycle amount (Optional)</span>
                             <br>
-                            <br>Each cycle, it'll test a new diet and try to find the best combination of foods based on your <span style="color: #FF5049">SELECTED FOOD</span>s.
+                            <br>If left empty or set to 0, simulation will test all the combinations resulting in best menu possible.
                             <br>
-                            <br>If left empty, simulation will test all possible combinations.
+                            <br>If not, it'll test randomly generated menus times the amount you enter here and try to find the best combination of foods based on your <span style="color: #FF5049">SELECTED FOOD</span>s.
                             <br>
                             <br>Higher number = better results<br><br></div>
 						<input class="simulation__scale__input" placeholder="Calculation scale">
 					</div>
 					<div class="budget__amount">
-						<div class= "info__text"><span style ="font-size: 20px">Budget <i>(Optional)</i></span><br><br>If you specify prices for foods, you can use this option to set a budget limit.<br><br>Only the best menu less than your budget will be shown.</div>
+                        <div class= "info__text"><span style ="font-size: 20px">Budget <i>(Optional)</i></span>
+                            <br>
+                            <br>If you specify prices for foods, you can use this option to set a budget limit.
+                            <br>
+                            <br>Only the best menu less than your budget will be shown.
+                            <br>
+                            <br>To specify prices for foods, add them to the selected food list and a price tag will appear.
+                            <br>Prices are stored in cookies so they are saved across sessions.
+                        </div>
 						<input class="budget__amount__input" placeholder="Budget">
 					
 					</div>
@@ -300,7 +308,7 @@
 		<script src="vendor/js/cleave.js"></script>	
         <script src="foodData.js"></script>
         <script src="testMenuWorker.js"></script>
-        <script src="ecoFood3.0.js"></script>
+        <script src="ecoFood3.01.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
             
 		

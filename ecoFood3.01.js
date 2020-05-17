@@ -242,8 +242,10 @@ var UIController = (function() {
                 calorieInput = Infinity;
             }
 
+            
+
             return {
-				foodInput: foodInput.replace(regex, ""),
+				foodInput: parseInt(foodInput.replace(regex, "")),
                 simInput: simInput.replace(regex, ""),
                 budgetInput: budgetInput,
                 calorieInput: calorieInput
@@ -303,7 +305,6 @@ var UIController = (function() {
             if (result) {
                 lastResult = result;
             } else {
-                //console.log(lastResult)
                 result = lastResult;       
             }
 
@@ -389,7 +390,10 @@ var UIController = (function() {
             if(pricesNodeList.length > 0) {
                 pricesNodeList.forEach(function(node) {
                     var id = node.parentNode.parentNode.parentNode.id;
-                    var price = node.value;
+                    var price = parseInt(node.value);
+                    if (isNaN(price)) {
+                        price = 0
+                    }
                     prices.push([id, price]);
                 })
             }
@@ -416,7 +420,6 @@ var UIController = (function() {
             var cId = id + "=";
             var cookies = document.cookie;
             cookies = cookies.split(";");
-            //console.log(cookies);
             for (var cookie of cookies) {
                 if(cookie.charAt(0) === " ") {
                     cookie = cookie.substring(1);
@@ -546,7 +549,6 @@ var menuController = (function(UIController) {
 
                 
                 if (node.childNodes[1]) {
-                    //console.log(node.childNodes[1].value)
 
                     if (node.childNodes[1].value > 0) {
                         nodeFoodAmount = parseInt(node.childNodes[1].value)
@@ -554,9 +556,7 @@ var menuController = (function(UIController) {
                         nodeFoodAmount = 0;
                     }
 
-                    //console.log("nodeFoodAmount:" + nodeFoodAmount)
                     nodeFood = getFoodFromID(node.getAttribute("food-id")); 
-                    //console.log(nodeFood)
                     for (var i = 0; i < node.childNodes[1].value; i++) {
                         stomachFoodList.push(nodeFood)
                     }
@@ -598,7 +598,6 @@ var menuController = (function(UIController) {
             for(foodType in foods) {
                 
                 if ({}.hasOwnProperty.call(foods, foodType)) {
-                    console.log("test")
                     for(id in foods[foodType]) {
                         if ({}.hasOwnProperty.call(foods[foodType], id)) {
                             
@@ -808,7 +807,6 @@ var controller = (function(UICtrl, menuCtrl) {
 
     function addAllTier(tier) {
         var availList = UICtrl.getAvailableList();
-        //console.log(availList)
 
         availList.forEach(function(ele) {
             if (ele.tier === tier) {
@@ -867,7 +865,7 @@ var controller = (function(UICtrl, menuCtrl) {
 		var itemID, selectedFood;
         //get UI input for which one pressed
         if (event.target.className.includes("item__delete--btn")) {
-            console.log(event);
+            //console.log(event);
         }
         itemID = event.target.parentNode.id;
 		if (parseInt(itemID)) {
@@ -881,7 +879,6 @@ var controller = (function(UICtrl, menuCtrl) {
 
     function stomachContainerListener(event) {
         var selectedFood;
-        //console.log(event);
 
         if(event.target.className.includes("stomach__item__delete--btn")) {
             selectedFoodId = event.target.parentElement.getAttribute("food-id");
@@ -891,11 +888,15 @@ var controller = (function(UICtrl, menuCtrl) {
 
         if(event.target.className.includes("stomach__apply__button")) {
             
-            menuCtrl.storeStomachContent();
-            UICtrl.stomachApplyButton("press");
+            applyStomachContent();
         }
 
 
+    }
+
+    function applyStomachContent() {
+        menuCtrl.storeStomachContent();
+        UICtrl.stomachApplyButton("press");
     }
     
     
@@ -904,6 +905,8 @@ var controller = (function(UICtrl, menuCtrl) {
         //disable calculate button
         document.querySelector(DOM.calculateButton).removeEventListener("click", startWorkerSim);
         
+        //apply stomach content
+        applyStomachContent()
 
         var activeMenu = menuCtrl.showActive();
         var stomachContent = menuCtrl.showStomachContent();
@@ -912,7 +915,9 @@ var controller = (function(UICtrl, menuCtrl) {
         var inputSim = input.simInput;
         var inputBudget = input.budgetInput;
         var inputCalorie = input.calorieInput;
-        if(inputFood === "") {
+
+        console.log(inputFood)
+        if(inputFood === "" || isNaN(inputFood)) {
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
             showError("no_blank")
             
@@ -933,23 +938,36 @@ var controller = (function(UICtrl, menuCtrl) {
 
         var work = new Worker('testMenuWorker.js');
 
-        if (inputSim === "") {
+        if (inputSim === "" || inputSim == 0) {
 
-            var iterationCount = Math.pow(activeMenu.length, inputFood);
-            console.log(iterationCount)
-            if (iterationCount > 3656158440062976 && highCountAdvisorShown === false) {
+            var iterationCount = Math.pow(inputFood+1, activeMenu.length);
+            
+            if (iterationCount > 50000000 && highCountAdvisorShown === false) {
                 Swal.fire({
                     title: "This might take a while",
-                    html: "The amount of iterations for this calculation is high. <br><br> However you can cancel the calculation any time if it's taking too long. <br><br> You can also consider setting a custom calculation scale.",
+                    html: "The amount of iterations for this calculation is high. <br><br> However you can cancel the calculation any time if it's taking too long. <br><br> You can also consider setting a custom calculation scale and randomly test menus with current inputs.",
                     input: "checkbox",
                     inputPlaceholder: "Don't show this again.",
                     icon: "warning",
-                    showCancelButton: true
+                    showCancelButton: true,
+                    confirmButtonColor: "rgba(40,185,181,1.00)",
+                    confirmButtonText: "Calculate Anyway",
                 }).then(function(result) {
-                    console.log(result)
                     if(result.value === 0 || result.value === 1) {
                         uiStartWorker()
-                        work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "definitive"])
+                        //work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "definitive"])
+
+                        work.postMessage({
+                            origin: "ecoFood",
+                            activeMenu: activeMenu,
+                            simScale: inputSim,
+                            foodInput: inputFood,
+                            budgetInput: inputBudget,
+                            calorieInput: inputCalorie,
+                            stomachContent: stomachContent,
+                            simType: "definitive"
+
+                        })
                         if(result.value === 1) {
                             //don't show this again ticked
                             highCountAdvisorShown = true
@@ -961,13 +979,32 @@ var controller = (function(UICtrl, menuCtrl) {
                 })
 
             } else {
-                console.log("ping")
                 uiStartWorker()
-                work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "definitive"])    
+                work.postMessage({
+                    origin: "ecoFood",
+                    activeMenu: activeMenu,
+                    simScale: inputSim,
+                    foodInput: inputFood,
+                    budgetInput: inputBudget,
+                    calorieInput: inputCalorie,
+                    stomachContent: stomachContent,
+                    simType: "definitive"
+
+                })
             }
         } else {
             uiStartWorker()
-            work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "random"])
+            work.postMessage({
+                origin: "ecoFood",
+                activeMenu: activeMenu,
+                simScale: inputSim,
+                foodInput: inputFood,
+                budgetInput: inputBudget,
+                calorieInput: inputCalorie,
+                stomachContent: stomachContent,
+                simType: "random"
+
+            })
         }
 
         
@@ -999,11 +1036,29 @@ var controller = (function(UICtrl, menuCtrl) {
             stopBtn.classList.remove("visible")
         }
 
-        work.onmessage = function(result) {
+        work.onmessage = function(message) {
             
-            if (typeof result.data === 'number') {
-                UICtrl.setPercentage(result.data)
-            } else if (result.data === 'error') {
+            if (message.data.type === "progress_percent") {
+                UICtrl.setPercentage(message.data.percentage)
+            } else if (message.data.type === "not_found") {
+                showError("not_found")
+                document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(0)"
+                terminateWorker();
+            } else if (message.data.type === "menu_found") {
+                setTimeout(function() {
+                    //remove blur
+                    document.querySelector(DOM.menuPaper).style.webkitFilter = "";      
+                    UICtrl.displayResults(message.data.result);
+                },500)
+
+                sendPostRequest(message.data.result);
+                terminateWorker();
+            }
+
+            /*
+            if (typeof message.data === 'number') {
+                UICtrl.setPercentage(message.data)
+            } else if (message.data === 'error') {
                 showError("not_found")
                 document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(0)"
                 terminateWorker();
@@ -1015,13 +1070,14 @@ var controller = (function(UICtrl, menuCtrl) {
                 setTimeout(function() {
                     //remove blur
                     document.querySelector(DOM.menuPaper).style.webkitFilter = "";      
-                    UICtrl.displayResults(result.data);
+                    UICtrl.displayResults(message.data);
                 },500)
 
-                sendPostRequest(result.data);
+                sendPostRequest(message.data);
                 //console.log(result.data)
                 terminateWorker();
-            }          
+            }
+            */          
         }
     }
 
@@ -1035,7 +1091,7 @@ var controller = (function(UICtrl, menuCtrl) {
                 Swal.fire("No diets found with specified limits.", "", "error");
                 break;
             case "no_blank":
-                Swal.fire("Don't leave input fields blank.", "", "error");
+                Swal.fire("Don't leave menu size field blank.", "", "error");
                 break;
             case "no_food":
                 Swal.fire("No food selected.", "" , "error");
