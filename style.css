@@ -185,7 +185,7 @@ body::after {
     transition: margin-left 1s;
     display: inline-block;
     
-    background-color: white;
+    
 }
 
 .sort__bar {

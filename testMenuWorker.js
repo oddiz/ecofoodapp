@@ -1,16 +1,15 @@
 onmessage = function(e) {
-    
     var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, stomachContentW,option;
-    if (!e) {
+    if (e.data.origin !== "ecoFood") {
         return;
     }
-    activeMenuW = e.data[0];
-    rollNumberW = e.data[1];
-    foodCountW = e.data[2];
-    budgetW = e.data[3] || Infinity;
-    calorieW = e.data[4] || Infinity;
-    stomachContentW = e.data[5];
-    option = e.data[6];
+    activeMenuW = e.data.activeMenu;
+    rollNumberW = e.data.simScale;
+    foodCountW = e.data.foodInput;
+    budgetW = e.data.budgetInput || Infinity;
+    calorieW = e.data.calorieInput || Infinity;
+    stomachContentW = e.data.stomachContent;
+    option = e.data.simType;
     
     
     testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, stomachContentW,option);
@@ -124,7 +123,10 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                 progressPercentOld = progressPercent;
                 
     
-                postMessage(progressPercent);
+                postMessage({
+                    type: "progress_percent",
+                    percentage: progressPercent
+                });
     
             }
     
@@ -169,12 +171,11 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     function calculateAllIterations () {
 
         var inputMenu = getMenu().active;
-        console.log(inputMenu)
         var items = parseInt(foodCount);
         var groups = inputMenu.length;
         totalIterations = (factorial(items+groups-1)) / (factorial(items)*factorial(groups-1))
         var counter = 0;
-
+        
 
         
 
@@ -182,14 +183,11 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         function partiteIdentical(items, groups, args = [0], index = 0) {
             
             
-            
             if (groups === 0) {
-                //eslint-disable-next-line brace-style
-                //eslint-disable-next-line max-statements-per-line
+                
                 var argsTotal = args.reduce(function(a,b) { 
                     return a+b 
                 })
-
                 if (argsTotal === items) {
                     
                     var definitiveMenu = constructMenuFromArgs(args, getMenu().stomach);
@@ -207,25 +205,24 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                             bestMenuArray = constructMenuFromArgs(args, getMenu().stomach);
                         }
                     }
-                    
-
-                    
-                    counter += 1;
-                    
+                                        
+                    counter += 1;                    
                     progressPercent = Math.floor(counter/totalIterations * 100);
-                    
                     
                     if (progressPercent !== progressPercentOld) {
                         
                         progressPercentOld = progressPercent;
-                        postMessage(progressPercent);
+                        postMessage({
+                            type: "progress_percent",
+                            percentage: progressPercent
+                        });
                         
                     }
                     
-            }
+                }
                     
             } else {
-    
+                
                 var groupRest = groups-1;        
                 
                 for (args[index] = 0; args[index] < items+1; ++args[index]) {
@@ -235,6 +232,8 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                 }
             }
         }
+
+        
     
         function constructMenuFromArgs(args,stomach) {
             //[3,0,2,3]
@@ -300,19 +299,23 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         
     
         postMessage({
-            resultMenu: finalResult,
-            spAmount: bestSP,
-            foundAt: bestIndex,
-            multiplier: bestMultiplier,
-            foodQty: parseInt(foodCount) + stomachContent.length,
-            totalPrice: bestTotalPrice,
-            totalCalorie: bestTotalCalorie,
-            resultMenuArray: bestMenuArray,
-            totalIterations: totalIterations
+            type: "menu_found",
+            result: {
+                resultMenu: finalResult,
+                spAmount: bestSP,
+                foundAt: bestIndex,
+                multiplier: bestMultiplier,
+                foodQty: parseInt(foodCount) + stomachContent.length,
+                totalPrice: bestTotalPrice,
+                totalCalorie: bestTotalCalorie,
+                resultMenuArray: bestMenuArray,
+                totalIterations: totalIterations
+            }
         });
     } else {
-        postMessage("error");
-        
+        postMessage({
+            type: "not_found"
+        });        
         //return console.log("error");
     }
 }
