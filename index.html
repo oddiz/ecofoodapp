@@ -87,61 +87,61 @@
                </div>
         </div>
 	   
-	   	<div class="info__container">
-			<div class="info">
-			
-				<p>This app finds best possible food combination that gives the highest skill point per day. This is achieved by generating random diets with given inputs, calculating the skill points and selecting the best diet.</p>
-				<p><i>Diet Scale</i> input determines the diet size for test. Each diet will be filled with randomly selected foods from <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span> list.</p>
-				<p><i>Simulation Scale</i> input determines the number of random diets to generate.</p>
-				<p><i>Calculate</i> button calculates SPs of all generated diets and outputs the highest yield.</p>
-				<p>After a calculation has been made. The output is then stored in highscore database, which will be compared with all previous results.</p>
-				<p>Highscores are categorised by <i>Diet Scale</i>. Also you can see the best diet accross all categories on page load.</p>
-				<span style="margin-top:40px;"><p>NEW: Now you can also specify prices for food and set a budget limit to generate results less or equal than your specified budget. The prices are saved automatically as cookies so you don't have to write them every time.</p></span>
-			
-			</div>
-			<div class="formula__info clearfix">
-				<p><span style="font-size: 130%">SP calculation is made as follows:</span></p>
-				<table>
-					<tbody>
-						<tr>
-							<td><span style="font-size:500%">[</span></td>
-							<td><span style="line-height:50%;"><center>( N<sub>1</sub> × C<sub>1</sub> ) + ( N<sub>2</sub> × C<sub>2</sub> ) + ( N<sub>3</sub> × C<sub>3</sub> )
-							<p style="letter-spacing: -3px;">——————————————————————
-							</p>
-							<span style="position:relative; top:10px;">C<sub>1</sub> + C<sub>2</sub> + C<sub>3</sub></center></span> </span>
-							</td>
-							<td><span style="font-size:500%">]</span></td>
-							<td><span style="font-size:300%">×</span></td>
-							<td>Balance Modifier</td>
-							<td><span style="font-size:300%">×</span></td>
-							<td>Skill Gain Multiplier</td>
-							<td><span style="font-size:300%">+</span></td>
-							<td>Base Skill Gain</td>
-							<td><span style="font-size:300%">=</span></td>
-							<td>SP/Day</td>
-						</tr>
-					</tbody>
-				</table>
-			
-				<ul>
-					<li>"N" represents total nutrients of each food. Simply add up all 4 nutrient values. N<sub>1</sub> is first food, N<sub>2</sub> is second food, etc.</li>
-					<li>"C" represents calories of each food. C<sub>1</sub> is first food, C<sub>2</sub> is second food, etc.</li>
-					<li>Balance modifier ranges from 0.5 to 2, with 0.5 being no balance, and 2 being a perfect balance.</li>
-					<li>Skill gain multiplier is configurable in the server difficulty settings. It has different default values depending on the collaboration preset.</li>
-					<li>Base skill gain can be modified in EcoSim.eco. It defaults to 12.</li>
-				</ul>
-				<p style="font-size: 12px;"><i>Source: https://eco.gamepedia.com/Skill_Points</i></p>
-            </div>
-            <div class="info" style="margin-top:100px ;">
-                <p> My SP algorithm and inspiration for this project is based from <a href="https://docs.google.com/spreadsheets/d/1-rWq6R3mqnbKuB-VtQXYACS-2FexyxzR3okeMhz1Wjc/edit#gid=189984926">this spreadsheet</a>.</p>
-            </div>
-			
-			<div class="info" style="margin-top:250px;">
-				<p>This project is made by Kaan "oddiz" Şarkaya.<br> If you have any suggestions or feed back, you can find me on discord <span style="color:rgba(50,57,63,1.00)"><strong>@oddiz#9659</strong></span></p>
-			</div>
-			
-        </div>
         
+        <div class="info__container">
+         <div class="info">
+         
+             <p>This app finds best possible food combination that gives the highest skill point per day. </p>
+             <p><i>Menu Size</i> input determines the diet size for testing. Each diet will be filled with randomly selected foods from <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span> list if <i>Calculation Scale</i> input is entered.</p>
+             <p><i>Calculation Scale</i> input determines the number of random diets to generate, if left empty algorithm will try to test every possible combination.</p>
+             <p>After a calculation has been made. The output is then stored in highscore database, which will be compared with all previous results.</p>
+             <p>Highscores are categorised by <i>Menu Size</i>. Also you can see the best diet accross all categories by clicking #1 button.</p>
+             <span style="margin-top:40px;"><p>NEW: Now you can also specify prices for food and set a budget limit to generate results less than or equal to your specified budget. The prices are saved automatically with cookies so you don't have to write them every time.</p></span>
+         
+         </div>
+         <div class="formula__info clearfix">
+             <p><span style="font-size: 130%">SP calculation is made as follows:</span></p>
+             <table>
+                 <tbody>
+                     <tr>
+                         <td><span style="font-size:500%">[</span></td>
+                         <td><span style="line-height:50%;"><center>( N<sub>1</sub> × C<sub>1</sub> ) + ( N<sub>2</sub> × C<sub>2</sub> ) + ( N<sub>3</sub> × C<sub>3</sub> )
+                         <p style="letter-spacing: -3px;">——————————————————————
+                         </p>
+                         <span style="position:relative; top:10px;">C<sub>1</sub> + C<sub>2</sub> + C<sub>3</sub></center></span> </span>
+                         </td>
+                         <td><span style="font-size:500%">]</span></td>
+                         <td><span style="font-size:300%">×</span></td>
+                         <td>Balance Modifier</td>
+                         <td><span style="font-size:300%">×</span></td>
+                         <td>Skill Gain Multiplier</td>
+                         <td><span style="font-size:300%">+</span></td>
+                         <td>Base Skill Gain</td>
+                         <td><span style="font-size:300%">=</span></td>
+                         <td>SP/Day</td>
+                     </tr>
+                 </tbody>
+             </table>
+         
+             <ul>
+                 <li>"N" represents total nutrients of each food. Simply add up all 4 nutrient values. N<sub>1</sub> is first food, N<sub>2</sub> is second food, etc.</li>
+                 <li>"C" represents calories of each food. C<sub>1</sub> is first food, C<sub>2</sub> is second food, etc.</li>
+                 <li>Balance modifier ranges from 0.5 to 2, with 0.5 being no balance, and 2 being a perfect balance.</li>
+                 <li>Skill gain multiplier is configurable in the server difficulty settings. It has different default values depending on the collaboration preset.</li>
+                 <li>Base skill gain can be modified in EcoSim.eco. It defaults to 12.</li>
+             </ul>
+             <p style="font-size: 12px;"><i>Source: https://eco.gamepedia.com/Skill_Points</i></p>
+         </div>
+         <div class="info" style="margin-top:100px ;">
+             <p> My SP algorithm and inspiration for this project is based from <a href="https://docs.google.com/spreadsheets/d/1-rWq6R3mqnbKuB-VtQXYACS-2FexyxzR3okeMhz1Wjc/edit#gid=189984926">this spreadsheet</a>.</p>
+         </div>
+         
+         <div class="info" style="margin-top:250px;">
+             <p>This project is made by Kaan "oddiz" Şarkaya.<br> If you have any suggestions or feed back, you can find me on discord <span style="color:rgba(50,57,63,1.00)"><strong>@oddiz#9659</strong></span></p>
+             <p>You can also email me at <strong>kaansarkaya@gmail.com</strong></p>
+         </div>
+         
+     </div>
         <div class="content clearfix">
 			
 			<div class="lists__container clearfix">

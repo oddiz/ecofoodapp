@@ -42,7 +42,7 @@ body {
     
     font-weight: 400;
 
-    
+    overflow-x: hidden;
 	
 }
 
@@ -81,7 +81,7 @@ body {
 **********************************************/
 .info__container {
 	position: absolute;
-	display: none;
+	visibility: hidden;
 	width: 80%;
 	height: auto;
 	text-align: center;
@@ -92,8 +92,8 @@ body {
 }
 
 .info__container.visible {
+	visibility: visible;
 	opacity: 1;
-	display:inline-block;
 }
 .formula__info , .info {
 	text-align: left;
@@ -103,10 +103,17 @@ body {
 .info {
 	
 	margin:70px auto 100px auto;
-	
+    text-align: center;
+    line-height: 1.6;
 }
 
 
+.info p {
+    font-size: 20px;
+    letter-spacing: .04em;
+    margin-bottom: 35px;
+    
+}
 
 .formula__info {
 	margin:0px auto 0px auto;
@@ -120,12 +127,6 @@ body {
 	box-shadow: 6px 6px 5px rgba(0, 0, 0, .5);
 }
 
-.info p {
-	font-size: 16px;
-	letter-spacing: .04em;
-	margin-bottom: 35px;
-	
-}
 
 .formula__info table {
 	display:table;
@@ -147,7 +148,7 @@ body {
 .content {
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: center;
 
     position: relative;
     min-height: 420px;
@@ -182,11 +183,13 @@ body::after {
     flex-direction: row;
     justify-content: left;
     flex-wrap: nowrap;
+
+    margin-right: 50px;
     
     width:50%;
     min-width: 610px;
     
-    margin-left: 25%;
+    
     transition: all 1s;
 
     
@@ -222,8 +225,8 @@ body::after {
 
 
 .info__button {
-    position: absolute;
-    left: 10px;
+    position: relative;
+    margin-left: 20px;
 	font-size: 38px;
 	color: #28B9B5;
 	
@@ -245,7 +248,7 @@ body::after {
 
 
 	position: relative;	
-    margin-left: 20vw;
+    margin-left: auto;
 }
 
 .food__amount,
@@ -365,7 +368,7 @@ content: "";
 .sim__amount:hover .info__text,
 .budget__amount:hover .info__text,
 .calorie__amount:hover .info__text {
-	visibility: visible;
+    visibility: visible;
 	opacity: 1;
 }
 
@@ -383,7 +386,7 @@ content: "";
     width:auto;
     height: auto;
     margin-left: 2vw;
-	
+	margin-right: auto;
     text-align: center;
     
     
