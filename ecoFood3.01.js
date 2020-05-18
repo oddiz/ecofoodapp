@@ -17,14 +17,13 @@ var UIController = (function() {
         budgetInput: ".budget__amount__input",
         calorieInput: ".calorie__amount__input",
 		output: ".output",
-        rightContainer: ".right__container",
-        leftContainer: ".left__container",
+        listsContainer: ".lists__container",
         calculateWorkerButton: ".withWorker",
         progressBar: "#inner__bar",
         highscoreContent: ".highscore__content",
         menuPaper: ".menu__paper",
         stopButton: ".stop__button",
-        bottom: ".bottom",
+        content: ".content",
         infoButton: ".info__button",
         infoContainer: ".info__container",
         addAll: ".add__all",
@@ -128,17 +127,17 @@ var UIController = (function() {
         },
 
         infoClicked: function() {
-            var bottom, infoButton;
+            var content, infoButton;
 
-            bottom = document.querySelector(DOMStrings.bottom);
-            bottom.classList.toggle("hide__bottom");
+            content = document.querySelector(DOMStrings.content);
+            content.classList.toggle("hide__content");
             
             infoButton = document.querySelector(DOMStrings.infoButton);
             infoButton.classList.toggle("clicked");
             
             infoContainer = document.querySelector(DOMStrings.infoContainer)
             //if opening info
-            if (bottom.classList.contains("hide__bottom")) {
+            if (content.classList.contains("hide__content")) {
                 setTimeout(function() {
                     infoContainer.classList.toggle("visible");
                 },500);
@@ -161,7 +160,7 @@ var UIController = (function() {
 			}
 			//add food to selected list
 			htmlTemplate =
-            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img class="available__img" src="./resources/img/%imgid%.png"><i class="ion-ios-close item__delete--btn"></i><div class="item__price"><div class="item__price__container"><img src="resources/imgWebP/ptag.png"><input type="number" class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/imgWebP/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
+            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><i class="ion-ios-close item__delete--btn"></i><img class="available__img" src="./resources/img/%imgid%.png"><div class="item__price"><div class="item__price__container"><img src="resources/imgWebP/ptag.png"><input type="number" class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/imgWebP/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
             
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
             newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -204,7 +203,7 @@ var UIController = (function() {
 			//add food to selected list
 
 			htmlTemplate =
-				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span style="font-size: 12px;">Tier: %foodtier%</span></i></div><img class="available__img" src="./resources/imgWebP/%imgid%.png"><i class="ion-android-add item__add--btn"></i><div class="stomach__add"><img class="stomach__add--icon" src="./resources/stomach.svg"></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/imgWebP/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
+				'<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><div class="stomach__add"><img class="stomach__add--icon" src="./resources/stomach.svg"></div><i class="ion-android-add item__add--btn"></i><img class="available__img" src="./resources/imgWebP/%imgid%.png"><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/imgWebP/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
 
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
 			newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -1009,7 +1008,8 @@ var controller = (function(UICtrl, menuCtrl) {
 
         
         function uiStartWorker() {
-            document.querySelector(DOM.leftContainer).style.marginLeft = "5%";
+            //swipe list container to left
+            document.querySelector(DOM.listsContainer).style.marginLeft = "4%";
             document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(4px)";
             
            
@@ -1023,7 +1023,6 @@ var controller = (function(UICtrl, menuCtrl) {
             stopBtn.classList.add("visible");
             stopBtn.addEventListener("click", terminateWorker);
         }
-        //swipe left container to left
        
 
         function terminateWorker () {
