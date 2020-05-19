@@ -1009,7 +1009,7 @@ var controller = (function(UICtrl, menuCtrl) {
         
         function uiStartWorker() {
             //swipe list container to left
-            document.querySelector(DOM.listsContainer).style.marginRight = "50%";
+            document.querySelector(DOM.listsContainer).style.marginRight = "40%";
             document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(4px)";
             
            
