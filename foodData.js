@@ -66,7 +66,7 @@ var foods = {
         1: new Food(31,"Tortilla", "Kitchen",              2.5, 20, 10, 0, 0, 350, 0.1),
         2: new Food(32,"Sweet Salad", "Kitchen",           2.5, 18, 9, 7, 22, 1100, 0.4),
         3: new Food(33,"Crimson Salad", "Kitchen",         2.5, 15, 9, 12, 20, 1100, 0.4),
-        4: new Food(34,"Boiled Rice", "Kitchen",           "?", 13, 2, 0, 0, 210, 0.1),
+        4: new Food(34,"Boiled Rice", "Kitchen",           1.5, 13, 2, 0, 0, 210, 0.1),
         5: new Food(35,"Wild Mix", "Kitchen",              2.5, 11, 8, 6, 21, 800, 0.6),
         6: new Food(36,"Pinapple Friend Rice", "Kitchen",  2.5, 20, 12, 12, 9, 620, 0.15)
     },

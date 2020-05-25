@@ -1,8 +1,9 @@
 dark mode
 responsive page + mobile mode
-fix tier sort
-automate build and pushing to s3
 
+
+automate build and pushing to s3 -done
+fix tier sort -done
 css overhaul -done
 Iterate through all possible combinations option-done
 Stomach content - done

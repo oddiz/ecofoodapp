@@ -167,18 +167,15 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         calculateAllIterations();
     }
     
-   
     function calculateAllIterations () {
 
         var inputMenu = getMenu().active;
         var items = parseInt(foodCount);
         var groups = inputMenu.length;
-        totalIterations = (factorial(items+groups-1)) / (factorial(items)*factorial(groups-1))
+        totalIterations = (factorial(items+groups-1)) / (factorial(items)*factorial(groups-1));
+        totalIterations = Math.round(totalIterations);
         var counter = 0;
         
-
-        
-
         partiteIdentical(items, groups);
         function partiteIdentical(items, groups, args = [0], index = 0) {
             

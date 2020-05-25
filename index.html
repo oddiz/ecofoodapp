@@ -20,6 +20,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
         
         <link type="text/css" rel="stylesheet" href="style.css">
+        <link type="text/css" rel="stylesheet" href="style-mobile.css">
         <title>Eco Diet Calculator</title>
         <link rel="icon" href="resources/meaticon.png" type="image/png" sizes="16x16">
    </head>
@@ -33,58 +34,61 @@
         
         
         <div class="calculate">
-				<div class="info__button"><i class="ion-ios-information-outline"></i></div>
-				<div class="input__container clearfix">
-					<div class="food__amount">
-						<div class= "info__text">
-                            <span style ="font-size: 20px">Desired number of food in menu calculation</span> 
-                            <div class ="menu__size__example"> <span style="font-weight: 600; font-size: 1.2em;">Example:</span> 
-                                <br><span style="font-size:1.1em;">Menu size:</span> 10 
-                                <br><span style="font-size:1.1em;">Output:</span> 
-                                <br> 3 x Wheat Porrige 
-                                <br> 5 x Baked Meat 
-                                <br> 2 x Corn Fritters 
-                                <br>+ Stomach content if you specifed 
-                            </div> 
-                        </div>
-						<input class="food__amount__input" placeholder="Menu Size" autofocus>
-					</div>
-					<div class="sim__amount">
-                        <div class= "info__text">
-                            <span style ="font-size: 20px">Calculation cycle amount (Optional)</span>
-                            <br>
-                            <br>If left empty or set to 0, simulation will test all the combinations resulting in best menu possible.
-                            <br>
-                            <br>If not, it'll test randomly generated menus times the amount you enter here and try to find the best combination of foods based on your <span style="color: #FF5049">SELECTED FOOD</span>s.
-                            <br>
-                            <br>Higher number = better results<br><br></div>
-						<input class="simulation__scale__input" placeholder="Calculation scale">
-					</div>
-					<div class="budget__amount">
-                        <div class= "info__text"><span style ="font-size: 20px">Budget <i>(Optional)</i></span>
-                            <br>
-                            <br>If you specify prices for foods, you can use this option to set a budget limit.
-                            <br>
-                            <br>Only the best menu less than your budget will be shown.
-                            <br>
-                            <br>To specify prices for foods, add them to the selected food list and a price tag will appear.
-                            <br>Prices are stored in cookies so they are saved across sessions.
-                        </div>
-						<input class="budget__amount__input" placeholder="Budget">
-					
-					</div>
-					<div class="calorie__amount">
-						<div class= "info__text"><span style ="font-size: 20px">Calorie Limit <i>(Optional)</i></span><br><br>Only the best menu less than your calorie limit will be shown.</div>
-						<input class="calorie__amount__input" placeholder="Calorie">
-					
-					</div>
-                    
-				</div>
-				<div class="calculate__container">
-                    <button class="calculate__btn"><div class="calculate__btn--text">Calculate</div> <em class="ion-ios-checkmark-outline"></em></button>
-                       <div id="progress__bar"><div id="inner__bar">%0</div></div>
-                       <div class="stop__button"><em class="ion-android-hand"></em></div>
-               </div>
+            
+            <div class="info__button"><i class="ion-ios-information-outline"></i></div>
+            <div class="input__container clearfix">
+                <div class="food__amount">
+                    <div class= "info__text">
+                        <span style ="font-size: 20px">Desired number of food in menu calculation</span> 
+                        <div class ="menu__size__example"> <span style="font-weight: 600; font-size: 1.2em;">Example:</span> 
+                            <br><span style="font-size:1.1em;">Menu size:</span> 10 
+                            <br><span style="font-size:1.1em;">Output:</span> 
+                            <br> 3 x Wheat Porrige 
+                            <br> 5 x Baked Meat 
+                            <br> 2 x Corn Fritters 
+                            <br>+ Stomach content if you specifed 
+                        </div> 
+                    </div>
+                    <input class="food__amount__input" placeholder="Menu Size" autofocus>
+                </div>
+                <div class="sim__amount">
+                    <div class= "info__text">
+                        <span style ="font-size: 20px">Calculation cycle amount (Optional)</span>
+                        <br>
+                        <br>If left empty or set to 0, simulation will test all the combinations resulting in best menu possible.
+                        <br>
+                        <br>If not, it'll test randomly generated menus times the amount you enter here and try to find the best combination of foods based on your <span style="color: #FF5049">SELECTED FOOD</span>s.
+                        <br>
+                        <br>Higher number = better results<br><br></div>
+                    <input class="simulation__scale__input" placeholder="Calculation scale">
+                </div>
+                <div class="budget__amount">
+                    <div class= "info__text"><span style ="font-size: 20px">Budget <i>(Optional)</i></span>
+                        <br>
+                        <br>If you specify prices for foods, you can use this option to set a budget limit.
+                        <br>
+                        <br>Only the best menu less than your budget will be shown.
+                        <br>
+                        <br>To specify prices for foods, add them to the selected food list and a price tag will appear.
+                        <br>Prices are stored in cookies so they are saved across sessions.
+                    </div>
+                    <input class="budget__amount__input" placeholder="Budget">
+                
+                </div>
+                <div class="calorie__amount">
+                    <div class= "info__text"><span style ="font-size: 20px">Calorie Limit <i>(Optional)</i></span><br><br>Only the best menu less than your calorie limit will be shown.</div>
+                    <input class="calorie__amount__input" placeholder="Calorie">
+                
+                </div>
+                
+            </div>
+        
+            
+            <div class="calculate__container">
+                <button class="calculate__btn"><div class="calculate__btn--text">Calculate</div> <em class="ion-ios-checkmark-outline"></em></button>
+                    <div id="progress__bar"><div id="inner__bar">%0</div></div>
+                    <div class="stop__button"><em class="ion-android-hand"></em></div>
+            </div>
         </div>
 	   
         
