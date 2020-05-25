@@ -1,0 +1,241 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    
+
+}
+
+
+/* Small devices (landscape tablets, 768px and down) */
+@media only screen and (max-width: 768px) {
+
+
+}
+
+/* Medium devices (laptops/desktops, 992px and down) */
+@media only screen and (max-width: 892px) {
+    
+    /*****************************
+                TOP
+    *****************************/
+    .top {
+        height: 80px;
+    }
+
+    /*****************************
+            CALCULATE BAR
+    *****************************/
+
+
+    .calculate {
+        height: 110px;
+        flex-wrap: wrap;
+    }
+    
+    
+    .info__button {
+        position: absolute;
+        top: 57px;
+    }
+    .input__container {
+        margin-top:5px;
+        width: 100vw;
+        justify-content: center;
+    }
+    
+    .calculate__container {
+        margin-left:5px;
+        padding-left: 40px;
+        
+        width: 100vw;
+        justify-content: center;
+    }
+
+    #progress__bar {
+        width: 200px;
+    }
+    
+
+    /*******************************
+                CONTENT
+    ********************************/
+
+    .content {
+        flex-direction: column-reverse;
+    }
+    .lists__container {
+        flex-direction: column-reverse;
+        align-content: center;
+        justify-content: center;
+        width:100%;
+        min-width: 400px;
+        margin-right: 0px;
+    }
+
+    .lists__container.menu__visible {
+        margin-right: 0px;
+        
+
+    }
+
+    .available__food__container {
+        width: 95%;
+    }
+
+    .double__chevron {
+        transform: rotateZ(-90deg);
+    }
+
+    .selected__food__container {
+        width: 95%;
+        padding-left:15px;
+        padding-right:80px;
+        margin-bottom:20px;
+    }
+
+    .selected__food__header {
+        width: 95vw;
+    }
+    .selected__food__header .cash__icon {
+        position: absolute;
+        bottom: 15px;
+        left: 88%;
+        font-size: 44px;
+        color: rgba(105,143,65,0.7);
+    }
+
+    .selected__food__header .remove__all {
+        transform: rotateZ(90deg);
+    }
+    
+    .sort__bar {
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        margin-left: -262px;
+
+        display: flex;
+        flex-direction: row;
+        
+        width: 525px;
+        height: 35px;
+        
+        
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 0px;
+    }
+
+    .sort__options {
+        width: auto;
+        flex-direction: row;
+    }
+
+    .sort__options ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .sort__options ul li {
+        width: auto;
+        min-width: 40px;
+        margin: 2px 4px 2px 4px;
+        padding: 2px 2px 2px 2px;
+    }
+
+    .sort__options ul li:first-child {
+        
+        
+    }
+    .sort__options li.active {
+        background: #f7f7f794;
+        transform: scale(1.1);
+    }
+    
+
+    /******************************
+                ITEM
+    ******************************/
+
+    .item__add--btn {
+        height: 35px;
+        width: 65px;
+        font-size: 32px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .item__delete--btn {
+        margin-bottom: 4px;
+        margin-left: auto;
+        margin-right:5px;
+        height: 41px;
+        width: 45px;
+        color: #FF5049;
+        font-size: 47px;
+        border-radius: 25px;
+        
+    }
+
+    .item .stomach__add {
+        height: 36px;
+        width: 36px;
+        margin-left: auto;
+        cursor: pointer;
+    }
+
+    .item .food__info {
+        display: none;
+        
+        position: absolute;
+        min-width:192px;
+        width: 230px;
+        height: 160px;
+        background: rgba(0,0,0,0.92);
+        top:55px;
+        left: 70%;
+        z-index: 9999;
+        
+        border: 3px ridge #5275a5;
+        border-radius: 5px;
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 16px;
+        color: #84d56a;
+        text-align: left;
+         
+    }
+
+    .item .food__info:after {
+        content: "";
+          position: absolute;
+            bottom: 101%;
+            left: 60%;
+          margin-left: -5px;
+          border-width: 10px;
+          border-style: ridge;
+          border-color: transparent  transparent #5275a5 transparent;
+    }
+
+    /******************************
+            MENU PAPER
+    ******************************/
+
+    .menu__paper {
+        display: none;
+        position: relative;
+        margin-bottom: 30px;
+        margin-top: 10px;
+    }
+
+    .menu__paper.menu__visible:hover {
+        transform: scale(1);
+    }
+
+    .menu__paper.menu__visible {
+        display:block;
+        right:0%;
+        filter: blur(0px);
+
+
+
+} 

@@ -105,7 +105,12 @@ var UIController = (function() {
                 if (property === ("name" || "type")) {
                     nameA = a[property].toUpperCase();
                     nameB = b[property].toUpperCase();
-                } else {
+                } else if (property === ("tier")) {
+
+                    nameA = parseFloat(b[property]);
+                    nameB = parseFloat(a[property]);
+                
+                }else {
                     nameA = b[property];
                     nameB = a[property];
                 }
@@ -1008,8 +1013,15 @@ var controller = (function(UICtrl, menuCtrl) {
 
         
         function uiStartWorker() {
+            
             //swipe list container to left
-            document.querySelector(DOM.listsContainer).style.marginRight = "40%";
+
+            var listsContainer = document.querySelector(DOM.listsContainer);
+            if (!listsContainer.classList.contains("menu__visible")) {
+                listsContainer.classList.add("menu__visible");
+            }
+            
+            //blur menu
             document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(4px)";
             
            
