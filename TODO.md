@@ -1,5 +1,9 @@
 dark mode
-responsive page + mobile mode
+
+
+
+responsive page + mobile mode - partially done
+add better iphone support 375 width
 
 
 automate build and pushing to s3 -done
