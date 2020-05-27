@@ -987,6 +987,21 @@ MENU PAPER
 	
 }
 
+.menu__paper .spinner {
+    display: none;
+    text-align:center;
+    height: 50px;
+    margin-top: -20px;
+}
+
+.menu__paper .spinner img {
+    height: 100%;
+    filter: brightness(0.6);
+}
+.menu__paper .spinner.visible {
+    display:block;
+}
+
 .menu__paper p {
 	margin-left: 15%;
 	font-size: 20px;

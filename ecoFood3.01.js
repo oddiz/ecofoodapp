@@ -258,7 +258,7 @@ var UIController = (function() {
         
 		displayResults: function(resultObject) {
             var paperHtml, menuContent, line, menuObject, foundAt;
-            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p></div>';
+            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./resources/spinner.svg"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p></div>';
 
             if(resultObject.foundAt === 0) {
                 foundAt = 1
@@ -290,6 +290,46 @@ var UIController = (function() {
             setTimeout(function() {
                 document.querySelector('.menu__paper').classList.add('menu__visible')
             }, 0);
+        },
+
+        updateResults: function (resultObject) {
+            var menuResultHtml, menuContent, line, menuObject, foundAt;
+            
+            menuResultHtml = '<p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p>'
+            
+            if(resultObject.foundAt === 0) {
+                foundAt = 1
+            } else {
+                foundAt = resultObject.foundAt;
+            }
+            
+            var menuResultHtmlEdited = menuResultHtml.
+                replace('%sp%', resultObject.spAmount.toFixed(2)).
+                replace('%multiplier%', resultObject.multiplier.toFixed(2)).
+                replace('%index%', foundAt).
+                replace('%simcount%', resultObject.totalIterations).
+                replace('%price%', resultObject.totalPrice).
+                replace('%calories%', resultObject.totalCalorie)
+
+            menuContent = document.querySelector(".menu__content");
+            
+            menuContent.innerHTML = ""
+            menuObject = resultObject.resultMenu;
+            
+            for(foodname in menuObject) {
+                if({}.hasOwnProperty.call(menuObject, foodname)){
+                    line = `<p>${menuObject[foodname]}x   ${foodname}</p>`;
+                    menuContent.insertAdjacentHTML('afterbegin', line);
+
+                }
+            }
+
+            document.querySelector(".menu__result").innerHTML = menuResultHtmlEdited;
+
+            if (!document.querySelector('.menu__paper').classList.contains('menu__visible')) {
+                document.querySelector('.menu__paper').classList.add('menu__visible')
+
+            }
         },
 
         setPercentage: function(percentage) {
@@ -1014,29 +1054,31 @@ var controller = (function(UICtrl, menuCtrl) {
         
         function uiStartWorker() {
             
+            //reset percentage
+            UIController.setPercentage("0")
+            
             //swipe list container to left
-
             var listsContainer = document.querySelector(DOM.listsContainer);
             if (!listsContainer.classList.contains("menu__visible")) {
                 listsContainer.classList.add("menu__visible");
             }
             
-            //blur menu
-            document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(4px)";
-            
-           
-            menuPaper = document.querySelector(DOM.menuPaper)
+            document.querySelector(".spinner").classList.add("visible");
+
+            var menuPaper =document.querySelector(DOM.menuPaper)
             if(menuPaper) {
+                //blur menu
+                menuPaper.style.webkitFilter = "blur(4px)";
+            
                 menuPaper.style.tranform ='translateX(0);';
+
             }
-    
             //enable stop button
             
             stopBtn.classList.add("visible");
             stopBtn.addEventListener("click", terminateWorker);
         }
-       
-
+        
         function terminateWorker () {
             console.log("Terminating Worker.")
             work.terminate();
@@ -1045,6 +1087,7 @@ var controller = (function(UICtrl, menuCtrl) {
             //disable stop button
             stopBtn.removeEventListener("click", terminateWorker);
             stopBtn.classList.remove("visible")
+            document.querySelector(".spinner").classList.remove("visible");
         }
 
         work.onmessage = function(message) {
@@ -1061,9 +1104,11 @@ var controller = (function(UICtrl, menuCtrl) {
                     document.querySelector(DOM.menuPaper).style.webkitFilter = "";      
                     UICtrl.displayResults(message.data.result);
                 },500)
-
                 sendPostRequest(message.data.result);
                 terminateWorker();
+            } else if (message.data.type === "menu_update") {
+                document.querySelector(DOM.menuPaper).style.webkitFilter = "";      
+                UICtrl.updateResults(message.data.result)
             }
 
             /*
