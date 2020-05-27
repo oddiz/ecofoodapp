@@ -54,7 +54,7 @@ body {
 
 .top {
     height: 200px;
-    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(resources/back.min.jpg);
+    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(resources/back.jpg);
 	background-attachment: scroll;
 	background-size: cover;
    
