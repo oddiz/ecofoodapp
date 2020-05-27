@@ -200,6 +200,22 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                             bestTotalPrice = totalPrice;
                             bestTotalCalorie = totalCalorie;
                             bestMenuArray = constructMenuFromArgs(args, getMenu().stomach);
+
+                            postMessage({
+                                type: "menu_update",
+                                result: {
+                                    resultMenu: processMenuNames(),
+                                    spAmount: bestSP,
+                                    foundAt: bestIndex,
+                                    multiplier: bestMultiplier,
+                                    foodQty: parseInt(foodCount) + stomachContent.length,
+                                    totalPrice: bestTotalPrice,
+                                    totalCalorie: bestTotalCalorie,
+                                    resultMenuArray: bestMenuArray,
+                                    totalIterations: totalIterations
+                                }
+                            });
+
                         }
                     }
                                         
@@ -266,8 +282,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     
     }
 
-
-    if(bestMenuNames) {
+    function processMenuNames() {
         //"3+1+2+4" => [3,1,2,4]
         var listSplit = bestMenuNames.split("+");
         //[3,1,2,4] => [1,2,3,4]
@@ -287,6 +302,12 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                 finalResult[foodName] = 1;
             }
         }
+
+        return finalResult
+
+    }
+    if(bestMenuNames) {
+        
         
         
         /*
@@ -298,7 +319,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         postMessage({
             type: "menu_found",
             result: {
-                resultMenu: finalResult,
+                resultMenu: processMenuNames(),
                 spAmount: bestSP,
                 foundAt: bestIndex,
                 multiplier: bestMultiplier,
