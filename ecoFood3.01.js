@@ -2,7 +2,7 @@
 /*eslint-disable no-unused-vars */
 /*eslint-disable no-tabs */
 /*eslint-disable array-element-newline */
-/*eslint-disable no-undef */
+/*eslint-disable no-undef */ 
 var UIController = (function() {
 	var DOMStrings = {
 		foodAddBtn: ".item__add",
