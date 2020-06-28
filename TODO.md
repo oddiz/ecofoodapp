@@ -1,5 +1,5 @@
 dark mode
-
+animate buttons
 
 
 responsive page + mobile mode - partially done
