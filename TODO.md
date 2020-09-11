@@ -1,6 +1,6 @@
 dark mode
 animate buttons
-
+search box
 
 responsive page + mobile mode - partially done
 add better iphone support 375 width

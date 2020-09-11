@@ -545,7 +545,6 @@ content: "";
     flex-direction: column;
     justify-content: start;
     position:relative;
-    height: 73px;
     width: 100%;
 }
 .quick__add {
@@ -558,6 +557,43 @@ content: "";
     width: auto;
     padding-left: 0%;
 }
+
+
+    /****************************
+    Search Bar
+    *****************************/
+    .search_bar_container {
+        padding: 10px 0 10px 12px;
+        margin-top:5px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        background: #f0f0f0;
+    }
+
+    .search_bar_input {
+        border: 2px solid #ccc;
+        width: 230px;
+        height: 35px;
+        border-radius: 20px;
+        padding-left: 10px;
+        padding-bottom: 1px;
+        transition: all 0.5s;
+    }
+
+    .search_bar_input:focus {
+        border:2px solid rgba(40,185,181,1.00);
+    }
+    .search_bar_input_wrapper {
+
+    }
+
+    .search_bar_icon {
+        padding-right:4px;
+
+        font-size: 28px;
+    }
 
 .add__all, .t1__add, .t1_5__add, .t2__add, .t2_5__add {
     margin-right: 6px;
@@ -682,6 +718,10 @@ h2 {
 	
 }
 
+.available__food__list .item {
+    border-right: 2px solid #e7e7e7;
+}
+
 .item .item__description {
     display:flex;
     flex-direction: column;
@@ -778,6 +818,10 @@ h2 {
 	 
 }
 .available__img:hover ~ .food__info {
+	display:block;
+}
+
+.item:hover > .food__info {
 	display:block;
 }
 

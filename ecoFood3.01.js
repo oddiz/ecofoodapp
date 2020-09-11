@@ -40,6 +40,7 @@ var UIController = (function() {
         stomachApplyButton: ".stomach__apply__button__flipper",
         addToStomachButton: ".stomach__add",
         highscoreBestButton: ".best__button",
+        searchInput: ".search_bar_input",
 
     };
     
@@ -129,6 +130,35 @@ var UIController = (function() {
             availableList.forEach(function(food) {
                 self.addToAvailable(food);
             })
+        },
+
+        searchAvailable: function() {
+
+            userQuery = document.querySelector(DOMStrings.searchInput).value
+
+            
+            //clear available list
+			UIController.clearLists(document.querySelector(DOMStrings.availableFoods));
+
+			//adds all foods to active menu
+            var availableFoodArray = menuController.showInactive();
+            
+            if (userQuery == "") {
+                availableFoodArray.forEach(function(foodObj) {
+                    UIController.addToAvailable(foodObj);
+                });
+
+            } else {
+                var searchRegExp = new RegExp(userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");
+                availableFoodArray.forEach(function(foodObj){
+
+                    var isThereMatch = searchRegExp.test(foodObj.name);
+                    
+                    if (isThereMatch == true) {
+                        UIController.addToAvailable(foodObj)
+                    }
+                })
+            }
         },
 
         infoClicked: function() {
@@ -633,7 +663,40 @@ var menuController = (function(UIController) {
 		},
 		showActive: function() {
 			return activeMenu;
-		},
+        },
+        showInactive: function () {
+            var allFoods = [];
+            for(foodType in foods) {
+                
+                if ({}.hasOwnProperty.call(foods, foodType)) {
+                    for(id in foods[foodType]) {
+                        if ({}.hasOwnProperty.call(foods[foodType], id)) {
+                            
+                            allFoods.push(foods[foodType][id])
+
+                        }
+                    }
+                }
+            }
+            var availableFoods = [];
+            var selectedFoods = this.showActive();
+            allFoods.forEach(function(food, index) {
+                var found = false;
+                for (var i = 0; i < selectedFoods.length; i++) {
+                    if (food.id == selectedFoods[i].id){
+                        
+                        found = true;
+                        
+                    }
+                }
+                if (found === false) {
+                    availableFoods.push(food)
+                }
+            })
+            
+            
+            return availableFoods;
+        },
         clearActive: function() {
             activeMenu = [];
         },
@@ -755,6 +818,9 @@ var controller = (function(UICtrl, menuCtrl) {
         
         //price keypress event listener
         document.addEventListener("keyup", UICtrl.savePrices);
+
+        //search box event listener
+        document.querySelector(DOM.searchInput).addEventListener("input", UICtrl.searchAvailable )
         
         
     };
@@ -879,6 +945,13 @@ var controller = (function(UICtrl, menuCtrl) {
                 UICtrl.addToSelected(selectedFood);
                 //update active menu in menuCtrl
                 menuCtrl.addActive(selectedFood);
+
+
+
+                menuCtrl.showInactive();
+            
+            
+            
             }
         }
 
@@ -917,7 +990,14 @@ var controller = (function(UICtrl, menuCtrl) {
 			//remove from selected food and add to available food
 			UICtrl.removeFromSelected(selectedFood);
 			//update active menu in menuCtrl
-			menuCtrl.removeActive(selectedFood);
+            menuCtrl.removeActive(selectedFood);
+            
+
+
+            menuCtrl.showInactive()
+
+
+
 		}
     }
 
