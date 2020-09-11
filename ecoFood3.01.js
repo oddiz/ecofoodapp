@@ -946,11 +946,6 @@ var controller = (function(UICtrl, menuCtrl) {
                 //update active menu in menuCtrl
                 menuCtrl.addActive(selectedFood);
 
-
-
-                menuCtrl.showInactive();
-            
-            
             
             }
         }
@@ -992,12 +987,6 @@ var controller = (function(UICtrl, menuCtrl) {
 			//update active menu in menuCtrl
             menuCtrl.removeActive(selectedFood);
             
-
-
-            menuCtrl.showInactive()
-
-
-
 		}
     }
 
