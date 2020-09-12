@@ -20,29 +20,42 @@ function Food (id,foodName,foodType,foodTier,carb,pro,fat,vit,cal,weight,price) 
 var foods = {
 
     campfire: {
-        1: new Food(11,"Wheat Porrige", "Campfire",         1.5, 10, 4, 0, 10, 510, 0.2),
-        2: new Food(12,"Fried Tomatoes","Campfire",         1.5, 12, 3, 9, 2, 560, 0.2),
-        3: new Food(13,"Bannock","Campfire",                1.5, 15, 3, 8, 0, 600, 0.1),
-        4: new Food(14,"Charred Sausage","Campfire",        1.5, 0, 11, 15, 0, 500, 0.3),
-        5: new Food(15,"Fiddlehead Salad","Campfire",       1.5, 6, 6, 0, 14, 970, 0.2),
-        6: new Food(16,"Campfire Roast","Campfire",         1.5, 0, 16, 12, 0, 1000, 0.5),
-        7: new Food(17,"Campfire Stew","Campfire",          1.5, 5, 12, 9, 4, 1200, 0.5),
-        8: new Food(18,"Wild Stew","Campfire",              1.5, 8, 5, 5, 12, 1200, 0.5),
-        9: new Food(19,"Boiled Shoots","Campfire",          1, 3, 0, 1, 9, 510, 0.1),
-        10: new Food(110,"Camas Mash","Campfire",           1, 1, 2, 9, 1, 500, 0.1),
-        11: new Food(111,"Campfire Beans","Campfire",       1, 2, 3, 7, 1, 510, 0.1),
-        12: new Food(112,"Charred Beet","Campfire",         1, 3, 0, 3, 7, 470, 0.1),
-        13: new Food(113,"Charred Camas Bulb","Campfire",   1, 2, 3, 7, 1, 510, 0.1),
-        14: new Food(114,"Charred Corn","Campfire",         1, 8, 1, 0, 4, 530, 0.1),
-        15: new Food(115,"Charred Fish","Campfire",         1, 0, 9, 4, 0, 550, 0.5),
-        16: new Food(116,"Charred Meat","Campfire",         1, 0, 10, 10, 0, 550, 0.8),
-        17: new Food(117,"Charred Tomato","Campfire",       1, 8, 1, 0, 4, 510, 0.1),
-        18: new Food(118,"Rice Sludge","Campfire",          1, 10, 1, 0, 2, 450, 0.1),
-        19: new Food(119,"Wilted Witherheads","Campfire",   1, 4, 1, 0, 8, 500, 0.2),
-        20: new Food(120,"Charred Agave", "Campfire",       1, 5, 1, 4, 1, 350, 0.1),
-        21: new Food(121,"Charred Papaya", "Campfire",      1, 6, 1, 0, 6, 460, 0.1),
-        22: new Food(122,"Charred Pineapple", "Campfire",   1, 9, 1, 0, 3, 540, 0.1),
-        23: new Food(123,"Charred Taro", "Campfire",        1, 11, 1, 0, 1, 490, 0.1)
+        2: new Food(12,"Fried Tomatoes","Campfire",                     1.5, 11, 3, 8, 2, 700, 0.2),//
+        3: new Food(13,"Bannock","Campfire",                            1.5, 14, 3, 7, 0, 700, 0.1),//
+        4: new Food(14,"Charred Sausage","Campfire",                    1.5, 0, 10, 14, 0, 700, 0.5),//
+        6: new Food(16,"Campfire Roast","Campfire",                     1.5, 0, 16, 12, 0, 1000, 0.5),//
+        8: new Food(18,"Wild Stew","Campfire",                          1.5, 8, 2, 6, 12, 1100, 0.5),//
+        11: new Food(111,"Campfire Beans","Campfire",                   1, 1, 8, 3, 0, 350, 0.1),//
+        12: new Food(112,"Charred Beet","Campfire",                     1, 3, 0, 3, 6, 350, 0.1),//
+        13: new Food(113,"Charred Camas Bulb","Campfire",               1, 2, 3, 6, 1, 350, 0.1),//
+        14: new Food(114,"Charred Corn","Campfire",                     1, 7, 1, 0, 4, 350, 0.1),//
+        15: new Food(115,"Charred Fish","Campfire",                     1, 0, 10, 5, 0, 400, 0.5),//
+        16: new Food(116,"Charred Meat","Campfire",                     1, 0, 6, 9, 0, 400, 0.8),//
+        17: new Food(117,"Charred Tomato","Campfire",                   1, 7, 1, 0, 4, 350, 0.1),//
+        19: new Food(119,"Wilted Witherheads","Campfire",               1, 4, 1, 0, 7, 350, 0.2),//
+        20: new Food(120,"Charred Agave", "Campfire",                   1, 5, 1, 3, 3, 350, 0.1),//
+        21: new Food(121,"Charred Papaya", "Campfire",                  1, 3, 1, 0, 8, 350, 0.1),//
+        22: new Food(122,"Charred Pineapple", "Campfire",               1, 8, 1, 0, 3, 350, 0.1),//
+        23: new Food(123,"Boiled Grains", "Campfire",                   1, 9, 2, 0, 1, 350, 0.1),//
+        24: new Food(123,"Tallow", "Campfire",                          1, 0, 0, 8, 0, 200, 0.02),//
+        25: new Food(123,"Charred Cactus Fruit", "Campfire",            1, 4, 0, 2, 6, 200, 0.1),//
+        26: new Food(123,"Charred Fireweed Shoots", "Campfire",         1, 5, 1, 0, 6, 350, 0.1),//
+        27: new Food(123,"Charred Heart of Palm", "Campfire",           1, 6, 3, 1, 2, 210, 0.1),//
+        28: new Food(123,"Charred Mushrooms", "Campfire",               1, 3, 6, 2, 1, 350, 0.1),//
+        29: new Food(123,"Charred Taro", "Campfire",                    1, 10, 1, 0, 1, 350, 0.1),//
+        30: new Food(123,"Beat Campfire Salad", "Campfire",             1.5, 8, 5, 4, 11, 900, 0.2),//
+        31: new Food(123,"Fern Campfire Salad", "Campfire",             1.5, 9, 5, 1, 13, 900, 0.2),//
+        32: new Food(123,"Field Campfire Stew", "Campfire",             1.5, 10, 6, 8, 4, 1100, 0.5),//
+        33: new Food(123,"Fried Camas", "Campfire",                     1.5, 9, 3, 10, 2, 700, 0.2),//
+        34: new Food(123,"Fried Fiddleheads", "Campfire",               1.5, 11, 3, 6, 4, 700, 0.2),//
+        35: new Food(123,"Fried Hearts of Palm", "Campfire",            1.5, 11, 3, 8, 2, 700, 0.2),//
+        36: new Food(123,"Fried Taro", "Campfire",                      1.5, 14, 1, 8, 1, 700, 0.2),//
+        37: new Food(123,"Jungle Campfire Salad", "Campfire",           1.5, 11, 4, 3, 10, 900, 0.2),//
+        38: new Food(123,"Jungle Campfire Stew", "Campfire",            1.5, 6, 8, 11, 3, 1100, 0.5),//
+        39: new Food(123,"Meaty Stew", "Campfire",                      1.5, 4, 13, 10, 1, 1100, 0.5),//
+        40: new Food(123,"Root Campfire Salad", "Campfire",             1.5, 8, 5, 4, 11, 950, 0.2),//
+        41: new Food(123,"Root Campfire Stew", "Campfire",              1.5, 6, 8, 9, 5, 1100, 0.5),//
+        42: new Food(123,"Topped Porridge", "Campfire",                 1.5, 10, 4, 0, 10, 700, 0.2),//
 
     },
 
@@ -68,7 +81,7 @@ var foods = {
         3: new Food(33,"Crimson Salad", "Kitchen",         2.5, 15, 9, 12, 20, 1100, 0.4),
         4: new Food(34,"Boiled Rice", "Kitchen",           1.5, 13, 2, 0, 0, 210, 0.1),
         5: new Food(35,"Wild Mix", "Kitchen",              2.5, 11, 8, 6, 21, 800, 0.6),
-        6: new Food(36,"Pinapple Friend Rice", "Kitchen",  2.5, 20, 12, 12, 9, 620, 0.15)
+        6: new Food(36,"Pineapple Friend Rice", "Kitchen",  2.5, 20, 12, 12, 9, 620, 0.15)
     },
 
     cast_stove: {
@@ -89,6 +102,9 @@ var foods = {
             4: new Food(54,"Elk Taco", "Stove",             2.5,12,15,10,14,650,0.2),
             5: new Food(55,"Boiled Sausage", "Stove",       2.5,0,27,22,0,600,0.3),
             6: new Food(56,"Bear SUPREME", "Stove",         2.5, 8,20,22,10,1200,0.5)
+    },
+    raw: {
+        1: new Food(61,wwwwwwwwwwwww)
     }
 
    /*
