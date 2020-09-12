@@ -941,6 +941,7 @@ var controller = (function(UICtrl, menuCtrl) {
             if (parseInt(itemID)) {
                 //find the food
                 selectedFood = getFoodFromID(itemID);
+                console.log(selectedFood)
                 //add to selected food in UICtrl and remove from available foods
                 UICtrl.addToSelected(selectedFood);
                 //update active menu in menuCtrl
