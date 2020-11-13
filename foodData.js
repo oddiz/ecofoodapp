@@ -1,6 +1,8 @@
 /*eslint-disable camelcase*/
 /*eslint-disable no-unused-vars*/
 
+//Updated for 9.1.4
+
 function Food (id,foodName,foodType,foodTier,carb,pro,fat,vit,cal,weight,price) {
     "use strict";
     this.id = id;
@@ -60,27 +62,27 @@ var foods = {
     },
 
     bakery: {
-        1: new Food(21,"Camas Bulb Bake","Bakery",                      2, 12, 7, 5, 4, 560, 0.3),//
-        2: new Food(22,"Flat Bread", "Bakery",                          2, 17, 8, 3, 0, 500, 0.2),//
-        4: new Food(24,"Baked Meat", "Bakery",                          2, 0, 13, 17, 0, 600, 0.8),//
-        5: new Food(25,"Baked Roast", "Bakery",                         2, 4, 13, 10, 7, 1000, 0.9),//
-        6: new Food(26,"Meat Pie", "Bakery",                            2, 7, 13, 13, 5, 1300, 0.6),//
+        1: new Food(21,"Camas Bulb Bake","Bakery",                      2, 12, 7, 5, 4, 700, 0.3),///
+        2: new Food(22,"Flatbread", "Bakery",                           2, 17, 8, 3, 2, 500, 0.2),///
+        4: new Food(24,"Baked Meat", "Bakery",                          2, 0, 13, 17, 0, 700, 0.8),///
+        5: new Food(25,"Baked Roast", "Bakery",                         2, 4, 13, 10, 7, 1000, 0.9),///
+        6: new Food(26,"Meat Pie", "Bakery",                            2, 11, 13, 15, 5, 1300, 0.6),///
         7: new Food(27,"Bread", "Bakery",                               2.5, 20, 5, 10, 5, 750, 0.5),//
-        8: new Food(28,"Huckleberry Pie", "Bakery",                     2, 9, 5, 8, 16, 1300, 0.6),//
+        8: new Food(28,"Huckleberry Pie", "Bakery",                     2, 13, 5, 10, 16, 1300, 0.6),//
         9: new Food(29,"Bearclaw", "Bakery",                            2.5, 12, 6, 21, 7, 850, 0.3),//
         10: new Food(210,"Camas Bread", "Bakery",                       2.5, 15, 5, 13, 9, 800, 0.5),//
-        11: new Food(211,"Macaroons", "Bakery",                         2.5, 16, 7, 14, 10, 850, 0.2),//
-        12: new Food(212,"Elk Wellington", "Bakery",                    2.5, 12, 20, 12, 8, 1400, 0.5),//
-        13: new Food(213,"Baked Agave", "Bakery",                       2, 12, 2, 6, 8, 560, 0.3),//
-        14: new Food(214,"Baked Corn", "Bakery",                        2, 6, 7, 6, 9, 560, 0.3),//
-        15: new Food(215,"Baked Tomato", "Bakery",                      2, 9, 1, 5, 15, 560, 0.3),//
-        16: new Food(216,"Baked Taro", "Bakery",                        2, 8, 6, 2, 12, 560, 0.3),//
-        17: new Food(217,"Baked Heart of Palm", "Bakery",               2, 12, 6, 4, 6, 560, 0.3),//
-        18: new Food(218,"Fruit Muffin", "Bakery",                      2, 5, 5, 4, 16, 800, 0.2),//
-        19: new Food(219,"Fruit Tart", "Bakery",                        2.5, 14, 5, 9, 18, 800, 0.4),//
+        11: new Food(211,"Macaroons", "Bakery",                         2.5, 20, 7, 14, 16, 850, 0.2),//
+        12: new Food(212,"Elk Wellington", "Bakery",                    2.5, 12, 20, 22, 8, 1400, 0.5),//
+        13: new Food(213,"Baked Agave", "Bakery",                       2, 12, 2, 6, 8, 700, 0.3),//
+        14: new Food(214,"Baked Corn", "Bakery",                        2, 6, 7, 6, 9, 700, 0.3),//
+        15: new Food(215,"Baked Tomato", "Bakery",                      2, 9, 1, 5, 13, 700, 0.3),//
+        16: new Food(216,"Baked Taro", "Bakery",                        2, 8, 6, 2, 12, 700, 0.3),//
+        17: new Food(217,"Baked Heart of Palm", "Bakery",               2, 12, 6, 4, 6, 700, 0.3),//
+        18: new Food(218,"Fruit Muffin", "Bakery",                      2, 10, 5, 4, 16, 800, 0.2),//
+        19: new Food(219,"Fruit Tart", "Bakery",                        2.5, 14, 5, 9, 20, 800, 0.4),//
         20: new Food(220,"Pirozhok", "Bakery",                          2.5, 14, 19, 10, 4, 850, 0.4),//
-        21: new Food(221,"Stuffed Turkey", "Bakery",                    2.5, 9, 16, 12, 7, 1500, 1),//
-        22: new Food(222,"Baked Beet", "Bakery",                        2, 8, 4, 4, 12, 560, 0.3),//
+        21: new Food(221,"Stuffed Turkey", "Bakery",                    2.5, 17, 20, 16, 11, 1500, 1),//
+        22: new Food(222,"Baked Beet", "Bakery",                        2, 8, 4, 4, 12, 700, 0.3),//
     },
 
     kitchen: {

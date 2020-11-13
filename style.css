@@ -66,14 +66,13 @@ body {
 .top__title {
 	height: 100%;
 	position:relative;
-    
+    top: 30%
     
 }
 
 .page__title {
 	position: relative;
 	text-align: center;
-	top:30%;
 	color:aliceblue;
 }
 
@@ -195,6 +194,15 @@ body::after {
 
     
     
+}
+
+.update__info {
+    font:24px;
+    height:30px;
+    width: 100%;
+    text-align:center;
+    position: relative;
+    color: #FFF
 }
 
 .lists__container.menu__visible {
@@ -818,10 +826,6 @@ h2 {
 	 
 }
 .available__img:hover ~ .food__info {
-	display:block;
-}
-
-.item:hover > .food__info {
 	display:block;
 }
 
