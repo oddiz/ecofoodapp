@@ -92,7 +92,6 @@ var foods = {
         4: new Food(34,"Boiled Rice", "Kitchen",           1.5, 13, 2, 0, 0, 210, 0.1),//
         5: new Food(35,"Wild Mix", "Kitchen",              2.5, 11, 8, 6, 21, 800, 0.6),//
         6: new Food(36,"Pineapple Friend Rice", "Kitchen",  2.5, 20, 12, 12, 9, 620, 0.15),//
-        7: new Food(37,"Boiled Rice", "Kitchen",            2, 13, 0, 0, 2, 210, 0.1)//
     },
 
     cast_stove: {

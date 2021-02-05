@@ -1,11 +1,13 @@
 dark mode
 animate buttons
-search box
+save & modify food values + import export 
+
 
 responsive page + mobile mode - partially done
 add better iphone support 375 width
 
 
+search box - done
 automate build and pushing to s3 -done
 fix tier sort -done
 css overhaul -done
