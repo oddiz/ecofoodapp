@@ -95,12 +95,12 @@ var foods = {
     },
 
     cast_stove: {
-        1: new Food(41,"Basic Salad", "Cast iron stove",    2, 13, 6, 6, 13, 800, 0.3),
+        1: new Food(41,"Basic Salad", "Cast iron stove",    2, 18, 6, 4, 10, 800, 0.3),
         2: new Food(42,"Fruit Salad", "Cast iron stove",    2, 12, 4, 3, 19, 900, 0.3),
         3: new Food(43,"Vegetable Stock", "Cast iron stove", 2, 11, 1 , 2, 11, 700, 0.8),
         4: new Food(44,"Vegetable Soup", "Cast iron stove", 2, 12, 4, 7, 19, 1200, 0.9),
         5: new Food(45,"Simmered Meat", "Cast iron stove",  2, 6, 18, 13, 5, 900, 0.8),
-        7: new Food(47,"Crispy Bacon", "Cast iron stove",   2, 0, 18, 26, 0, 600, 0.2),
+        7: new Food(47,"Crispy Bacon", "Cast iron stove",   2, 0, 18, 26, 0, 800, 0.2),
         8: new Food(48,"Vegetable Medley", "Cast iron stove", 2, 8, 4, 7, 17, 900, 0.3)
     },
 
