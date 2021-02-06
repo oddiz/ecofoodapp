@@ -296,7 +296,7 @@ var UIController = (function() {
                 foundAt = resultObject.foundAt;
             }
             var paperHtmlEdited = paperHtml.
-                replace('%sp%', resultObject.spAmount.toFixed(2)).
+                replace('%sp%', resultObject.spAmount.toFixed(1)).
                 replace('%multiplier%', resultObject.multiplier.toFixed(2)).
                 replace('%index%', foundAt).
                 replace('%simcount%', resultObject.totalIterations).
@@ -1059,7 +1059,7 @@ var controller = (function(UICtrl, menuCtrl) {
             if (iterationCount > 50000000 && highCountAdvisorShown === false) {
                 Swal.fire({
                     title: "This might take a while",
-                    html: "The amount of iterations for this calculation is high. <br><br> However you can cancel the calculation any time if it's taking too long. <br><br> You can also consider setting a custom calculation scale and randomly test menus with current inputs.",
+                    html: "The amount of iterations for this calculation is high (" + iterationCount + " menus to test). So it may take a long time to find the best.<br><br> However you can cancel the calculation any time if it's taking too long. <br><br> You can also consider setting a custom calculation scale and randomly test menus with current selections. Try starting with 1,000,000.",
                     input: "checkbox",
                     inputPlaceholder: "Don't show this again.",
                     icon: "warning",

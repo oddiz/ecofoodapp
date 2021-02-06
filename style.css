@@ -17,6 +17,13 @@
 	font-style: normal;
 }
 
+@font-face {
+    font-family: 'abel';
+    src: url(vendor/fonts/Abel-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -35,7 +42,7 @@ body {
    
 	height: 100vh;
     color: #555;
-    font-family:  'Dosis', sans-serif;
+    font-family:  'abel', sans-serif;
     font-size: 16px;
     position: relative;
     height:100%;
@@ -565,7 +572,20 @@ content: "";
     width: auto;
     padding-left: 0%;
 }
-
+.add__all, .t1__add, .t1_5__add, .t2__add, .t2_5__add {
+    margin-right: 6px;
+    height: 25px;
+    cursor: pointer;
+    color: rgba(40,185,181,1.00);
+    
+    border: 1px solid rgba(46,185,181,1.00);
+    border-radius: 6px;
+    
+    padding: 3px 4px 3px 5.5px;
+    font-size: 14px;
+    letter-spacing: -1px;
+    
+}
 
     /****************************
     Search Bar
@@ -603,20 +623,7 @@ content: "";
         font-size: 28px;
     }
 
-.add__all, .t1__add, .t1_5__add, .t2__add, .t2_5__add {
-    margin-right: 6px;
-    height: 25px;
-    cursor: pointer;
-    color: rgba(40,185,181,1.00);
-    
-    border: 1px solid rgba(46,185,181,1.00);
-    border-radius: 6px;
-    
-    padding: 3px 5px 3px 5.5px;
-    font-size: 14px;
-    letter-spacing: -1px;
-    
-}
+
 
 .add__all:hover, .t1__add:hover, .t1_5__add:hover, .t2__add:hover, .t2_5__add:hover {
     
@@ -739,7 +746,7 @@ h2 {
 }
 
 .item .item__description .tier__info {
-    font-size:12px;
+    font-size:14px;
     margin-left:5px;
     
 }
@@ -810,8 +817,8 @@ h2 {
 	
 	position: absolute;
 	min-width:192px;
-    width: 230px;
-	height: 160px;
+    width: 250px;
+	height: 220px;
 	background: rgba(0,0,0,0.92);
 	top:-49px;
 	left: 105%;
@@ -819,8 +826,8 @@ h2 {
 	
 	border: 3px ridge #5275a5;
 	border-radius: 5px;
-	font-family: 'Ubuntu', sans-serif;
-	font-size: 16px;
+	font-family: 'abel', sans-serif;
+	font-size: 32px;
 	color: #84d56a;
 	text-align: left;
 	 
@@ -832,7 +839,7 @@ h2 {
 .item .food__info:after {
 content: "";
   position: absolute;
-  bottom: 50%;
+  bottom: 60%;
 	left: -18px;
   margin-left: -5px;
   border-width: 10px;
@@ -861,7 +868,7 @@ content: "";
 }
 .item .food__info .food__info__title h5 {
 	display: inline-block;
-	font-size: 18px;
+	font-size: 20px;
 	position: absolute;
 	top:4px;
 	left: 35px;
@@ -870,7 +877,7 @@ content: "";
 
 .food__info__nutrition h6 {
 	color: #FFF;
-	font-size: 12px;
+	font-size: 18px;
 }
 
 .food__info__nutrition h6:first-child {
