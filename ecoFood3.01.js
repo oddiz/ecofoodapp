@@ -988,6 +988,9 @@ var controller = (function(UICtrl, menuCtrl) {
 			//update active menu in menuCtrl
             menuCtrl.removeActive(selectedFood);
             
+            //refresh available foods if search is active
+            UICtrl.searchAvailable();
+            
 		}
     }
 
