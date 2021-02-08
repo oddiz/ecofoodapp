@@ -1,5 +1,5 @@
 onmessage = function(e) {
-    var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, stomachContentW,option;
+    var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, maxSpW, stomachContentW,option;
     if (e.data.origin !== "ecoFood") {
         return;
     }
@@ -8,17 +8,18 @@ onmessage = function(e) {
     foodCountW = e.data.foodInput;
     budgetW = e.data.budgetInput || Infinity;
     calorieW = e.data.calorieInput || Infinity;
+    maxSpW = e.data.maxSpInput || Infinity;
     stomachContentW = e.data.stomachContent;
     option = e.data.simType;
     
     
-    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, stomachContentW,option);
+    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, maxSpW, stomachContentW,option);
 }
 
 
 
 
-function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, stomachContent, option) {
+function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, maxSp, stomachContent, option) {
 	//randomizes and tests the active menu array
     "use strict";
 
@@ -27,6 +28,9 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     }
     if (budget !== Infinity) {
         budget = parseInt(budget);
+    }
+    if (maxSp !== Infinity) {
+        maxSp = parseInt(maxSp);
     }
 
 	function calculateSP(menu) {
@@ -140,9 +144,14 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             }
             randomMenu = randomMenu.concat(getMenu().stomach)
             var result = calculateSP(randomMenu);
-               
+
             
-           
+            if (result.SP > maxSp) {
+                randomMenu = []
+
+                continue;
+            }
+
     
             if (result.SP > bestSP) {
                 bestSP = result.SP;
@@ -192,7 +201,8 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                     if((totalPrice <= budget) && (totalCalorie <= calorie)) {
                         
                         var result = calculateSP(definitiveMenu);
-                        if (result.SP > bestSP) {
+                        
+                        if (result.SP > bestSP && result.SP <= maxSp) {
                             bestSP = result.SP;
                             bestMenuNames = result.foodList;
                             bestIndex = counter;

@@ -276,7 +276,8 @@ body::after {
 .food__amount,
 .sim__amount,
 .budget__amount,
-.calorie__amount {
+.calorie__amount,
+.maxSP__amount {
     display: inline;
     position:relative;
 	
@@ -290,7 +291,8 @@ body::after {
 .food__amount__input, 
 .simulation__scale__input,
 .budget__amount__input,
-.calorie__amount__input {
+.calorie__amount__input,
+.maxSP__amount__input {
 	outline:0;
     height: 40px;
 	padding-left:10px;
@@ -315,7 +317,8 @@ body::after {
 
 
 .budget__amount__input,
-.calorie__amount__input {
+.calorie__amount__input,
+.maxSP__amount__input {
 	margin-left: 10px;
 	width: 80px;
 	border: 2px dashed #ccc;
@@ -328,7 +331,8 @@ body::after {
 
 .budget__amount__input:focus,
 .simulation__scale__input:focus,
-.calorie__amount__input:focus {
+.calorie__amount__input:focus,
+.maxSP__amount__input:focus {
 	border: 2px dashed rgba(40,185,181,1.00);
 }
 
@@ -385,11 +389,15 @@ content: "";
 .calorie__amount .info__text:after {
 	left: 13%;
 }
+.maxSP__amount .info__text:after {
+    left: 13%;
+}
 
 .food__amount:hover .info__text,
 .sim__amount:hover .info__text,
 .budget__amount:hover .info__text,
-.calorie__amount:hover .info__text {
+.calorie__amount:hover .info__text,
+.maxSP__amount:hover .info__text {
     visibility: visible;
 	opacity: 1;
 }
@@ -572,7 +580,7 @@ content: "";
     width: auto;
     padding-left: 0%;
 }
-.add__all, .t1__add, .t1_5__add, .t2__add, .t2_5__add {
+.add__all, .t1__add, .t2__add, .t3__add, .t4__add {
     margin-right: 6px;
     height: 25px;
     cursor: pointer;
@@ -625,12 +633,12 @@ content: "";
 
 
 
-.add__all:hover, .t1__add:hover, .t1_5__add:hover, .t2__add:hover, .t2_5__add:hover {
+.add__all:hover, .t1__add:hover, .t2__add:hover, .t3__add:hover, .t4__add:hover {
     
     box-shadow:inset 0px 0px 0px 1px rgba(40,185,181,1.00);
 }
 
-.t1__add i, .t1_5__add i, .t2__add i, .t2_5__add i {
+.t1__add i, .t2__add i, .t3__add i, .t4__add i {
     font-size: 10px;    
 }
 

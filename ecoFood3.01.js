@@ -16,6 +16,7 @@ var UIController = (function() {
         simScaleInput: ".simulation__scale__input",
         budgetInput: ".budget__amount__input",
         calorieInput: ".calorie__amount__input",
+        maxSpInput: ".maxSP__amount__input",
 		output: ".output",
         listsContainer: ".lists__container",
         calculateWorkerButton: ".withWorker",
@@ -149,10 +150,16 @@ var UIController = (function() {
                 });
 
             } else {
-                var searchRegExp = new RegExp(userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");
+                //escape special characters
+                userQuery = userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
+                
+                
+                
+                console.log(userQuery)
+                var searchRegExp = new RegExp(userQuery, "im");
                 availableFoodArray.forEach(function(foodObj){
 
-                    var isThereMatch = searchRegExp.test(foodObj.name);
+                    var isThereMatch = searchRegExp.test(foodObj.name) || searchRegExp.test("tier: " + foodObj.tier) || searchRegExp.test("tier " + foodObj.tier + "$");
                     
                     if (isThereMatch == true) {
                         UIController.addToAvailable(foodObj)
@@ -269,6 +276,7 @@ var UIController = (function() {
             var simInput = document.querySelector(DOMStrings.simScaleInput).value;
             var budgetInput = parseInt(document.querySelector(DOMStrings.budgetInput).value);
             var calorieInput = parseInt(document.querySelector(DOMStrings.calorieInput).value);
+            var maxSpInput = parseInt(document.querySelector(DOMStrings.maxSpInput).value)
             if(budgetInput === 0 || budgetInput === -1) {
                 budgetInput = Infinity;
             }
@@ -282,7 +290,8 @@ var UIController = (function() {
 				foodInput: parseInt(foodInput.replace(regex, "")),
                 simInput: simInput.replace(regex, ""),
                 budgetInput: budgetInput,
-                calorieInput: calorieInput
+                calorieInput: calorieInput,
+                maxSpInput: maxSpInput
 			};
         },
         
@@ -839,14 +848,14 @@ var controller = (function(UICtrl, menuCtrl) {
                 case "t1__add":
                     clickedOnTier = 1;
                     break;
-                case "t1_5__add":
-                    clickedOnTier = 1.5;
-                    break;
                 case "t2__add":
                     clickedOnTier = 2;
                     break;
-                case "t2_5__add":
-                    clickedOnTier = 2.5;
+                case "t3__add":
+                    clickedOnTier = 3;
+                    break;
+                case "t4__add":
+                    clickedOnTier = 4;
                     break;
                 case "add__all":
                     clickedOnTier = "all";
@@ -1030,8 +1039,6 @@ var controller = (function(UICtrl, menuCtrl) {
         var input = UICtrl.getInput();
         var inputFood = input.foodInput;
         var inputSim = input.simInput;
-        var inputBudget = input.budgetInput;
-        var inputCalorie = input.calorieInput;
 
         console.log(inputFood)
         if(inputFood === "" || isNaN(inputFood)) {
@@ -1051,8 +1058,7 @@ var controller = (function(UICtrl, menuCtrl) {
         var stopBtn = document.querySelector(DOM.stopButton);
         
 
-        console.log('Starting Worker.') 
-
+        console.log('Starting Worker.')
         var work = new Worker('testMenuWorker.js');
 
         if (inputSim === "" || inputSim == 0) {
@@ -1079,8 +1085,9 @@ var controller = (function(UICtrl, menuCtrl) {
                             activeMenu: activeMenu,
                             simScale: inputSim,
                             foodInput: inputFood,
-                            budgetInput: inputBudget,
-                            calorieInput: inputCalorie,
+                            budgetInput: input.budgetInput,
+                            calorieInput: input.calorieInput,
+                            maxSpInput: input.maxSpInput,
                             stomachContent: stomachContent,
                             simType: "definitive"
 
@@ -1102,8 +1109,9 @@ var controller = (function(UICtrl, menuCtrl) {
                     activeMenu: activeMenu,
                     simScale: inputSim,
                     foodInput: inputFood,
-                    budgetInput: inputBudget,
-                    calorieInput: inputCalorie,
+                    budgetInput: input.budgetInput,
+                    calorieInput: input.calorieInput,
+                    maxSpInput: input.maxSpInput,
                     stomachContent: stomachContent,
                     simType: "definitive"
 
@@ -1116,8 +1124,9 @@ var controller = (function(UICtrl, menuCtrl) {
                 activeMenu: activeMenu,
                 simScale: inputSim,
                 foodInput: inputFood,
-                budgetInput: inputBudget,
-                calorieInput: inputCalorie,
+                budgetInput: input.budgetInput,
+                calorieInput: input.calorieInput,
+                maxSpInput: input.maxSpInput,
                 stomachContent: stomachContent,
                 simType: "random"
 
