@@ -1,6 +1,8 @@
 dark mode
 animate buttons
 save & modify food values + import export 
+add calorie/$ 
+
 
 tickbox to show ingredients or not
 categorize by stove, bakery, campfire etc

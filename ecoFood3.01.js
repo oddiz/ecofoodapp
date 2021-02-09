@@ -202,7 +202,7 @@ var UIController = (function() {
 			}
 			//add food to selected list
 			htmlTemplate =
-            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><i class="ion-ios-close item__delete--btn"></i><img class="available__img" src="./resources/img/%imgid%.png"><div class="item__price"><div class="item__price__container"><img src="resources/img/ptag.png"><input type="number" class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
+            '<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><i class="ion-ios-close item__delete--btn"></i><img class="available__img" src="./resources/img/%imgid%.png"><div class="item__price"><div class="item__price__container"><img src="resources/img/ptag.png"><input class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>';
             
 			newHtml = htmlTemplate.replace("%id%", foodObj.id);
             newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -297,7 +297,7 @@ var UIController = (function() {
         
 		displayResults: function(resultObject) {
             var paperHtml, menuContent, line, menuObject, foundAt;
-            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./resources/spinner.svg"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p></div>';
+            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./resources/spinner.svg"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
 
             if(resultObject.foundAt === 0) {
                 foundAt = 1
@@ -310,8 +310,8 @@ var UIController = (function() {
                 replace('%index%', foundAt).
                 replace('%simcount%', resultObject.totalIterations).
                 replace('%price%', resultObject.totalPrice).
-                replace('%calories%', resultObject.totalCalorie)
-                
+                replace('%calories%', resultObject.totalCalorie).
+                replace('%caloriesperdollar%', resultObject.caloriePerDollar.toFixed(2))
 
             document.querySelector(DOMStrings.menuPaper).innerHTML = paperHtmlEdited;
             menuContent = document.querySelector(".menu__content");
@@ -473,7 +473,8 @@ var UIController = (function() {
             if(pricesNodeList.length > 0) {
                 pricesNodeList.forEach(function(node) {
                     var id = node.parentNode.parentNode.parentNode.id;
-                    var price = parseInt(node.value);
+                    //change "," with "." to avoid common mistake of putting comma instead of decimal
+                    var price = parseFloat(node.value.replace(",","."));
                     if (isNaN(price)) {
                         price = 0
                     }
@@ -888,6 +889,8 @@ var controller = (function(UICtrl, menuCtrl) {
                 UICtrl.sortAvailable(sortName);
             }
         });
+
+        UICtrl.searchAvailable();
         
     }
 

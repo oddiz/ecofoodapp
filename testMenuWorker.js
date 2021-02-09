@@ -112,7 +112,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                 for (var q = 0; q < foodCount; q++) {
                     randomizer = Math.floor(Math.random() * activeMenuArray.length);
                     randomMenu.push(activeMenuArray[randomizer]);
-                    totalPrice += parseInt(activeMenuArray[randomizer].price);
+                    totalPrice += parseFloat(activeMenuArray[randomizer].price);
                     totalCalorie += parseInt(activeMenuArray[randomizer].cal);
                 }
             }
@@ -134,7 +134,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     
             }
     
-            if(((parseInt(budget) != -1) && totalPrice > parseInt(budget)) || ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie))) {
+            if(((parseFloat(budget) != -1) && totalPrice > parseFloat(budget)) || ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie))) {
                 
                 randomMenu = [];
 
@@ -208,7 +208,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                             bestIndex = counter;
                             bestMultiplier = result.multiplier;
                             bestTotalPrice = totalPrice;
-                            bestTotalCalorie = totalCalorie;
+                            bestTotalCalorie = totalCalorie;                            
                             bestMenuArray = constructMenuFromArgs(args, getMenu().stomach);
 
                             postMessage({
@@ -221,6 +221,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                                     foodQty: parseInt(foodCount) + stomachContent.length,
                                     totalPrice: bestTotalPrice,
                                     totalCalorie: bestTotalCalorie,
+                                    caloriePerDollar: bestTotalCalorie/bestTotalPrice,
                                     resultMenuArray: bestMenuArray,
                                     totalIterations: totalIterations
                                 }
@@ -273,7 +274,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     
                 for (var i = 0; i < ele; i++) {
                     calculateMenu.push(inputMenu[index]);
-                    totalPrice += parseInt(inputMenu[index].price);
+                    totalPrice += parseFloat(inputMenu[index].price);
                     totalCalorie += parseInt(inputMenu[index].cal);
                 }
             })
@@ -336,6 +337,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                 foodQty: parseInt(foodCount) + stomachContent.length,
                 totalPrice: bestTotalPrice,
                 totalCalorie: bestTotalCalorie,
+                caloriePerDollar: bestTotalCalorie/bestTotalPrice,
                 resultMenuArray: bestMenuArray,
                 totalIterations: totalIterations
             }
