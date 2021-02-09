@@ -1,5 +1,5 @@
 onmessage = function(e) {
-    var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, maxSpW, stomachContentW,option;
+    var activeMenuW, rollNumberW,foodCountW,budgetW, calorieW, caloriePerDollarW, maxSpW, stomachContentW,option;
     if (e.data.origin !== "ecoFood") {
         return;
     }
@@ -8,18 +8,19 @@ onmessage = function(e) {
     foodCountW = e.data.foodInput;
     budgetW = e.data.budgetInput || Infinity;
     calorieW = e.data.calorieInput || Infinity;
+    caloriePerDollarW = e.data.caloriePerDollarInput || -Infinity;
     maxSpW = e.data.maxSpInput || Infinity;
     stomachContentW = e.data.stomachContent;
     option = e.data.simType;
     
-    
-    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, maxSpW, stomachContentW,option);
+
+    testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, caloriePerDollarW, maxSpW, stomachContentW,option);
 }
 
 
 
 
-function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, maxSp, stomachContent, option) {
+function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, caloriePerDollar, maxSp, stomachContent, option) {
 	//randomizes and tests the active menu array
     "use strict";
 
@@ -134,7 +135,11 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     
             }
     
-            if(((parseFloat(budget) != -1) && totalPrice > parseFloat(budget)) || ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie))) {
+            if(
+                ((parseFloat(budget) != -1) && totalPrice > parseFloat(budget)) || 
+                ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie)) ||
+                ((parseFloat(caloriePerDollar != -1) && totalCalorie/totalPrice < parseFloat(caloriePerDollar)))
+            ) {
                 
                 randomMenu = [];
 
@@ -198,7 +203,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                     
                     var definitiveMenu = constructMenuFromArgs(args, getMenu().stomach);
                     
-                    if((totalPrice <= budget) && (totalCalorie <= calorie)) {
+                    if((totalPrice <= budget) && (totalCalorie <= calorie) && ((totalCalorie/totalPrice) >= caloriePerDollar)) {
                         
                         var result = calculateSP(definitiveMenu);
                         

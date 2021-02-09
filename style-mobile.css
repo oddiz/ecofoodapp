@@ -49,7 +49,7 @@
     }
 
     .food__amount__input {
-        width: 95px;
+        width: 55px;
     }
 
     .simulation__scale__input {
@@ -58,7 +58,9 @@
     }
 
     .budget__amount__input,
-    .calorie__amount__input {
+    .calorie__amount__input,
+    .maxSP__amount__input,
+    .calorieperdollar__amount__input {
         width: 60px;
     }
     
