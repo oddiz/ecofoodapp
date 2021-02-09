@@ -138,7 +138,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             if(
                 ((parseFloat(budget) != -1) && totalPrice > parseFloat(budget)) || 
                 ((parseInt(calorie) != -1) && totalCalorie > parseInt(calorie)) ||
-                ((parseFloat(caloriePerDollar != -1) && totalCalorie/totalPrice < parseFloat(caloriePerDollar)))
+                (((totalCalorie/totalPrice) < caloriePerDollar))
             ) {
                 
                 randomMenu = [];
