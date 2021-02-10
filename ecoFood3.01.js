@@ -43,6 +43,7 @@ var UIController = (function() {
         addToStomachButton: ".stomach__add",
         highscoreBestButton: ".best__button",
         searchInput: ".search_bar_input",
+        foodTypeContainer: ".foodtype__container"
 
     };
     
@@ -142,13 +143,15 @@ var UIController = (function() {
             //clear available list
 			UIController.clearLists(document.querySelector(DOMStrings.availableFoods));
 
-			//adds all foods to active menu
+			//adds all non selected foods to active menu
             var availableFoodArray = menuController.showInactive();
             
             if (userQuery == "") {
                 availableFoodArray.forEach(function(foodObj) {
                     UIController.addToAvailable(foodObj);
                 });
+                //when search bar is empty apply filters
+                UIController.filterByFoodType();
 
             } else {
                 //escape special characters
@@ -156,16 +159,87 @@ var UIController = (function() {
                 
                 
                 
-                console.log(userQuery)
                 var searchRegExp = new RegExp(userQuery, "im");
                 availableFoodArray.forEach(function(foodObj){
 
                     var isThereMatch = searchRegExp.test(foodObj.name) || searchRegExp.test("tier: " + foodObj.tier) || searchRegExp.test("tier " + foodObj.tier + "$");
                     
                     if (isThereMatch == true) {
-                        UIController.addToAvailable(foodObj)
+                        UIController.addToAvailable(foodObj);
+                        
                     }
                 })
+            }
+        },
+
+        filterByFoodType: function (sortOption) {
+        //filters available foods according to buttons
+
+            //if search is active do nothing
+            userQuery = document.querySelector(DOMStrings.searchInput).value
+            if (userQuery !== ""){
+                
+                return
+            }
+            //get which buttons are active
+            var activeButtons = [];
+            var buttons = document.querySelector(".foodtype__container").childNodes.forEach(
+                function(node) {
+                    if (typeof node.classList !== "undefined" && node.classList.contains("active")) {
+                        activeButtons.push(node.id.slice(0,-8))
+                    }
+
+                })
+
+        //process names
+            activeButtons.forEach(function(ele, i) {
+                if (ele === "campfire") {
+                    activeButtons[i] = "Campfire";
+                } else if (ele === "bakeryoven") {
+                    activeButtons[i] = "Bakery";
+                } else if (ele === "castironstove") {
+                    activeButtons[i] = "Cast iron stove";
+                } else if (ele === "kitchen") {
+                    activeButtons[i] = "Kitchen";
+                } else if (ele === "stove") {
+                    activeButtons[i] = "Stove"
+                } else {
+                    console.log("something's wrong man...")
+                }
+            })
+
+        //do magic according to active buttons
+            var availableFoodArray = menuController.showInactive();
+
+            if (activeButtons.length > 0) {
+                //clear available list
+                UIController.clearLists(document.querySelector(DOMStrings.availableFoods));
+                
+                availableFoodArray.forEach(function(foodObject) {
+                    if (confirmFoodType(foodObject)) {
+                        UIController.addToAvailable(foodObject)
+                    }
+                })
+                //after magic, sort 
+
+            } else {
+                availableFoodArray.forEach(function(ele){
+                    UIController.addToAvailable(ele);
+                })
+            }
+            
+            
+            
+            function confirmFoodType(foodObject) {
+                var confirmed = false
+                for (var i = 0; i < activeButtons.length; i++){
+                    if (activeButtons[i] === foodObject.type) {
+                        confirmed = true;
+                        break;
+                    }
+                }
+
+                return confirmed
             }
         },
 
@@ -833,11 +907,23 @@ var controller = (function(UICtrl, menuCtrl) {
         document.addEventListener("keyup", UICtrl.savePrices);
 
         //search box event listener
-        document.querySelector(DOM.searchInput).addEventListener("input", UICtrl.searchAvailable )
+        document.querySelector(DOM.searchInput).addEventListener("input", UICtrl.searchAvailable);
         
-        
+        //filter by food type (campfire, kitchen, etc) event listener
+        document.querySelector(DOM.foodTypeContainer).addEventListener("click", filterController);
     };
     
+    function filterController(event) {
+        console.log(event.target.classList.contains("circle__button"))
+
+        if (event.target.classList.contains("circle__button")) {
+            event.target.classList.toggle("active");
+        }
+
+
+
+        UICtrl.filterByFoodType()
+    }
 
     function quickAdd(event) {
         
