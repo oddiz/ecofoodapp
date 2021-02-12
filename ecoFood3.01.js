@@ -90,6 +90,8 @@ var UIController = (function() {
                     UIController.addToSelected(foodObj);
                 })
             }
+
+            UIController.sortAvailable("tier");
         },
 
         getAvailableList: function () {
@@ -100,6 +102,21 @@ var UIController = (function() {
             })
             
             return availableList;
+        },
+
+        getSortSelection: function() {
+            var sortOptions = document.querySelector(".sort__options").childNodes[1].children
+            var selectedSort = ""
+            for (var i = 0; i < sortOptions.length; i++) {
+                if (sortOptions[i].classList.contains("active")) {
+                    
+
+                    selectedSort =  sortOptions[i].textContent.toLowerCase()
+                }
+            }
+
+            return selectedSort
+
         },
 
         sortAvailable: function(property) {
@@ -174,7 +191,7 @@ var UIController = (function() {
 
         filterByFoodType: function (sortOption) {
         //filters available foods according to buttons
-
+            
             //if search is active do nothing
             userQuery = document.querySelector(DOMStrings.searchInput).value
             if (userQuery !== ""){
@@ -183,14 +200,14 @@ var UIController = (function() {
             }
             //get which buttons are active
             var activeButtons = [];
-            var buttons = document.querySelector(".foodtype__container").childNodes.forEach(
+            document.querySelector(".foodtype__container").childNodes.forEach(
                 function(node) {
                     if (typeof node.classList !== "undefined" && node.classList.contains("active")) {
                         activeButtons.push(node.id.slice(0,-8))
                     }
 
                 })
-
+            
         //process names
             activeButtons.forEach(function(ele, i) {
                 if (ele === "campfire") {
@@ -203,6 +220,8 @@ var UIController = (function() {
                     activeButtons[i] = "Kitchen";
                 } else if (ele === "stove") {
                     activeButtons[i] = "Stove"
+                } else if (ele === "raw"){
+                    activeButtons[i] = "Raw"
                 } else {
                     console.log("something's wrong man...")
                 }
@@ -220,13 +239,14 @@ var UIController = (function() {
                         UIController.addToAvailable(foodObject)
                     }
                 })
-                //after magic, sort 
 
             } else {
                 availableFoodArray.forEach(function(ele){
                     UIController.addToAvailable(ele);
                 })
             }
+
+            
             
             
             
@@ -826,7 +846,9 @@ function getFoodFromID(id) {
 			return foods.cast_stove;
 		} else if (firstNumber === 5) {
 			return foods.stove;
-		}
+		} else if (firstNumber === 6) {
+            return foods.raw;
+        }
 	}
 	var selectedFood, realID;
 	//removes category id from start
@@ -843,6 +865,7 @@ function getFoodFromID(id) {
 	//returns food object
 	return selectedFood;
 }
+
 
 var controller = (function(UICtrl, menuCtrl) {
 	var DOM;
@@ -914,7 +937,6 @@ var controller = (function(UICtrl, menuCtrl) {
     };
     
     function filterController(event) {
-        console.log(event.target.classList.contains("circle__button"))
 
         if (event.target.classList.contains("circle__button")) {
             event.target.classList.toggle("active");
@@ -923,6 +945,13 @@ var controller = (function(UICtrl, menuCtrl) {
 
 
         UICtrl.filterByFoodType()
+        var selectedSort = UICtrl.getSortSelection();
+        if (selectedSort === "protein") {
+            selectedSort = "pro";
+        } else if (selectedSort === "vitamin") {
+            selectedSort = "vit";
+        }            
+        UICtrl.sortAvailable(selectedSort);
     }
 
     function quickAdd(event) {
@@ -984,9 +1013,20 @@ var controller = (function(UICtrl, menuCtrl) {
     }
 
     function sortClicked(event) {
+        
+        
         if (event.target.classList && event.target.classList.contains("active")) {
+            var selectedSort = UICtrl.getSortSelection();
+            if (selectedSort === "protein") {
+                selectedSort = "pro";
+            } else if (selectedSort === "vitamin") {
+                selectedSort = "vit";
+            }            
+            UICtrl.sortAvailable(selectedSort);
+            
             return;
         }
+        
         //remove active
         var lies = document.querySelectorAll(".sort__options")[0].firstElementChild.childNodes;
         lies.forEach(function(node) {
@@ -994,7 +1034,7 @@ var controller = (function(UICtrl, menuCtrl) {
                 node.classList.remove("active");
             }
         });
-
+        
         event.target.classList.add("active");
         var sortName = event.target.textContent.toLowerCase();
         if (sortName === "protein") {
@@ -1002,7 +1042,7 @@ var controller = (function(UICtrl, menuCtrl) {
         } else if (sortName === "vitamin") {
             sortName = "vit";
         }
-
+        
         UICtrl.sortAvailable(sortName);
     }
 
@@ -1363,7 +1403,7 @@ var controller = (function(UICtrl, menuCtrl) {
                 console.error(error);
             });
     }
-	
+
 return {
     init: function() {
         UICtrl.initUI();

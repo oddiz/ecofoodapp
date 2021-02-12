@@ -113,7 +113,31 @@ var foods = {
             6: new Food(56,"Bear SUPREME", "Stove",                     4, 8,20,22,10,1200,0.5),
     },
     raw: {
-        
+        1: new Food(61,"Corn", "Raw",                                   0, 4, 1, 0, 3, 230, 0.01),
+        2: new Food(62,"Beet","Raw",                                    0, 2, 0, 2, 4, 230, 0.01),
+        3: new Food(63,"Wheat","Raw",                                   0, 6, 2, 0, 0, 150, 0.01),
+        4: new Food(64,"Agave Leaves","Raw",                            0, 3, 1, 2, 2, 200, 0.01),
+        5: new Food(65,"Beans","Raw",                                   0, 1, 4, 3, 0, 150, 0.01),
+        6: new Food(66,"Bolete Mushrooms","Raw",                        0, 2, 4, 1, 1, 200, 0.01),
+        7: new Food(67,"Camas Bulb","Raw",                              0, 1, 2, 5, 0, 150, 0.01),
+        8: new Food(68,"Cookeina Mushrooms","Raw",                      0, 2, 4, 1, 1, 200, 0.01),
+        9: new Food(69,"Crimini Mushrooms","Raw",                       0, 2, 4, 1, 1, 200, 0.01),
+        10: new Food(610,"Fiddleheads","Raw",                           0, 2, 1, 0, 5, 150, 0.01),
+        11: new Food(611,"Fireweed Shoots","Raw",                       0, 3, 1, 0, 4, 150, 0.01),
+        12: new Food(612,"Giant Cactus Fruit","Raw",                    0,2, 0, 2, 4, 100, 0.01),
+        13: new Food(613,"Heart of Palm","Raw",                         0, 4, 2, 0, 2, 100, 0.01),
+        14: new Food(614,"Pineapple","Raw",                             0, 6, 0, 0, 2, 200, 0.01),
+        15: new Food(615,"Prickly Pear Fruit","Raw",                    0, 2, 1, 1, 4, 190, 0.01),
+        16: new Food(616,"Pumpkin","Raw",                               0, 5, 1, 0, 2, 340, 0.1),
+        17: new Food(617,"Taro Root","Raw",                             0, 6, 1, 0, 1, 250, 0.01),
+        18: new Food(618,"Raw Meat","Raw",                              0, 0, 4, 8, 0, 250, 0.1),
+        19: new Food(619,"Tallow","Raw",                                0, 0, 0, 8, 0, 200, 0.02),
+        20: new Food(620,"Oil","Raw",                                   0, 0, 0, 15, 0, 120, 0.1),
+        21: new Food(621,"Scrap Meat","Raw",                            0, 0, 5, 5, 0, 50, 0.01),
+        22: new Food(622,"Tomato","Raw",                                0, 5, 1, 0, 2, 240, 0.01),
+        23: new Food(623,"Huckleberries","Raw",                         0, 2, 0, 0, 6, 150, 0.01),
+        24: new Food(624,"Beet Green","Raw",                            0, 3, 1, 0, 4, 100, 0.01),
+
     }
 
    /*
