@@ -1131,6 +1131,15 @@ var controller = (function(UICtrl, menuCtrl) {
             
             //refresh available foods if search is active
             UICtrl.searchAvailable();
+
+            //sort list
+            var selectedSort = UICtrl.getSortSelection();
+            if (selectedSort === "protein") {
+                selectedSort = "pro";
+            } else if (selectedSort === "vitamin") {
+                selectedSort = "vit";
+            }            
+            UICtrl.sortAvailable(selectedSort);
             
 		}
     }
