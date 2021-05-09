@@ -137,6 +137,7 @@ var foods = {
         22: new Food(622,"Tomato","Raw",                                0, 5, 1, 0, 2, 240, 0.01),
         23: new Food(623,"Huckleberries","Raw",                         0, 2, 0, 0, 6, 150, 0.01),
         24: new Food(624,"Beet Green","Raw",                            0, 3, 1, 0, 4, 100, 0.01),
+        25: new Food(625,"Rice","Raw",                                  0, 7, 1, 0, 0, 150, 0.01),
 
     }
 
