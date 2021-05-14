@@ -200,8 +200,7 @@ var UIController = (function() {
             }
             //get which buttons are active
             var activeButtons = [];
-            document.querySelector(".foodtype__container").childNodes.forEach(
-                function(node) {
+            document.querySelector(".foodtype__container").childNodes.forEach(function(node) {
                     if (typeof node.classList !== "undefined" && node.classList.contains("active")) {
                         activeButtons.push(node.id.slice(0,-8))
                     }
@@ -394,7 +393,7 @@ var UIController = (function() {
         
 		displayResults: function(resultObject) {
             var paperHtml, menuContent, line, menuObject, foundAt;
-            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./resources/spinner.svg"></div><div class="menu__content"></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
+            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./resources/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
 
             if(resultObject.foundAt === 0) {
                 foundAt = 1
@@ -413,16 +412,34 @@ var UIController = (function() {
             document.querySelector(DOMStrings.menuPaper).innerHTML = paperHtmlEdited;
             menuContent = document.querySelector(".menu__content");
             
-            menuObject = resultObject.resultMenu;
+            menuNonStomach = resultObject.resultMenuNonStomach;
             
-            for(foodname in menuObject) {
-                if({}.hasOwnProperty.call(menuObject, foodname)){
-                    line = `<p>${menuObject[foodname]}x   ${foodname}</p>`;
+            for(foodname in menuNonStomach) {
+                if({}.hasOwnProperty.call(menuNonStomach, foodname)){
+                    line = `<p>${menuNonStomach[foodname]}x   ${foodname}</p>`;
                     menuContent.insertAdjacentHTML('afterbegin', line);
 
                 }
             }
+            menuStomachContainer = document.querySelector(".menu__stomach__container")
+            menuStomach = resultObject.resultMenuStomach;
             
+            if (Object.keys(menuStomach).length === 0) {
+
+                menuStomachContainer.classList.add('hidden')
+            
+            } else {
+                menuStomachContainer.classList.remove('hidden')
+                
+                for(foodname in menuStomach) {
+                    if({}.hasOwnProperty.call(menuStomach, foodname)){
+                        line = `<p>${menuStomach[foodname]}x   ${foodname}</p>`;
+                        menuStomachContainer.insertAdjacentHTML('beforeend', line);
+                        
+                    }
+                }
+                
+            }
             setTimeout(function() {
                 document.querySelector('.menu__paper').classList.add('menu__visible')
             }, 0);
@@ -449,15 +466,35 @@ var UIController = (function() {
 
             menuContent = document.querySelector(".menu__content");
             
-            menuContent.innerHTML = ""
-            menuObject = resultObject.resultMenu;
+            menuContent.innerHTML = '<div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div>'
             
-            for(foodname in menuObject) {
-                if({}.hasOwnProperty.call(menuObject, foodname)){
-                    line = `<p>${menuObject[foodname]}x   ${foodname}</p>`;
+            menuNonStomach = resultObject.resultMenuNonStomach;
+            
+            for(foodname in menuNonStomach) {
+                if({}.hasOwnProperty.call(menuNonStomach, foodname)){
+                    line = `<p>${menuNonStomach[foodname]}x   ${foodname}</p>`;
                     menuContent.insertAdjacentHTML('afterbegin', line);
 
                 }
+            }
+            menuStomachContainer = document.querySelector(".menu__stomach__container")
+            menuStomach = resultObject.resultMenuStomach;
+            
+            if (Object.keys(menuStomach).length === 0) {
+
+                menuStomachContainer.classList.add('hidden')
+            
+            } else {
+                menuStomachContainer.classList.remove('hidden')
+                
+                for(foodname in menuStomach) {
+                    if({}.hasOwnProperty.call(menuStomach, foodname)){
+                        line = `<p>${menuStomach[foodname]}x   ${foodname}</p>`;
+                        menuStomachContainer.insertAdjacentHTML('beforeend', line);
+                        
+                    }
+                }
+                
             }
 
             document.querySelector(".menu__result").innerHTML = menuResultHtmlEdited;

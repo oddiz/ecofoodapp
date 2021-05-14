@@ -54,7 +54,9 @@ body {
 }
 
 
-
+.hidden {
+    display:none;
+}
 /**********************************************
 *** TOP PART
 **********************************************/
@@ -1130,7 +1132,35 @@ MENU PAPER
 	
 }
 
+.menu__stomach__container {
+    position:relative;
+    width: 80%;
+    margin:0 auto;
 
+    font-size: 20px;
+    font-family: 'Milkshake';
+    border:2px solid rgba(233,155,88,1.00);
+    border-radius: 10px;
+    background-color: rgba(233,155,88,0.1);
+}
+
+.menu__stomach__container p {
+    color: rgba(233,155,88,1.00);
+    font-size: 16px;
+}
+.menu__stomach__container img {
+    position: absolute;
+    left:4px;
+    top: 4px;
+    background-color: rgba(233,155,88,1.00);
+    width: 20px;
+    height: 20px;
+}
+.menu__stomach__title{
+    color: rgb(196, 121, 55);
+    text-align: center;
+    margin-left: 0px;
+}
 
 /******************
 FOOTER
