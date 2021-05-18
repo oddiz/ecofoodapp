@@ -71,22 +71,15 @@ var UIController = (function() {
 			this.clearLists(selectedList);
 
 			//adds all foods to active menu
-			var allFoodsArray, newArray;
-			newArray = [];
-			allFoodsArray = Object.values(foods);
-			allFoodsArray.forEach(function(ele) {
-				var q = Object.values(ele);
-				q.forEach(function(ele) {
-					newArray.push(ele);
-				});
-			});
-
+			var allFoodsArray;
+			allFoodsArray = FoodListController.getActiveFoodList().foods;
+            console.log(allFoodsArray)
             if (option === "available") {
-                newArray.forEach(function(foodObj) {
+                allFoodsArray.forEach(function(foodObj) {
                     UIController.addToAvailable(foodObj);
                 });
             } else if (option === "selected") {
-                newArray.forEach(function(foodObj) {
+                allFoodsArray.forEach(function(foodObj) {
                     UIController.addToSelected(foodObj);
                 })
             }
@@ -756,8 +749,6 @@ var menuController = (function(UIController) {
     var DOMStrings = UIController.getDOMStrings();
 
 	return {
-
-
         storeStomachContent: function () {
             var stomachListContainer = document.querySelector(DOMStrings.stomachListContainer).childNodes;
             var stomachFoodList = []
@@ -778,7 +769,6 @@ var menuController = (function(UIController) {
                     for (var i = 0; i < node.childNodes[1].value; i++) {
                         stomachFoodList.push(nodeFood)
                     }
-
                 }
 
                 
@@ -800,7 +790,7 @@ var menuController = (function(UIController) {
 		},
 		removeActive: function(foodObj) {
 			activeMenu.forEach(function(ele, i) {
-				if (foodObj.id === ele.id) {
+				if (foodObj.id == ele.id) {
 					activeMenu.splice(i, 1);
 				}
 			});
@@ -809,21 +799,10 @@ var menuController = (function(UIController) {
 			return activeMenu;
         },
         showInactive: function () {
-            var allFoods = [];
-            for(foodType in foods) {
-                
-                if ({}.hasOwnProperty.call(foods, foodType)) {
-                    for(id in foods[foodType]) {
-                        if ({}.hasOwnProperty.call(foods[foodType], id)) {
-                            
-                            allFoods.push(foods[foodType][id])
-
-                        }
-                    }
-                }
-            }
+            var allFoods = FoodListController.getActiveFoodList().foods;
             var availableFoods = [];
             var selectedFoods = this.showActive();
+
             allFoods.forEach(function(food, index) {
                 var found = false;
                 for (var i = 0; i < selectedFoods.length; i++) {
@@ -838,26 +817,14 @@ var menuController = (function(UIController) {
                 }
             })
             
-            
             return availableFoods;
         },
         clearActive: function() {
             activeMenu = [];
         },
         addActiveAll: function () {
-            activeMenu = [];
-            for(foodType in foods) {
-                
-                if ({}.hasOwnProperty.call(foods, foodType)) {
-                    for(id in foods[foodType]) {
-                        if ({}.hasOwnProperty.call(foods[foodType], id)) {
-                            
-                            activeMenu.push(foods[foodType][id])
-
-                        }
-                    }
-                }
-            }
+            activeMenu = FoodListController.getActiveFoodList().foods;
+            
         },
         updatePrice: function (id, price) {
             getFoodFromID(id).price = price;
@@ -865,46 +832,7 @@ var menuController = (function(UIController) {
 	};
 })(UIController);
 
-
-function getFoodFromID(id) {
-	function findCategory() {
-		var firstNumber;
-
-        firstNumber = id.toString()[0];
-        firstNumber = parseInt(firstNumber);		
-        
-		if (firstNumber === 1) {
-			return foods.campfire;
-		} else if (firstNumber === 2) {
-			return foods.bakery;
-		} else if (firstNumber === 3) {
-			return foods.kitchen;
-		} else if (firstNumber === 4) {
-			return foods.cast_stove;
-		} else if (firstNumber === 5) {
-			return foods.stove;
-		} else if (firstNumber === 6) {
-            return foods.raw;
-        }
-	}
-	var selectedFood, realID;
-	//removes category id from start
-	if (id >= 10) {
-		realID = id.toString().slice(1);
-		//convert to integer
-		realID = parseInt(realID);
-	} else {
-		realID = id;
-	}
-	//select the corresponding food from the foods
-	selectedFood = findCategory(id)[realID];
-
-	//returns food object
-	return selectedFood;
-}
-
-
-var controller = (function(UICtrl, menuCtrl) {
+var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
 	var DOM;
 
 	DOM = UICtrl.getDOMStrings();
@@ -1202,8 +1130,7 @@ var controller = (function(UICtrl, menuCtrl) {
         menuCtrl.storeStomachContent();
         UICtrl.stomachApplyButton("press");
     }
-    
-    
+
     highCountAdvisorShown = false;
     function startWorkerSim() {
         //disable calculate button
@@ -1452,6 +1379,7 @@ var controller = (function(UICtrl, menuCtrl) {
 
 return {
     init: function() {
+        FoodListCtrl.init();
         UICtrl.initUI();
         setupEventListeners();
         console.log("Application has started.");
@@ -1462,6 +1390,6 @@ return {
     }
 
 };
-})(UIController, menuController);
+})(UIController, menuController, FoodListController);
 
 controller.init();

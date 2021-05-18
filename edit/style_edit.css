@@ -1,0 +1,779 @@
+/**********************************************
+*** GENERAL
+**********************************************/
+@font-face {
+    font-family: 'NexaRustSlab-BlackShadow01-Free';
+    src: url('../vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff2') format('woff2'),
+         url('../vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Milkshake';
+	src: url(../vendor/fonts/Milkshake.ttf);
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'abel';
+    src: url(../vendor/fonts/Abel-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+body {
+	       /* Suppose you want minimum width of 1000px */
+    width: auto !important;  /* Firefox will set width as auto */
+    
+	height: 100vh;
+    color: #555;
+    font-family:  'abel', sans-serif;
+    font-size: 16px;
+    position: relative;
+    height:100%;
+    
+    font-weight: 400;
+
+    overflow-x: hidden;
+	
+}
+
+a {
+    all: unset;
+    text-decoration: none !important;
+}
+
+.hidden {
+    display:none;
+}
+/**********************************************
+*** TOP PART
+**********************************************/
+
+.top {
+    height: 200px;
+    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(../resources/back.jpg);
+	background-attachment: scroll;
+	background-size: cover;
+   
+    position: relative;
+    
+    transition: all 0.3s;
+}
+
+.top__title {
+	height: 100%;
+	position:relative;
+    top: 30%
+    
+}
+
+.page__title {
+	position: relative;
+	text-align: center;
+	color:aliceblue;
+}
+
+.update__info {
+    font:24px;
+    height:30px;
+    width: 100%;
+    text-align:center;
+    position: relative;
+    color: #FFF
+}
+
+.calculate {
+    height:70px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+
+    border-bottom: 2px solid #e7e7e7;
+	background-image: linear-gradient(#f7f7f7, #f7f7f7);
+
+    position:sticky;
+    top:0;
+
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    z-index: 999;
+
+    transition: all 0.4s;
+}
+
+    /****NAVBAR ****/
+
+    .navbar__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        position: absolute;
+        width: 140px;
+        height: 50px;
+    
+        top: 0px;
+        left: 45vw;
+        background:#e7e7e7;
+        border-bottom-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+    
+    .navbar__content {
+        display: flex;
+        flex-direction: row;
+        
+        align-content: center;
+        justify-content: center;
+        
+        position: relative;
+    
+    
+        
+    
+    }
+    .navbar__content i {
+        position:relative;
+    
+        font-size: 50px;
+        margin: 0 10px;
+        cursor: pointer;
+        bottom:5px;
+    }
+    .navbar__content i:hover {
+        color: #c5c5c5;
+    
+    }
+/**********************************************
+*** INFOPAGE PART
+**********************************************/
+.info__container {
+	position: absolute;
+	visibility: hidden;
+	width: 80%;
+	height: auto;
+	text-align: center;
+	opacity:0;
+	transition: opacity 0.5s;
+	z-index: -1;
+	left:10%;
+}
+
+.info__container.visible {
+	visibility: visible;
+	opacity: 1;
+}
+.formula__info , .info {
+	text-align: left;
+	width: 60%;
+	
+}
+.info {
+	
+	margin:70px auto 100px auto;
+    text-align: center;
+    line-height: 1.6;
+}
+
+
+.info p {
+    font-size: 20px;
+    letter-spacing: .04em;
+    margin-bottom: 35px;
+    
+}
+
+.formula__info {
+	margin:0px auto 0px auto;
+	vertical-align: middle;
+	padding: 20px 4px 20px 30px;
+	
+	background-image: url(../resources/img/paper.jpg); 
+	background-size: cover; 
+	
+	color: rgba(46,46,46,0.90);
+	box-shadow: 6px 6px 5px rgba(0, 0, 0, .5);
+}
+
+
+.formula__info table {
+	display:table;
+	
+}
+
+.formula__info table tbody tr td span {
+	margin: auto 0px auto 0px;
+	line-height: normal;
+}
+
+
+.info__button {
+    position: relative;
+    top: 0px;
+
+    margin-left: 20px;
+	font-size: 38px;
+	color: #28B9B5;
+	
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.clicked.info__button {
+	transform: scale(1.8);
+	color: #A1A1A1;
+	
+	
+}
+
+h2 {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+
+/**********************************************
+*** MAIN  PART
+**********************************************/
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    position: relative;
+	height:100vh;
+    padding-top: 0px;
+	padding-bottom:0px;
+	transition: transform 0.5s;
+    z-index: 2;
+	
+}
+
+body::after {
+	content: "";
+  	position: fixed;
+  	top: 0; left: 0;
+  	width: 100%; min-height: 100%;
+	background-image: url(../resources/img/cocina.gif);
+	opacity: 0.05;
+	filter: saturate(100%);
+	
+	background-size: auto, cover;
+	z-index:-999;
+}
+.lists__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    background: linear-gradient(45deg,rgb(119, 168, 160) 0%, rgb(159, 197, 191) 51%, rgb(128, 185, 177) 100%);
+    
+    width:50%;
+    height:auto;
+    
+    transition: all 1s;
+
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.274), 0px 8px 0px -1px #5c978e;
+	
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.list1,
+.list2,
+.list3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 100%;
+    background: rgba(255, 255, 255, 0);
+}
+
+.list1 {
+    width: 40%;
+    background: rgba(0, 0, 0, 0.068);
+    border-bottom-left-radius: 30px;
+}
+.list2 {
+    width: 25%
+}
+.list3 {
+    width: 35%;
+    background: rgba(0, 0, 0, 0.068);
+    border-bottom-right-radius: 30px;
+}
+
+
+.list1 .list1__header,
+.list2 .list2__header,
+.list3 .list3__header {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+
+    width: 100%;
+    height: 60px;
+
+    color: rgb(255, 255, 255);
+    background: rgba(41, 41, 41, 0.212);
+
+    padding-left: 10px;
+}
+
+.list1__content,
+.list2__content,
+.list3__content {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    scrollbar-color: rgb(210, 247, 240) rgb(119, 168, 160);
+    scrollbar-width: thin;
+
+    padding-top: 15px;
+    padding-left:5%;
+    padding-right: 5%;
+    overflow-y:auto;
+    overflow-x: visible;
+}
+
+/********************
+FOOD LIST - LIST 1
+********************/
+.list1__header .button i {
+    height: 35px;
+    width: 100%;
+    font-size: 40px;
+    cursor: pointer;
+    margin-left:10px;
+}
+
+.list1__header .button i:hover {
+    color: rgb(247, 232, 152);
+}
+
+.list1__header .title {
+    width: 85%;
+}
+
+.food__list {
+    display: inline-block;
+    position: relative;
+    padding: 5px 5px 5px 10px;
+    margin-bottom: 10px;
+
+    background:rgba(111, 221, 197, 0.205);
+    border: 4px solid rgb(105, 166, 185);
+    border-radius: 15px;
+
+    box-shadow: 3px 5px 0px -1px #5c978e;
+    cursor: pointer;
+}
+
+.food__list:hover {
+    border: 4px solid rgb(106, 149, 197);
+}
+
+.food__list.active {
+    position: relative;
+    border: 4px solid #d5d82f;
+    box-shadow: 0 0 5px 10px #d5d82f1c;
+    top:3px;
+    left: 3px;
+}
+
+.food__list .foodlist__update__button,
+.food__list .foodlist__delete__button,
+.food__list .foodlist__export__button {
+    position: absolute;
+    color: #def0ec;
+    font-size: 25px;
+    bottom: 0px;
+}
+.food__list .foodlist__update__button {
+    right: 5px;
+}
+.food__list .foodlist__delete__button {
+    right: 30px;
+}
+.food__list .foodlist__export__button {
+    right: 50px;
+}
+.food__list .foodlist__update__button:hover,
+.food__list .foodlist__delete__button:hover,
+.food__list .foodlist__export__button:hover {
+    color: rgb(106, 149, 197);
+}
+
+.list1 .list__name{
+    color:rgb(44, 93, 148);
+    font-size: 25px;
+}
+
+.list1 .list__description {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+}
+
+.list1 .list__date {
+    font-size:12px;
+    margin-top:4px;
+}
+
+/********************
+    FOOD - LIST 2
+*********************/
+.list2__header i{
+    position:relative;
+
+    top:3px;
+    font-size: 40px;
+
+    margin: 7px;
+    cursor: pointer;
+}
+
+.list2__header i:hover {
+    color: rgb(247, 232, 152);
+}
+
+.list2 .title {
+    width:80%;
+    color: rgb(255, 255, 255);
+}
+.food {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+
+    margin-bottom: 1px;
+
+    padding: 2px 0px 2px 10px;
+
+    border: 3px solid #5c978e;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.food:hover {
+    border: 3px solid #67aca1;
+}
+
+.food.active {
+    border: 3px solid #d5d82f;
+}
+
+.food__name {
+    color:rgb(22, 47, 75);
+
+    width: 83%;
+    font-size:18px;
+}
+
+
+
+.food img {
+    width: 32px;
+    height: 32px;
+}
+
+/******************
+LIST 3 - FOOD DETAILS
+*******************/
+.nutrition {
+    background:rgba(255, 255, 255, 0.267);
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px 0 10px 10px;
+}
+.nutrition__header {
+    display: flex;
+    flex-direction: row;
+}
+
+.nutrition__image img {
+    height: 60px;
+    width: 60px;
+}
+
+.nutrition__title {
+    display: inline-block;
+    position: relative;
+    width: 75%;
+    align-self: center;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.nutrition__title input {
+    background: #a6c7c1;
+    font-size: 22px;
+    width: 100%;
+
+    border: none;
+    border-bottom:4px solid #d2f5f0b2;
+    border-radius: 5px;
+}
+
+.nutrition__content {
+    display:flex;
+    flex-direction: column;
+    font-weight: 800;
+    font-size: 23px;
+    padding: 15px 0 0 5px;
+    margin-bottom:20px;
+}
+
+.nutrition__content .line {
+    display: flex;
+    flex-direction: row;
+}
+
+.nutrition__content .line p {
+    width:40%;
+}
+
+.nutrition__content .line input {
+    background: #a6c7c1;
+    width: 160px;
+    font-size: 18px;
+    border: none;
+    border-bottom:4px solid #d2f5f0b2;
+    border-radius: 5px;
+}
+
+/*******************
+APPLY / DELETE BUTTON
+*******************/
+
+.button__container {
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+    text-align: center;
+    width:100%;
+    height: 40px;
+    margin-left:0px;
+    
+}
+
+.apply__button__flipper {
+    align-self: center;
+    position: relative;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 15em; height: 2.5em;
+    transition: all 0.6s cubic-bezier(.36,.65,.37,1.39);
+    transform-style: preserve-3d;
+    
+    cursor:pointer;
+    
+}
+
+.apply__button__flipper.clicked {
+    transform: rotateX(90deg);
+}
+
+.apply__button__front-face, .apply__button__back-face {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    
+    letter-spacing: 2px;
+    line-height: 2.5em;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    box-shadow: inset 0px 0px 3px 2px rgba(255, 255, 255, 0.158);
+    
+}
+
+.apply__button__front-face {
+    background-color: #36a589;
+    color: #fff;
+    text-shadow: 0 1px 1px black;
+    
+    transform: rotateX(0deg) translateZ(1.25em);
+    
+    
+}
+
+.apply__button__back-face {
+    background-color: #3FC258;
+    color: white; 
+    transform: rotateX(-90deg) translateZ(1.25em);
+    
+}
+
+.delete__button {
+    width:40px;
+    height: 100%;
+
+    background: rgb(202, 30, 30);
+     
+    border: 3px solid rgb(255, 84, 4);
+    border-radius: 10px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+.delete__button i {
+    color: white;
+    font-size: 30px;
+
+}
+
+.delete__button:hover {
+    background:rgba(202, 30, 30, 0.767);
+}
+/******************
+    SIDEBAR
+******************/
+
+.sidebar__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin-top: 60px;
+    margin-bottom:40px;
+    width:70px;
+    background: #46b8a8;
+    background: linear-gradient(0deg,rgb(152, 211, 168) 0%, rgb(157, 219, 176) 51%, rgb(154, 224, 169) 100%);
+
+    box-shadow: 0px 4px 0px 3px #64a164a4;;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    /*box-shadow: -2px 0px 5px 0px rgba(59, 75, 75, 0.438); */
+}
+
+.sidebar__content {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 1px;
+    width: 60px;
+    height: 100%;
+
+}
+
+.sidebar__content .button {
+    display:inline-block;
+    position:relative;
+
+    text-align: center;
+
+    font-size: 60px;
+    
+
+    width: 100%;
+    height: 55px;
+    margin-bottom: 15px;
+
+    color:rgb(57, 94, 88);
+
+
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sidebar__content .button i {
+    display:inline-block;
+    width: 100%;
+    height: 55px;
+
+}
+
+.sidebar__content .button img {
+    display:inline-block;
+    width: 100%;
+    height: 55px;
+
+}
+
+.sidebar__content .button :hover {
+    color: rgb(81, 139, 130);
+}
+
+/******************
+UPDATE LIST POPUP
+******************/
+.update__name__input__container,
+.update__desc__input__container {
+    display: flex;
+    flex-direction: row;
+}
+.update__name__input__container p,
+.update__desc__input__container p {
+
+    align-self: center;
+    font-size: 1.225em;
+    width: 110px;
+
+    margin: 1em 0 0 0;
+}
+
+/******************
+FOOTER
+******************/
+
+footer {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: left;
+    align-items: center;
+
+	position: fixed;
+	bottom:0px;
+	height: 53px;
+	width: 100%;
+	background-color: #F7F7F7;
+	border-top: 3px solid rgba(40,185,181,1.00);
+	z-index: 9999;
+	
+
+}
+
+.footer__button {
+    height: 38px;
+    width:100px;
+
+    margin-bottom: 6px;
+    
+    cursor:pointer;
+
+    text-align:center;
+
+    border-radius: 10px;
+
+    transition: background-color 0.4s ease-out;
+}

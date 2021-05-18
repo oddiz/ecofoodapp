@@ -39,7 +39,7 @@
 body {
 	       /* Suppose you want minimum width of 1000px */
     width: auto !important;  /* Firefox will set width as auto */
-   
+    
 	height: 100vh;
     color: #555;
     font-family:  'abel', sans-serif;
@@ -51,6 +51,11 @@ body {
 
     overflow-x: hidden;
 	
+}
+
+a {
+    all: unset;
+    text-decoration: none !important;
 }
 
 
@@ -161,7 +166,7 @@ body {
 
     position: relative;
     min-height: 420px;
-    padding-top: 45px;
+    padding-top: 55px;
 	padding-bottom:150px;
 	transition: transform 0.5s;
     z-index: 2;
@@ -225,6 +230,7 @@ body::after {
 
 .calculate {
     height:70px;
+    position: relative;
 
     display: flex;
     flex-direction: row;
@@ -245,7 +251,48 @@ body::after {
     transition: all 0.4s;
 }
 
+    /****NAVBAR ****/
 
+.navbar__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    width: 140px;
+    height: 50px;
+
+    top: 70px;
+    left: 45vw;
+    background:#e7e7e7;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.navbar__content {
+    display: flex;
+    flex-direction: row;
+    
+    align-content: center;
+    justify-content: center;
+    
+    position: relative;
+
+
+    
+
+}
+.navbar__content i {
+    position:relative;
+
+    font-size: 50px;
+    margin: 0 10px;
+    cursor: pointer;
+    bottom:5px;
+}
+.navbar__content i:hover {
+    color: #c5c5c5;
+
+}
 .info__button {
     position: relative;
     top: 0px;
@@ -286,7 +333,6 @@ body::after {
 	
 }
 
-
 .sim__amount {
 	margin-left: 10px;
 }
@@ -318,8 +364,6 @@ body::after {
     width: 130px;
 }
 
-
-
 .budget__amount__input,
 .calorie__amount__input,
 .maxSP__amount__input,
@@ -341,8 +385,6 @@ body::after {
 .calorieperdollar__amount__input:focus {
 	border: 2px dashed rgba(40,185,181,1.00);
 }
-
-
 
 .info__text {
 	visibility: hidden;
@@ -380,8 +422,6 @@ content: "";
   border-color:  transparent transparent rgba(156,194,187,1.00) transparent;
 }
 
-
-
 .food__amount .info__text:after {
 	left: 10%;
 }
@@ -417,7 +457,6 @@ content: "";
     margin: 5px 0 0 15px;
 }
 
-
 .calculate__container {
     display:flex;
     flex-direction: row;
@@ -435,10 +474,6 @@ content: "";
 	display: inline-block;
 	cursor:pointer;
 }
-
-
-
-
 
 .calculate__btn {
 
@@ -465,7 +500,6 @@ content: "";
 .calculate__btn .calculate__btn--text {
     margin-right: 5px;
 }
-
 
 #progress__bar {
     height: 35px;
@@ -500,9 +534,6 @@ content: "";
 	border: 2px solid red;
 	border-radius: 100px;
 }
-
-
-
 
 /***** LISTS *****/
 
@@ -1170,7 +1201,7 @@ footer {
     display:flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
 
 	position: fixed;
@@ -1183,13 +1214,17 @@ footer {
 	
 
 }
-
+.footer__buttons__container {
+    display: flex;
+    flex-direction: row;
+    height: 38px;
+}
 .footer__button {
     height: 38px;
     width:100px;
 
     margin-bottom: 6px;
-    
+    margin: 0 10px;
     cursor:pointer;
 
     text-align:center;
@@ -1200,8 +1235,7 @@ footer {
 }
 .highscore__button {
 
-    margin-left: auto;
-    margin-right:80px;
+
     font-size: 32px;
     color: rgb(174, 255, 253);
     background-color: rgb(40, 185, 181);
@@ -1228,7 +1262,7 @@ footer {
     
     padding-right:5px;
 	padding-top: 0px;
-    margin-left:80px;
+
     
 	background-color:rgba(233,155,88,1.00);
 	box-shadow: 0 5px #7E3E00;
@@ -1256,7 +1290,6 @@ footer {
     width: 280px;
 	height: 400px;
 	bottom: -365px;
-	left: 80px;
 	
     background: rgba(240,146,70,1);
     background: -moz-linear-gradient(top, rgba(240,146,70,1) 0%, rgba(242,203,169,1) 100%);
@@ -1277,7 +1310,7 @@ footer {
 }
 
 .stomach__container.visible {
-    bottom: 68px;
+    bottom: 55px;
 
 }
 
@@ -1293,16 +1326,6 @@ footer {
 
 }
 
-.stomach__container::after {
-	content: "";
-	position: absolute;
-	bottom:-40px;
-	left:30px;
-	
-	border-width: 20px;
-  	border-style: solid;
- 	border-color: rgb(255, 200, 137) transparent transparent transparent;
-}
 
 
 
@@ -1455,7 +1478,7 @@ footer {
     width: 280px;
 
     min-height: 20%;
-    right: 0px;
+    right: 0;
     bottom: -100%;
     background: rgba(247,247,247,1.00);
 

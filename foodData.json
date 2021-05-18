@@ -1,4 +1,5 @@
-var defaultFoods = [
+var foods = 
+[
     {
         "id": 12,
         "name": "Fried Tomatoes",

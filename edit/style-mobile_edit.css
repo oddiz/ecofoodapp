@@ -37,9 +37,6 @@
         flex-wrap: wrap;
     }
     
-    .navbar__container {
-        display: none;
-    }
     
     .info__button {
         position: absolute;

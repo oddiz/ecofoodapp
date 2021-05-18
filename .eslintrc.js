@@ -32,7 +32,7 @@ module.exports = {
             "error",
             "last"
         ],
-        "complexity": "error",
+        "complexity": "off",
         "computed-property-spacing": [
             "error",
             "never"
@@ -259,8 +259,7 @@ module.exports = {
         "space-infix-ops": "off",
         "space-unary-ops": "error",
         "spaced-comment": [
-            "error",
-            "never"
+            "off"
         ],
         "strict": "off",
         "switch-colon-spacing": "error",

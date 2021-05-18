@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544596-2"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
+    <head>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544596-2"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-		  gtag('config', 'UA-131544596-2');
-		</script>
-	   
-        <meta charset="UTF-8">
-        <meta name="description" content="An interactive calculator to find the best food combination to achieve highest SP gain in Eco game, find your best food combo now! You can also include your stomach content, set budget or calorie limit and see highscores too!" />
-        <meta name="keywords" content="best food in eco, best diet in eco, eco best food combo, eco game food, eco game best food, eco best food, eco food calculator, eco game food calculator, eco game diet calculator, eco diet calculator, best food eco, best diet eco" />
-        <meta name="robots" content="index">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
+            gtag('config', 'UA-131544596-2');
+            </script>
         
-        <link type="text/css" rel="stylesheet" href="style.css">
-        <link type="text/css" rel="stylesheet" href="style-mobile.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="UTF-8">
+            <meta name="description" content="An interactive calculator to find the best food combination to achieve highest SP gain in Eco game, find your best food combo now! You can also include your stomach content, set budget or calorie limit and see highscores too!" />
+            <meta name="keywords" content="best food in eco, best diet in eco, eco best food combo, eco game food, eco game best food, eco best food, eco food calculator, eco game food calculator, eco game diet calculator, eco diet calculator, best food eco, best diet eco" />
+            <meta name="robots" content="index">
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+            <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
+            
+            <link type="text/css" rel="stylesheet" href="style.css">
+            <link type="text/css" rel="stylesheet" href="style-mobile.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Eco Diet Calculator</title>
-        <link rel="icon" href="resources/meaticon.png" type="image/png" sizes="16x16">
-   </head>
-   <body>
+            <title>Eco Diet Calculator</title>
+            <link rel="icon" href="resources/meaticon.png" type="image/png" sizes="16x16">
+    </head>
+    <body>
         
 		<div class="top">
 			<div class="top__title">
                 <h1 class="page__title">Eco Diet Calculator</h1>
-                <p class="update__info">Updated for 9.3.4 - Let me know if there are wrong values or features you'd like to be added. Discord: oddiz#9659</p>
+                <p class="update__info">Updated for 9.3.4 - Let me know if there are wrong values or features you'd like to be added. Discord: oddiz#9659
+                    <br>Now you can create and use your own lists!
+                </p>
 			</div>
 		</div>
-        
         
         <div class="calculate">
             
             <div class="info__button"><i class="ion-ios-information-outline"></i></div>
+            <div class="navbar__container">
+                <div class="navbar__content">
+                    <i class="ion-ios-home-outline"></i>
+                    <a href="/edit"><i class="ion-ios-compose-outline" href="test"></i></a>
+                </div>
+            </div>
             <div class="input__container clearfix">
                 <div class="food__amount">
                     <div class= "info__text">
@@ -104,15 +111,13 @@
 
                 </div>
             </div>
-        
             
             <div class="calculate__container">
                 <button class="calculate__btn"><div class="calculate__btn--text">Calculate</div> <em class="ion-ios-checkmark-outline"></em></button>
                     <div id="progress__bar"><div id="inner__bar">%0</div></div>
                     <div class="stop__button"><em class="ion-android-hand"></em></div>
             </div>
-        </div>
-	   
+        </div>	   
         
         <div class="info__container">
          <div class="info">
@@ -167,7 +172,8 @@
              <p>You can also email me at <strong>kaansarkaya@gmail.com</strong></p>
          </div>
          
-     </div>
+        </div>
+
         <div class="content clearfix">
 			
 			<div class="lists__container clearfix">
@@ -281,7 +287,7 @@
 									<img src="resources/imgWebP/ptag.png">								
 									<input class="item__price__input" type="number" value="0"><p>$</p>
 								</div>
-						 	</div>
+                            </div>
                         </div>
 
 
@@ -297,7 +303,7 @@
 									<img src="resources/img/ptag.png">								
 									<input type="number" value="0"><p>$</p>
 								</div>
-						 	</div>
+                            </div>
                         </div>
                         <!--list ends here -->				
                     </div>
@@ -326,6 +332,32 @@
             
         </div>
         
+        
+
+        
+        <footer>
+            <div class="footer__buttons__container">
+                <div class="footer__button stomach__button">
+                    <img src="resources/stomach.svg" height="35px">
+                </div>
+                
+                <div class="footer__button highscore__button">
+                    <div class="trophy__icon"> <i class="ion-trophy"></i></div>   
+                    
+                </div>
+            </div>
+        </footer>
+        <div class="highscore__container">
+            <div class="highscore__title">
+                <h1>Highscore</h1>
+                <div class ="best__button"><div class="best__text"># 1</div></div>
+            </div>
+            
+            <div class="highscore__content">
+                <!--<p><i>Run the sim to see highscores</i></p>-->
+                <p><i>If you are seeing this, that means the highscore database is currently not online or still loading.<br></i></p>
+            </div>
+        </div>
         <div class="stomach__container">
             <h1>Stomach Contents</h1>
             <div class="stomach__list__container">
@@ -339,34 +371,14 @@
                 </div>
             </div>
         </div>
-        <div class="highscore__container">
-            <div class="highscore__title">
-                <h1>Highscore</h1>
-                <div class ="best__button"><div class="best__text"># 1</div></div>
-            </div>
-            
-            <div class="highscore__content">
-                <!--<p><i>Run the sim to see highscores</i></p>-->
-                <p><i>If you are seeing this, that means the highscore database is currently not online or still loading.<br></i></p>
-            </div>
-        </div>
         
-        <footer>
-			<div class="footer__button stomach__button">
-			    <img src="resources/stomach.svg" height="35px">
-            </div>
-            
-            <div class="footer__button highscore__button">
-                <div class="trophy__icon"> <i class="ion-trophy"></i></div>   
-
-            </div>
-        </footer>
-        
-		<script src="vendor/js/cleave.js"></script>	
+		<script src="vendor/js/cleave.js"></script>
+        <script src="helpers.js"></script>
         <script src="foodData.js"></script>
         <script src="testMenuWorker.js"></script>
+        <script src="FoodListController.js"></script>
         <script src="ecoFood3.01.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.7/dist/sweetalert2.all.min.js"></script>
             
 		
     </body>
