@@ -16,7 +16,7 @@ const UIController = (function(FoodListController) {
     `
     <div class="food" id="%foodid%">
         <div class="food__name">%foodname%</div>
-        <img src="../resources/img/%foodimgid%.png">
+        <img src="../resources/img/%foodimgid%.png" onerror="this.onerror=null; this.src='../resources/meaticon64.png'">
     </div>
     `
     const nutritionHtml = 
@@ -24,7 +24,7 @@ const UIController = (function(FoodListController) {
     <div class="nutrition">
         <div class="nutrition__header">
                 <div class="nutrition__title"><input type="text" id="nutrition__title--input" value="%foodname%"></div>
-                <div class="nutrition__image"><img src="../resources/img/%foodimgid%.png"></div>
+                <div class="nutrition__image"><img src="../resources/img/%foodimgid%.png" onerror="this.onerror=null; this.src='../resources/meaticon64.png'"></div>
         </div>
         <div class="nutrition__content">
             
