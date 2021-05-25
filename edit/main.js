@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* jshint esversion:6 */
 const UIController = (function(FoodListController) {
 
     const foodListHtml = 
@@ -11,14 +12,14 @@ const UIController = (function(FoodListController) {
         <div class="list__description">%foodlistdesc%</div>
         <div class="list__date">%foodlistdate%</div>
     </div>
-    `
+    `;
     const foodHtml = 
     `
     <div class="food" id="%foodid%">
         <div class="food__name">%foodname%</div>
         <img src="../resources/img/%foodimgid%.png" onerror="this.onerror=null; this.src='../resources/meaticon64.png'">
     </div>
-    `
+    `;
     const nutritionHtml = 
     `
     <div class="nutrition">
@@ -71,7 +72,7 @@ const UIController = (function(FoodListController) {
             </div>
         </div>
     </div>
-    `
+    `;
 
     return {
         init(activeFoodListId){
@@ -88,9 +89,9 @@ const UIController = (function(FoodListController) {
 
         },
         updateList1: function(activeFoodListId) {
-            document.querySelector(".list1__content").innerHTML = ""
+            document.querySelector(".list1__content").innerHTML = "";
             //populates list1 with food-lists
-            const foodLists = FoodListController.getFoodLists()
+            const foodLists = FoodListController.getFoodLists();
             try {
                 foodLists.forEach((foodlist) => {
                     let newFoodListHtml = foodListHtml;
@@ -124,7 +125,7 @@ const UIController = (function(FoodListController) {
                     
                     document.querySelector(".list2__content").insertAdjacentHTML("afterbegin", newFoodHtml);
     
-                })
+                });
             } catch (error) {
                 document.querySelector(".list2__content").innerHTML = "";
             }
@@ -137,13 +138,13 @@ const UIController = (function(FoodListController) {
             document.querySelectorAll(".food").forEach((node) => {
                 //remove any active classes
                 if (node.classList.contains("active")) {
-                    node.classList.remove("active")
+                    node.classList.remove("active");
                 }
                 //add active class to selected food
                 if (node.id === foodid) {
                     node.classList.add("active");
                 }
-            })
+            });
 
 
             let newNutritionHtml = nutritionHtml;
@@ -158,7 +159,7 @@ const UIController = (function(FoodListController) {
             newNutritionHtml = newNutritionHtml.replace("%foodtypevalue%", selectedFood.type);
             newNutritionHtml = newNutritionHtml.replace("%foodtiervalue%", selectedFood.tier);
 
-            document.querySelector(".list3__content").innerHTML = newNutritionHtml
+            document.querySelector(".list3__content").innerHTML = newNutritionHtml;
         },
         getFoodNutritionInput() {
 
@@ -183,25 +184,12 @@ const UIController = (function(FoodListController) {
                 cal: icalorie,
                 weight: iweight,
 
-            }
+            };
         },
-        selectFoodList: function(listid) {
-            var activeFoodList = FoodListController.getListFromId(listid);
-            document.querySelectorAll(".food__list").forEach((node) => {
-                //remove any active classes
-                if (node.classList.contains("active")) {
-                    node.classList.remove("active")
-                }
-                //add active class to selected food
-                if (node.id === listid) {
-                    node.classList.add("active");
-                }
-            })
-        }
 
 
-    }
-})(FoodListController)
+    };
+})(FoodListController);
 
 const controller= (function(FoodListController, UIController) {
 
@@ -209,21 +197,21 @@ const controller= (function(FoodListController, UIController) {
     let activeFoodListId = 1;
     const eventHandler = function(event) {
         console.log(event);
-        const target = event.target
+        const target = event.target;
 
         ////// FOOD LISTS //////
         if (target.classList.contains("food__list") || target.parentNode.classList.contains("food__list")) {
-            console.log("Food list clicked.")
+            console.log("Food list clicked.");
             listId = target.id || target.parentNode.id;
 
              // DELETE LIST BUTTON //
             if (target.classList.contains("foodlist__delete__button")) {
-                console.log("Delete button clicked. ID: " + listId)
+                console.log("Delete button clicked. ID: " + listId);
                 if (listId == 1) {
                     Swal.fire({
                         icon: 'error',
                         title: "Can't delete default list."
-                    })
+                    });
                 } else {
                     Swal.fire({
                         icon: 'warning',
@@ -234,28 +222,28 @@ const controller= (function(FoodListController, UIController) {
                         denyButtonText: "No",
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            FoodListController.deleteList(listId)
+                            FoodListController.deleteList(listId);
                             controller.setActiveFoodListId(1);
                             UIController.updateList1();
                             UIController.updateList2();
                             //clear list3
                             document.querySelector(".list3__content").innerHTML = "";
                         }
-                    })
+                    });
                 }
 
-                return
+                return;
             }
             // UPDATE LIST BUTTON //
             if (target.classList.contains("foodlist__update__button")) {
-                console.log("Update button clicked. ID " + listId)
+                console.log("Update button clicked. ID " + listId);
                 if (listId == 1) {
                     Swal.fire({
                         icon: 'error',
                         text: "Can't update default list."
-                    })
+                    });
                 } else {
-                    const clickedList = FoodListController.getListFromId(listId)
+                    const clickedList = FoodListController.getListFromId(listId);
                     Swal.fire({
                         title: "Updating list: " + clickedList.listName,
                         html: 
@@ -277,23 +265,23 @@ const controller= (function(FoodListController, UIController) {
                             return {
                                 lName: listName,
                                 lDesc: listDesc
-                            }
+                            };
                         }
                     }).then((result) => {
-                        const name = result.value.lName
-                        const desc = result.value.lDesc
+                        const name = result.value.lName;
+                        const desc = result.value.lDesc;
                         
                         FoodListController.updateList(listId, name, desc);
                         UIController.updateList1(activeFoodListId);
                         UIController.updateList2(activeFoodListId);
-                    })
+                    });
                 }
 
-                return
+                return;
             }
             // EXPORT LIST BUTTON //
             if (target.classList.contains("foodlist__export__button")) {
-                console.log("Export list button clicked. ID: " + listId)
+                console.log("Export list button clicked. ID: " + listId);
                 listb64 = FoodListController.exportList(listId);
 
                 Swal.fire({
@@ -307,7 +295,7 @@ const controller= (function(FoodListController, UIController) {
                 }).then((result) => {
                     if (result.isConfirmed) {
 
-                        const copyText = document.querySelector(".swal2-textarea")
+                        const copyText = document.querySelector(".swal2-textarea");
 
                         copyText.select();
                         copyText.setSelectionRange(0,9999999);
@@ -316,11 +304,11 @@ const controller= (function(FoodListController, UIController) {
                         Swal.fire({
                             icon: 'success',
                             text: "Copied to Clipboard"
-                        })
+                        });
                     }
-                }) 
+                }); 
                 
-            return
+            return;
             }
 
             controller.setActiveFoodListId(listId);
@@ -330,70 +318,70 @@ const controller= (function(FoodListController, UIController) {
             //clear list3
             document.querySelector(".list3__content").innerHTML = "";
 
-            return
+            return;
         }
         ////// FOODS //////
         if (target.classList.contains("food") || target.parentNode.classList.contains("food")) {
             console.log("Food clicked.");
             foodid = target.id || target.parentNode.id;
             activeFoodId = foodid;
-            UIController.updateList3(activeFoodListId ,activeFoodId)
+            UIController.updateList3(activeFoodListId ,activeFoodId);
 
             
-            return
+            return;
         }
         ////// ADD FOOD BUTTON //////
         if (target.id === "food__add__button") {
-            console.log("Add food button clicked.")
+            console.log("Add food button clicked.");
 
             if (activeFoodListId == 1) {
                 Swal.fire({
                     icon: "warning",
                     title: "Can't add foods to default list."
-                })
+                });
             } else {
                 FoodListController.addFood(activeFoodListId);
                 UIController.updateList2(activeFoodListId);
             }
 
-            return
+            return;
         }
 
         //// APPLY BUTTON /////
         if (target.parentNode.id === "apply__button") {
-            console.log("Apply button clicked.")
+            console.log("Apply button clicked.");
 
             if (activeFoodListId == 1) {
                 Swal.fire({
                     icon: "warning",
                     title: "Can't modify foods from default list."
-                })
+                });
                 UIController.updateList2(activeFoodListId);
                 UIController.updateList3(activeFoodListId, activeFoodId);
             } else {
-                FoodListController.updateFood(activeFoodListId, activeFoodId, UIController.getFoodNutritionInput())
+                FoodListController.updateFood(activeFoodListId, activeFoodId, UIController.getFoodNutritionInput());
                 UIController.updateList2(activeFoodListId);
                 UIController.updateList3(activeFoodListId, activeFoodId);
             }
 
-            return
+            return;
         }
 
         ///// DELETE FOOD BUTTON ////
         if (target.parentNode.id === "delete__button" || target.id === "delete__button") {
-            console.log("Delete button clicked.")
+            console.log("Delete button clicked.");
             if (activeFoodListId == 1) {
                 Swal.fire({
                     icon: "warning",
                     title: "Can't delete foods from default list."
-                })
+                });
             } else {
                 FoodListController.deleteFood(activeFoodListId, activeFoodId);
                 UIController.updateList2(activeFoodListId);
                 //clear list3
                 document.querySelector(".list3__content").innerHTML = "";
 
-                return
+                return;
             }
 
         }
@@ -401,11 +389,11 @@ const controller= (function(FoodListController, UIController) {
         ///// SIDEBAR BUTTONS //////
         // ADD LIST //
         if (target.parentNode.id === "sidebar__button--add__list") {
-            console.log("Add list button clicked.")
+            console.log("Add list button clicked.");
             FoodListController.addList("New List", "Press gear icon to change name and description.");
             UIController.updateList1(activeFoodListId);
 
-            return 
+            return; 
         }
         // EXPORT ALL //
         if (target.parentNode.id === "sidebar__button--export__all") {
@@ -423,7 +411,7 @@ const controller= (function(FoodListController, UIController) {
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    const copyText = document.querySelector(".swal2-textarea")
+                    const copyText = document.querySelector(".swal2-textarea");
 
                     copyText.select();
                     copyText.setSelectionRange(0,9999999);
@@ -432,11 +420,11 @@ const controller= (function(FoodListController, UIController) {
                     Swal.fire({
                         icon: 'success',
                         text: "Copied to Clipboard"
-                    })
+                    });
                 }
-            }) 
+            }); 
 
-            return
+            return;
         }
         // IMPORT ALL //
         if (target.parentNode.id === "sidebar__button--import__all") {
@@ -454,16 +442,16 @@ const controller= (function(FoodListController, UIController) {
                 if (result.isConfirmed) {
                     const pastedString = result.value;
                     const importedLists = JSON.parse(atob(pastedString));
-                    console.log(importedLists)
+                    console.log(importedLists);
 
                     window.localStorage.setItem("food_lists", JSON.stringify(importedLists));
                     UIController.updateList1(activeFoodListId);
                     UIController.updateList2(activeFoodListId);
                     
                 }
-            })
+            });
 
-            return
+            return;
         }
         
         ///// IMPORT LIST 
@@ -484,13 +472,13 @@ const controller= (function(FoodListController, UIController) {
                     const pastedString = result.value;
                     const importedList = JSON.parse(atob(pastedString));
 
-                    FoodListController.addList("Imported List", "Press gear icon to change name and description.", importedList)
+                    FoodListController.addList("Imported List", "Press gear icon to change name and description.", importedList);
                     UIController.updateList1(activeFoodListId);
-                    UIController.updateList2(activeFoodListId)
+                    UIController.updateList2(activeFoodListId);
                     UIController.updateList3(activeFoodListId,activeFoodId);
                     
                 }
-            })
+            });
         }
 
         //// EXPORT LIST
@@ -499,7 +487,7 @@ const controller= (function(FoodListController, UIController) {
             
             
         }
-    }
+    };
 
 
     return {
@@ -508,19 +496,19 @@ const controller= (function(FoodListController, UIController) {
             if (window.localStorage.getItem("active_foodlist") === null) {
                 window.localStorage.setItem("active_foodlist", "1");
             } else {
-                activeFoodListId = window.localStorage.getItem("active_foodlist")
+                activeFoodListId = window.localStorage.getItem("active_foodlist");
             }
 
-            FoodListController.init()
+            FoodListController.init();
             try {
-                UIController.init(activeFoodListId)
+                UIController.init(activeFoodListId);
             } catch (error) {
                 console.log(`Unable to initialize UIController with give active list id. ID: ${activeFoodListId} Error: ${error}`);
-                console.log(`Reverting to default`)
+                console.log(`Reverting to default`);
                 this.setActiveFoodListId(1);
-                UIController.init(activeFoodListId)
+                UIController.init(activeFoodListId);
             }
-            window.addEventListener("click", eventHandler)
+            window.addEventListener("click", eventHandler);
 
             const listid = window.localStorage.getItem("active_foodlist");
 
@@ -531,7 +519,7 @@ const controller= (function(FoodListController, UIController) {
             activeFoodListId = id;
             window.localStorage.setItem("active_foodlist", id);
         }
-    }
-})(FoodListController, UIController)
+    };
+})(FoodListController, UIController);
 
-controller.init()
+controller.init();

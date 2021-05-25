@@ -15,7 +15,7 @@ onmessage = function(e) {
     
 
     testMenuWorker(activeMenuW,rollNumberW,foodCountW,budgetW, calorieW, caloriePerDollarW, maxSpW, stomachContentW,option);
-}
+};
 
 
 
@@ -36,7 +36,6 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
 
 	function calculateSP(menu) {
 		//accepts an array of food objects
-		"use strict";
 
 		var baseGain = 12;
 		var totalCarb = 0;
@@ -77,8 +76,8 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             all: activeMenuArray.concat(stomachContent),
             stomach: stomachContent || [],
             active: activeMenuArray
-        }
-    }
+        };
+    };
     
 	var randomizer = 0;
 	var bestMenuNames;
@@ -100,7 +99,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     
     if (option === "random" || !option){
         totalIterations = rollNumber;
-        console.log("Starting random")
+        console.log("Starting random");
         for (var i = 0; i <= rollNumber; i++) {
             var randomMenu = [];
 
@@ -147,7 +146,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             var result = calculateSP(randomMenu.concat(getMenu().stomach));
             
             if (result.SP > maxSp) {
-                randomMenu = []
+                randomMenu = [];
                 continue;
             }
             if (result.SP > bestSP) {
@@ -158,7 +157,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                 bestTotalPrice = totalPrice;
                 bestTotalCalorie = totalCalorie;
                 bestMenuArray = randomMenu.concat(getMenu().stomach);
-                bestMenuNonStomachArray = randomMenu 
+                bestMenuNonStomachArray = randomMenu; 
             }
             
             
@@ -170,7 +169,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
     }
 
     if (option === "definitive") {
-        console.log("Starting definitive")
+        console.log("Starting definitive");
         calculateAllIterations();
     }
     
@@ -190,8 +189,8 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             if (groups === 0) {
                 
                 var argsTotal = args.reduce(function(a,b) { 
-                    return a+b 
-                })
+                    return a+b; 
+                });
                 if (argsTotal === items) {
                     
                     var definitiveMenu = constructMenuFromArgs(args, getMenu().stomach);
@@ -261,11 +260,11 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         function constructMenuFromArgs(args,stomach) {
             //[3,0,2,3]
             if (!stomach) {
-                stomach = []
+                stomach = [];
             }
 
-            totalCalorie = 0
-            totalPrice = 0
+            totalCalorie = 0;
+            totalPrice = 0;
             
             var calculateMenu = [];
     
@@ -276,13 +275,13 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                     totalPrice += parseFloat(inputMenu[index].price);
                     totalCalorie += parseInt(inputMenu[index].cal);
                 }
-            })
+            });
             
             return {
                 all: calculateMenu.concat(stomach),
                 stomach: stomach,
                 nonStomach: calculateMenu,
-            }
+            };
         }
 
         function factorial (number) {
@@ -321,10 +320,10 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         */
         var arrayNames = [];
         for (var i = 0; i < array.length; i++) {
-            arrayNames[i] = array[i].name
+            arrayNames[i] = array[i].name;
         }
         //console.log(arrayNames, "non sorted")
-        arrayNames.sort()
+        arrayNames.sort();
         //console.log(arrayNames, "sorted")
 
         var finalResult = {};
@@ -339,7 +338,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             }
         }
 
-        return finalResult
+        return finalResult;
     }
     if(bestMenuNames) {
 

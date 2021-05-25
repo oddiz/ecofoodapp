@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* jshint esversion:6 */
 /*
 
 Save system
@@ -6,6 +7,7 @@ Save system
 */
 
 //Turn edit on off
+// eslint-disable-next-line no-unused-vars
 const FoodListController = (function() {
     
     function getStoredFoodLists() {
@@ -16,25 +18,22 @@ const FoodListController = (function() {
                 foodLists = [];
             }
     
-            return foodLists
+            return foodLists;
             
         } catch (error) {
             console.log("Error getting stored food lists");
 
-            return []
+            return [];
         }
     }
 
     function saveStoredFoodLists() {
-        window.localStorage.setItem("food_lists", JSON.stringify(storedFoodLists))
+        window.localStorage.setItem("food_lists", JSON.stringify(storedFoodLists));
     }
     
-    function findListByName(name) {
-
-    }
 
     //will return array of foodlist into storedFoodLists
-    let storedFoodLists = []
+    let storedFoodLists = [];
     const serverFoodList = defaultFoods;
 
 
@@ -47,7 +46,7 @@ const FoodListController = (function() {
             if(searchObjectInArray("listName", "default", getStoredFoodLists()) === null) {
                 //if nothing in local storage food lists
                 storedFoodLists.push(new FoodList("default", "This is the latest food list from Vanilla Eco.", serverFoodList));
-                saveStoredFoodLists()            
+                saveStoredFoodLists();            
             } else {
                 console.log("there is already food list in.");
 
@@ -69,13 +68,13 @@ const FoodListController = (function() {
                             "November",
                             "December"
                         ];
-                        updatedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
+                        updatedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
                         storedFoodLists[i].date = updatedDate;
                         storedFoodLists[i].foods = serverFoodList;
                     }
                 });
 
-                saveStoredFoodLists()
+                saveStoredFoodLists();
                 //this.updateList("default");
                 //window.localStorage.setItem(storedFoodLists);
             }
@@ -87,10 +86,10 @@ const FoodListController = (function() {
             
             if (searchObjectInArray("listName", listName, getStoredFoodLists()) === null) {
                 storedFoodLists.push(new FoodList(listName, listDesc, foods));
-                saveStoredFoodLists()
+                saveStoredFoodLists();
             } else {
                 //if list with same name exists
-                console.log("Same name exist.")
+                console.log("Same name exist.");
             }
             
         },
@@ -112,9 +111,9 @@ const FoodListController = (function() {
                                 food.cal = properties.cal;
                                 food.weight = properties.weight;
                             }
-                        })
+                        });
                     }
-                })
+                });
                 console.log(storedFoodLists);
 
                 saveStoredFoodLists();
@@ -124,27 +123,27 @@ const FoodListController = (function() {
         
         },
         deleteFood: function(listId, foodId){
-            storedFoodLists = getStoredFoodLists()
+            storedFoodLists = getStoredFoodLists();
             console.log(storedFoodLists);
             try {
                 storedFoodLists.forEach((list,listindex) => {
                     if (list.id == listId) {
                         list.foods.forEach((food, index) => {
                             if (food.id == foodId) {
-                                storedFoodLists[listindex].foods.splice(index, 1)
+                                storedFoodLists[listindex].foods.splice(index, 1);
                             }
 
                         });
                     }
-                })
-                saveStoredFoodLists()
+                });
+                saveStoredFoodLists();
             } catch (error) {
                 console.log("Tried to delete food from list. Error: " + error, listId, foodId);
             }
         },
         addFood: function(listId) {
             storedFoodLists = getStoredFoodLists();
-            console.log(storedFoodLists[0].foods)
+            console.log(storedFoodLists[0].foods);
             const d = new Date();
         
             const newFood = {
@@ -163,12 +162,12 @@ const FoodListController = (function() {
 
             storedFoodLists.forEach((list, i) => {
                 if (list.id == listId) {
-                    storedFoodLists[i].foods.push(newFood)
+                    storedFoodLists[i].foods.push(newFood);
                 }
-            })
+            });
 
             saveStoredFoodLists();
-            console.log(storedFoodLists[0].foods)
+            console.log(storedFoodLists[0].foods);
         },
         deleteList: function(listID) {
             //delete list from stored food list array
@@ -176,13 +175,13 @@ const FoodListController = (function() {
             console.log(storedFoodLists);
             storedFoodLists.forEach(function(flist, index) {
                 if (flist.id == listID) {
-                    storedFoodLists.splice(index, 1)
+                    storedFoodLists.splice(index, 1);
                     console.log(storedFoodLists);
                 }
 
-            })
+            });
             //update session storage
-            saveStoredFoodLists()
+            saveStoredFoodLists();
             
         },
         addList: function(listName, listDesc, listObject) {
@@ -208,16 +207,16 @@ const FoodListController = (function() {
                     storedFoodLists[index].listName = newName;
                     storedFoodLists[index].listDesc = newDesc;
                 }
-            })
+            });
 
             saveStoredFoodLists();
 
         },
         exportList: function(listId) {
             //export base64 string from a list
-            selectedList = this.getListFromId(listId)
+            selectedList = this.getListFromId(listId);
 
-            return btoa(JSON.stringify(selectedList))
+            return btoa(JSON.stringify(selectedList));
 
         },
         importList: function(b64string) {
@@ -228,28 +227,28 @@ const FoodListController = (function() {
         importAllLists: function(base64) {
             //import a list from base64 string
             //ability to import multiple lists at a time
-            var importedString = atob(base64)
-            var parsedString = JSON.parse(importedString)
+            var importedString = atob(base64);
+            var parsedString = JSON.parse(importedString);
             
-            window.localStorage.removeItem("food_lists")
-            window.localStorage.setItem("food_lists", parsedString)
+            window.localStorage.removeItem("food_lists");
+            window.localStorage.setItem("food_lists", parsedString);
 
         },
         exportAllLists: function() {
             //export storeFoodLists array
             storedFoodLists = getStoredFoodLists();
 
-            return btoa(JSON.stringify(storedFoodLists))
+            return btoa(JSON.stringify(storedFoodLists));
         },
         getFoodLists: function() {
             //returns all saved food lists
-            return getStoredFoodLists()
+            return getStoredFoodLists();
         },
         getListFromId: function(listId) {
-            storedFoodLists = getStoredFoodLists()
+            storedFoodLists = getStoredFoodLists();
             const result = searchObjectInArray("id", listId, storedFoodLists);
 
-            return result
+            return result;
         },
         setFoodLists: function (foodLists) {
             storedFoodLists = foodLists;
@@ -257,21 +256,21 @@ const FoodListController = (function() {
         },
         getActiveFoodList: function () {
             let activeFoodListId = window.localStorage.getItem("active_foodlist");
-            console.log(activeFoodListId)
+            console.log(activeFoodListId);
 
             if (activeFoodListId === null) {
                 //if there is no active foodlist data in local storage, default to 1 and set local storage
                 activeFoodListId = 1;
                 window.localStorage.setItem("active_foodlist", 1);
-            };
+            }
             const activeFoodList = this.getListFromId(activeFoodListId);
             
-            return activeFoodList
+            return activeFoodList;
         }
 
-    }
+    };
 
-})()
+})();
 
 
 class FoodList {
@@ -295,19 +294,19 @@ class FoodList {
             "December"
         ];
 
-        this.date = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
+        this.date = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
         //id is the time it was created, in miliseconds
         if (listName === "default") {
             this.id = 1;
         } else {
             this.id = d.getTime();
         }
-        this.foods = food
+        this.foods = food;
     }
 
     exportList() {
         //generate base64 string for the list 
-        console.log(this)
+        console.log(this);
 
         return this;
     }
