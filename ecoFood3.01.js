@@ -3,6 +3,7 @@
 /*eslint-disable no-tabs */
 /*eslint-disable array-element-newline */
 /*eslint-disable no-undef */ 
+/*jshint esversion: 6 */
 var UIController = (function() {
 	var DOMStrings = {
 		foodAddBtn: ".item__add",
@@ -73,7 +74,7 @@ var UIController = (function() {
 			//adds all foods to active menu
 			var allFoodsArray;
 			allFoodsArray = FoodListController.getActiveFoodList().foods;
-            console.log(allFoodsArray)
+            console.log(allFoodsArray);
             if (option === "available") {
                 allFoodsArray.forEach(function(foodObj) {
                     UIController.addToAvailable(foodObj);
@@ -81,7 +82,7 @@ var UIController = (function() {
             } else if (option === "selected") {
                 allFoodsArray.forEach(function(foodObj) {
                     UIController.addToSelected(foodObj);
-                })
+                });
             }
 
             UIController.sortAvailable("tier");
@@ -92,23 +93,23 @@ var UIController = (function() {
             var availableList = [];
             nodeList[0].childNodes.forEach(function(node) {
                 availableList.push(getFoodFromID(node.id));
-            })
+            });
             
             return availableList;
         },
 
         getSortSelection: function() {
-            var sortOptions = document.querySelector(".sort__options").childNodes[1].children
-            var selectedSort = ""
+            var sortOptions = document.querySelector(".sort__options").childNodes[1].children;
+            var selectedSort = "";
             for (var i = 0; i < sortOptions.length; i++) {
                 if (sortOptions[i].classList.contains("active")) {
                     
 
-                    selectedSort =  sortOptions[i].textContent.toLowerCase()
+                    selectedSort =  sortOptions[i].textContent.toLowerCase();
                 }
             }
 
-            return selectedSort
+            return selectedSort;
 
         },
 
@@ -142,12 +143,12 @@ var UIController = (function() {
             this.clearLists(document.querySelector(DOMStrings.availableFoods));
             availableList.forEach(function(food) {
                 self.addToAvailable(food);
-            })
+            });
         },
 
         searchAvailable: function() {
 
-            userQuery = document.querySelector(DOMStrings.searchInput).value
+            userQuery = document.querySelector(DOMStrings.searchInput).value;
 
             
             //clear available list
@@ -165,7 +166,7 @@ var UIController = (function() {
 
             } else {
                 //escape special characters
-                userQuery = userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
+                userQuery = userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
                 
                 
                 
@@ -178,7 +179,7 @@ var UIController = (function() {
                         UIController.addToAvailable(foodObj);
                         
                     }
-                })
+                });
             }
         },
 
@@ -186,19 +187,19 @@ var UIController = (function() {
         //filters available foods according to buttons
             
             //if search is active do nothing
-            userQuery = document.querySelector(DOMStrings.searchInput).value
+            userQuery = document.querySelector(DOMStrings.searchInput).value;
             if (userQuery !== ""){
                 
-                return
+                return;
             }
             //get which buttons are active
             var activeButtons = [];
             document.querySelector(".foodtype__container").childNodes.forEach(function(node) {
                     if (typeof node.classList !== "undefined" && node.classList.contains("active")) {
-                        activeButtons.push(node.id.slice(0,-8))
+                        activeButtons.push(node.id.slice(0,-8));
                     }
 
-                })
+                });
             
         //process names
             activeButtons.forEach(function(ele, i) {
@@ -211,13 +212,13 @@ var UIController = (function() {
                 } else if (ele === "kitchen") {
                     activeButtons[i] = "Kitchen";
                 } else if (ele === "stove") {
-                    activeButtons[i] = "Stove"
+                    activeButtons[i] = "Stove";
                 } else if (ele === "raw"){
-                    activeButtons[i] = "Raw"
+                    activeButtons[i] = "Raw";
                 } else {
-                    console.log("something's wrong man...")
+                    console.log("something's wrong man...");
                 }
-            })
+            });
 
         //do magic according to active buttons
             var availableFoodArray = menuController.showInactive();
@@ -228,14 +229,14 @@ var UIController = (function() {
                 
                 availableFoodArray.forEach(function(foodObject) {
                     if (confirmFoodType(foodObject)) {
-                        UIController.addToAvailable(foodObject)
+                        UIController.addToAvailable(foodObject);
                     }
-                })
+                });
 
             } else {
                 availableFoodArray.forEach(function(ele){
                     UIController.addToAvailable(ele);
-                })
+                });
             }
 
             
@@ -243,7 +244,7 @@ var UIController = (function() {
             
             
             function confirmFoodType(foodObject) {
-                var confirmed = false
+                var confirmed = false;
                 for (var i = 0; i < activeButtons.length; i++){
                     if (activeButtons[i] === foodObject.type) {
                         confirmed = true;
@@ -251,7 +252,7 @@ var UIController = (function() {
                     }
                 }
 
-                return confirmed
+                return confirmed;
             }
         },
 
@@ -264,7 +265,7 @@ var UIController = (function() {
             infoButton = document.querySelector(DOMStrings.infoButton);
             infoButton.classList.toggle("clicked");
             
-            infoContainer = document.querySelector(DOMStrings.infoContainer)
+            infoContainer = document.querySelector(DOMStrings.infoContainer);
             //if opening info
             if (content.classList.contains("hide__content")) {
                 setTimeout(function() {
@@ -364,7 +365,7 @@ var UIController = (function() {
             var budgetInput = parseInt(document.querySelector(DOMStrings.budgetInput).value);
             var calorieInput = parseInt(document.querySelector(DOMStrings.calorieInput).value);
             var caloriePerDollarInput = parseFloat(document.querySelector(DOMStrings.caloriePerDollarInput).value);
-            var maxSpInput = parseInt(document.querySelector(DOMStrings.maxSpInput).value)
+            var maxSpInput = parseInt(document.querySelector(DOMStrings.maxSpInput).value);
             if(budgetInput === 0 || budgetInput === -1) {
                 budgetInput = Infinity;
             }
@@ -389,7 +390,7 @@ var UIController = (function() {
             paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./resources/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
 
             if(resultObject.foundAt === 0) {
-                foundAt = 1
+                foundAt = 1;
             } else {
                 foundAt = resultObject.foundAt;
             }
@@ -400,33 +401,33 @@ var UIController = (function() {
                 replace('%simcount%', resultObject.totalIterations).
                 replace('%price%', resultObject.totalPrice).
                 replace('%calories%', resultObject.totalCalorie).
-                replace('%caloriesperdollar%', resultObject.caloriePerDollar.toFixed(2))
+                replace('%caloriesperdollar%', resultObject.caloriePerDollar.toFixed(2));
 
             document.querySelector(DOMStrings.menuPaper).innerHTML = paperHtmlEdited;
             menuContent = document.querySelector(".menu__content");
             
             menuNonStomach = resultObject.resultMenuNonStomach;
             
-            for(foodname in menuNonStomach) {
+            for(var foodname in menuNonStomach) {
                 if({}.hasOwnProperty.call(menuNonStomach, foodname)){
                     line = `<p>${menuNonStomach[foodname]}x   ${foodname}</p>`;
                     menuContent.insertAdjacentHTML('afterbegin', line);
 
                 }
             }
-            menuStomachContainer = document.querySelector(".menu__stomach__container")
+            menuStomachContainer = document.querySelector(".menu__stomach__container");
             menuStomach = resultObject.resultMenuStomach;
             
             if (Object.keys(menuStomach).length === 0) {
 
-                menuStomachContainer.classList.add('hidden')
+                menuStomachContainer.classList.add('hidden');
             
             } else {
-                menuStomachContainer.classList.remove('hidden')
+                menuStomachContainer.classList.remove('hidden');
                 
-                for(foodname in menuStomach) {
-                    if({}.hasOwnProperty.call(menuStomach, foodname)){
-                        line = `<p>${menuStomach[foodname]}x   ${foodname}</p>`;
+                for(var fname in menuStomach) {
+                    if({}.hasOwnProperty.call(menuStomach, fname)){
+                        line = `<p>${menuStomach[fname]}x   ${fname}</p>`;
                         menuStomachContainer.insertAdjacentHTML('beforeend', line);
                         
                     }
@@ -434,17 +435,17 @@ var UIController = (function() {
                 
             }
             setTimeout(function() {
-                document.querySelector('.menu__paper').classList.add('menu__visible')
+                document.querySelector('.menu__paper').classList.add('menu__visible');
             }, 0);
         },
 
         updateResults: function (resultObject) {
             var menuResultHtml, menuContent, line, menuObject, foundAt;
             
-            menuResultHtml = '<p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p>'
+            menuResultHtml = '<p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p>';
             
             if(resultObject.foundAt === 0) {
-                foundAt = 1
+                foundAt = 1;
             } else {
                 foundAt = resultObject.foundAt;
             }
@@ -455,34 +456,34 @@ var UIController = (function() {
                 replace('%index%', foundAt).
                 replace('%simcount%', resultObject.totalIterations).
                 replace('%price%', resultObject.totalPrice).
-                replace('%calories%', resultObject.totalCalorie)
+                replace('%calories%', resultObject.totalCalorie);
 
             menuContent = document.querySelector(".menu__content");
             
-            menuContent.innerHTML = '<div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div>'
+            menuContent.innerHTML = '<div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div>';
             
             menuNonStomach = resultObject.resultMenuNonStomach;
             
-            for(foodname in menuNonStomach) {
+            for(var foodname in menuNonStomach) {
                 if({}.hasOwnProperty.call(menuNonStomach, foodname)){
                     line = `<p>${menuNonStomach[foodname]}x   ${foodname}</p>`;
                     menuContent.insertAdjacentHTML('afterbegin', line);
 
                 }
             }
-            menuStomachContainer = document.querySelector(".menu__stomach__container")
+            menuStomachContainer = document.querySelector(".menu__stomach__container");
             menuStomach = resultObject.resultMenuStomach;
             
             if (Object.keys(menuStomach).length === 0) {
 
-                menuStomachContainer.classList.add('hidden')
+                menuStomachContainer.classList.add('hidden');
             
             } else {
-                menuStomachContainer.classList.remove('hidden')
+                menuStomachContainer.classList.remove('hidden');
                 
-                for(foodname in menuStomach) {
-                    if({}.hasOwnProperty.call(menuStomach, foodname)){
-                        line = `<p>${menuStomach[foodname]}x   ${foodname}</p>`;
+                for(var fname in menuStomach) {
+                    if({}.hasOwnProperty.call(menuStomach, fname)){
+                        line = `<p>${menuStomach[fname]}x   ${fname}</p>`;
                         menuStomachContainer.insertAdjacentHTML('beforeend', line);
                         
                     }
@@ -493,7 +494,7 @@ var UIController = (function() {
             document.querySelector(".menu__result").innerHTML = menuResultHtmlEdited;
 
             if (!document.querySelector('.menu__paper').classList.contains('menu__visible')) {
-                document.querySelector('.menu__paper').classList.add('menu__visible')
+                document.querySelector('.menu__paper').classList.add('menu__visible');
 
             }
         },
@@ -521,11 +522,11 @@ var UIController = (function() {
             if (result.currentHighscore) {
                 //if server responds with a highscore
 
-                Html = '<p>%message%</p><br><h2>Best diet with %foodqty% meals. </h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
+                Html = '<p>%message%</p><br><h2>Best diet with %foodqty% meals. </h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>';
                 
                 menuObject = result.currentHighscore[0].menu;
                 line= "";
-                for(foodname in menuObject) {
+                for(var foodname in menuObject) {
                     if({}.hasOwnProperty.call(menuObject, foodname)){
                         line += `<p>${menuObject[foodname]}x   ${foodname}</p>`;
                     }
@@ -536,7 +537,7 @@ var UIController = (function() {
                 newHtml = newHtml.replace("%foodqty%", result.currentHighscore[0].foodQty);
             } else {
                 //if server responds with only a message
-                Html = '<p>%message%</p>'
+                Html = '<p>%message%</p>';
                 newHtml = Html.replace("%message%", result.message);
             }
             highscoreContent.innerHTML = newHtml;
@@ -561,14 +562,14 @@ var UIController = (function() {
 
             menuObject = result.menu;
             line= "";
-            for(foodname in menuObject) {
+            for(var foodname in menuObject) {
                 if({}.hasOwnProperty.call(menuObject, foodname)){
                     line += `<p>${menuObject[foodname]}x   ${foodname}</p>`;
                 }
             }
 
             highscoreContent = document.querySelector(DOMStrings.highscoreContent);
-            Html = '<p>This app, stores the best SP combinations and categorize them by food number.</p><br><h2>Highest SP across all categories so far:</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>'
+            Html = '<p>This app, stores the best SP combinations and categorize them by food number.</p><br><h2>Highest SP across all categories so far:</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>';
 
             newHtml = Html.replace("%menu%", line);
             newHtml = newHtml.replace("%SP%", result.sp);
@@ -603,10 +604,10 @@ var UIController = (function() {
                     //change "," with "." to avoid common mistake of putting comma instead of decimal
                     var price = parseFloat(node.value.replace(",","."));
                     if (isNaN(price)) {
-                        price = 0
+                        price = 0;
                     }
                     prices.push([id, price]);
-                })
+                });
             }
 
             return prices;
@@ -616,7 +617,7 @@ var UIController = (function() {
             var prices = UIController.getInputPrices();
             var expires = `expires=Fri, December 31, 9999 3:00:00 UTC; path=/`;
             prices.forEach(function (ele) {
-                var foodString = `${ele[0]}=${ele[1]};`
+                var foodString = `${ele[0]}=${ele[1]};`;
                 foodString = foodString.concat(expires);
                 document.cookie = foodString;
                 menuController.updatePrice(ele[0], ele[1]);
@@ -672,11 +673,11 @@ var UIController = (function() {
             var trophyButtonClasses = document.querySelector(DOMStrings.highscoreButton).classList;
 
             if (highscoreContainerClasses.contains("visible")) {
-                highscoreContainerClasses.remove("visible")
-                trophyButtonClasses.remove("clicked")
+                highscoreContainerClasses.remove("visible");
+                trophyButtonClasses.remove("clicked");
             } else {
-                highscoreContainerClasses.add("visible")
-                trophyButtonClasses.add("clicked")
+                highscoreContainerClasses.add("visible");
+                trophyButtonClasses.add("clicked");
             }
 
         },
@@ -690,7 +691,7 @@ var UIController = (function() {
                 if (nodes.innerText === foodObj.name) {
                     duplicateFound = true;
                 }
-            })
+            });
 
             return duplicateFound;
         },
@@ -702,7 +703,7 @@ var UIController = (function() {
             var stomachListContainer = document.querySelector(DOMStrings.stomachListContainer);
 
 
-            htmlTemplate = `<div class="item" food-id="%foodid%"><div class="item__description">%foodname%</div><input class="stomach__food__input" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\\..*)\\\./g, '$1');" placeholder="#"><i class="ion-close stomach__item__delete--btn"></i></div>`
+            htmlTemplate = `<div class="item" food-id="%foodid%"><div class="item__description">%foodname%</div><input class="stomach__food__input" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\\..*)\\\./g, '$1');" placeholder="#"><i class="ion-close stomach__item__delete--btn"></i></div>`;
             
             newHtml = htmlTemplate.replace("%foodname%", foodObj.name);
             newHtml = newHtml.replace("%foodid%", foodObj.id);
@@ -722,7 +723,7 @@ var UIController = (function() {
                     node.parentNode.removeChild(node);
                     
                 }
-            })
+            });
 
             this.stomachApplyButton("unpress");
 
@@ -751,7 +752,7 @@ var menuController = (function(UIController) {
 	return {
         storeStomachContent: function () {
             var stomachListContainer = document.querySelector(DOMStrings.stomachListContainer).childNodes;
-            var stomachFoodList = []
+            var stomachFoodList = [];
             stomachListContainer.forEach(function(node) {
                 var nodeFood;
                 var nodeFoodAmount;
@@ -760,19 +761,19 @@ var menuController = (function(UIController) {
                 if (node.childNodes[1]) {
 
                     if (node.childNodes[1].value > 0) {
-                        nodeFoodAmount = parseInt(node.childNodes[1].value)
+                        nodeFoodAmount = parseInt(node.childNodes[1].value);
                     } else {
                         nodeFoodAmount = 0;
                     }
 
                     nodeFood = getFoodFromID(node.getAttribute("food-id")); 
                     for (var i = 0; i < node.childNodes[1].value; i++) {
-                        stomachFoodList.push(nodeFood)
+                        stomachFoodList.push(nodeFood);
                     }
                 }
 
                 
-            })
+            });
             //console.log(stomachFoodList);
 
             stomachContent = stomachFoodList;
@@ -813,9 +814,9 @@ var menuController = (function(UIController) {
                     }
                 }
                 if (found === false) {
-                    availableFoods.push(food)
+                    availableFoods.push(food);
                 }
-            })
+            });
             
             return availableFoods;
         },
@@ -909,7 +910,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
 
 
 
-        UICtrl.filterByFoodType()
+        UICtrl.filterByFoodType();
         var selectedSort = UICtrl.getSortSelection();
         if (selectedSort === "protein") {
             selectedSort = "pro";
@@ -923,7 +924,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
         
         var clickedOn, clickedOnTier;
             if (event.target.classList == "ion-chevron-right") {
-                clickedOn = event.target.parentNode.parentNode.classList
+                clickedOn = event.target.parentNode.parentNode.classList;
             } else {
                 clickedOn = event.target.classList;
             }
@@ -950,7 +951,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
             } 
             
             if (clickedOnTier === "all") {
-                addAll("selected")
+                addAll("selected");
             } else {
                 addAllTier(clickedOnTier);
             }
@@ -1026,10 +1027,10 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
 
         availList.forEach(function(ele) {
             if (ele.tier === tier) {
-                menuCtrl.addActive(ele)
+                menuCtrl.addActive(ele);
                 UIController.addToSelected(ele);
             }
-        })
+        });
     }
 
     function infoClicked() {
@@ -1047,7 +1048,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
             if (parseInt(itemID)) {
                 //find the food
                 selectedFood = getFoodFromID(itemID);
-                console.log(selectedFood)
+                console.log(selectedFood);
                 //add to selected food in UICtrl and remove from available foods
                 UICtrl.addToSelected(selectedFood);
                 //update active menu in menuCtrl
@@ -1072,7 +1073,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
                     UICtrl.addToStomach(selectedFood);
                     
                     //point to input text of last added
-                    document.querySelector(DOM.stomachListContainer).lastChild.childNodes[1].addEventListener("input", UICtrl.stomachApplyButton)
+                    document.querySelector(DOM.stomachListContainer).lastChild.childNodes[1].addEventListener("input", UICtrl.stomachApplyButton);
 
                 }
 
@@ -1137,7 +1138,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
         document.querySelector(DOM.calculateButton).removeEventListener("click", startWorkerSim);
         
         //apply stomach content
-        applyStomachContent()
+        applyStomachContent();
 
         var activeMenu = menuCtrl.showActive();
         var stomachContent = menuCtrl.showStomachContent();
@@ -1148,14 +1149,14 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
         
         if(inputFood === "" || isNaN(inputFood)) {
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
-            showError("no_blank")
+            showError("no_blank");
             
             return;
 
             
         } else if (activeMenu.length === 0) {
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
-            showError("no_food")
+            showError("no_food");
 
             return;
         }
@@ -1163,7 +1164,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
         var stopBtn = document.querySelector(DOM.stopButton);
         
 
-        console.log('Starting Worker.')
+        console.log('Starting Worker.');
         var work = new Worker('testMenuWorker.js');
 
         if (inputSim === "" || inputSim == 0) {
@@ -1182,7 +1183,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
                     confirmButtonText: "Calculate Anyway",
                 }).then(function(result) {
                     if(result.value === 0 || result.value === 1) {
-                        uiStartWorker()
+                        uiStartWorker();
                         //work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "definitive"])
 
                         work.postMessage({
@@ -1197,19 +1198,19 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
                             stomachContent: stomachContent,
                             simType: "definitive"
 
-                        })
+                        });
                         if(result.value === 1) {
                             //don't show this again ticked
-                            highCountAdvisorShown = true
+                            highCountAdvisorShown = true;
                         }
                     } else {
                         terminateWorker();
                         
                     }
-                })
+                });
 
             } else {
-                uiStartWorker()
+                uiStartWorker();
                 work.postMessage({
                     origin: "ecoFood",
                     activeMenu: activeMenu,
@@ -1222,10 +1223,10 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
                     stomachContent: stomachContent,
                     simType: "definitive"
 
-                })
+                });
             }
         } else {
-            uiStartWorker()
+            uiStartWorker();
             work.postMessage({
                 origin: "ecoFood",
                 activeMenu: activeMenu,
@@ -1238,14 +1239,14 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
                 stomachContent: stomachContent,
                 simType: "random"
 
-            })
+            });
         }
 
         
         function uiStartWorker() {
             
             //reset percentage
-            UIController.setPercentage("0")
+            UIController.setPercentage("0");
             
             //swipe list container to left
             var listsContainer = document.querySelector(DOM.listsContainer);
@@ -1255,7 +1256,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
             
             document.querySelector(".spinner").classList.add("visible");
 
-            var menuPaper =document.querySelector(DOM.menuPaper)
+            var menuPaper =document.querySelector(DOM.menuPaper);
             if(menuPaper) {
                 //blur menu
                 menuPaper.style.webkitFilter = "blur(4px)";
@@ -1270,35 +1271,35 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
         }
         
         function terminateWorker () {
-            console.log("Terminating Worker.")
+            console.log("Terminating Worker.");
             work.terminate();
             //enable calculate button
             document.querySelector(DOM.calculateButton).addEventListener("click", startWorkerSim);
             //disable stop button
             stopBtn.removeEventListener("click", terminateWorker);
-            stopBtn.classList.remove("visible")
+            stopBtn.classList.remove("visible");
             document.querySelector(".spinner").classList.remove("visible");
         }
 
         work.onmessage = function(message) {
             
             if (message.data.type === "progress_percent") {
-                UICtrl.setPercentage(message.data.percentage)
+                UICtrl.setPercentage(message.data.percentage);
             } else if (message.data.type === "not_found") {
-                showError("not_found")
-                document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(0)"
+                showError("not_found");
+                document.querySelector(DOM.menuPaper).style.webkitFilter = "blur(0)";
                 terminateWorker();
             } else if (message.data.type === "menu_found") {
                 setTimeout(function() {
                     //remove blur
                     document.querySelector(DOM.menuPaper).style.webkitFilter = "";      
                     UICtrl.displayResults(message.data.result);
-                },500)
+                },500);
                 sendPostRequest(message.data.result);
                 terminateWorker();
             } else if (message.data.type === "menu_update") {
                 document.querySelector(DOM.menuPaper).style.webkitFilter = "";      
-                UICtrl.updateResults(message.data.result)
+                UICtrl.updateResults(message.data.result);
             }
 
             /*
@@ -1324,7 +1325,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
                 terminateWorker();
             }
             */          
-        }
+        };
     }
 
     function showError(type) {
