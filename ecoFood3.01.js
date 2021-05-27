@@ -73,8 +73,8 @@ var UIController = (function() {
 
 			//adds all foods to active menu
 			var allFoodsArray;
-			allFoodsArray = FoodListController.getActiveFoodList().foods;
-            console.log(allFoodsArray);
+			allFoodsArray = menuController.getAllFoods();
+
             if (option === "available") {
                 allFoodsArray.forEach(function(foodObj) {
                     UIController.addToAvailable(foodObj);
@@ -366,14 +366,17 @@ var UIController = (function() {
             var calorieInput = parseInt(document.querySelector(DOMStrings.calorieInput).value);
             var caloriePerDollarInput = parseFloat(document.querySelector(DOMStrings.caloriePerDollarInput).value);
             var maxSpInput = parseInt(document.querySelector(DOMStrings.maxSpInput).value);
-            if(budgetInput === 0 || budgetInput === -1) {
+            if(budgetInput === 0 || budgetInput === -1 || isNaN(budgetInput)) {
                 budgetInput = Infinity;
             }
-            if(calorieInput === 0 || calorieInput === -1) {
+            if(calorieInput === 0 || calorieInput === -1 || isNaN(calorieInput)) {
                 calorieInput = Infinity;
             }
+            if(caloriePerDollarInput == 0 || caloriePerDollarInput == -1 || isNaN(caloriePerDollarInput)) {
+                caloriePerDollarInput = -Infinity;
+            }
 
-            
+            console.log(calorieInput);
 
             return {
 				foodInput: parseInt(foodInput.replace(regex, "")),
@@ -745,6 +748,7 @@ var UIController = (function() {
 })();
 
 var menuController = (function(UIController) {
+    var allFoodsArray = FoodListController.getActiveFoodList().foods;
     var activeMenu = [];
     var stomachContent = [];
     var DOMStrings = UIController.getDOMStrings();
@@ -800,7 +804,7 @@ var menuController = (function(UIController) {
 			return activeMenu;
         },
         showInactive: function () {
-            var allFoods = FoodListController.getActiveFoodList().foods;
+            var allFoods = menuController.getAllFoods();
             var availableFoods = [];
             var selectedFoods = this.showActive();
 
@@ -824,11 +828,20 @@ var menuController = (function(UIController) {
             activeMenu = [];
         },
         addActiveAll: function () {
-            activeMenu = FoodListController.getActiveFoodList().foods;
+            activeMenu = menuController.getAllFoods();
             
         },
         updatePrice: function (id, price) {
-            getFoodFromID(id).price = price;
+            allFoodsArray.forEach(function (food, index) {
+                if (food.id == id) {
+                    allFoodsArray[index].price = price;
+                    console.log(`Changed ${food.name} price to ${food.price}`)
+                }
+            });
+        },
+        getAllFoods: function () {
+            console.log(allFoodsArray)
+            return allFoodsArray;
         }
 	};
 })(UIController);
@@ -1145,6 +1158,7 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
         var input = UICtrl.getInput();
         var inputFood = input.foodInput;
         var inputSim = input.simInput;
+
 
         
         if(inputFood === "" || isNaN(inputFood)) {

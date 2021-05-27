@@ -46,11 +46,14 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         var foodList = "";
 
 		for (var i = 0; i < menu.length; i++) {
-			totalCal += menu[i].cal;
-			totalCarb += menu[i].cal * menu[i].carb;
-			totalProtein += menu[i].cal * menu[i].pro;
-			totalFat += menu[i].cal * menu[i].fat;
-			totalVitamin += menu[i].cal * menu[i].vit;
+            if (menu[i].cal == 0) {
+                menu[i].cal = 1;
+            }
+			totalCal += parseInt(menu[i].cal);
+			totalCarb += parseInt(menu[i].cal) * parseInt(menu[i].carb);
+			totalProtein += parseInt(menu[i].cal) * parseInt(menu[i].pro);
+			totalFat += parseInt(menu[i].cal) * parseInt(menu[i].fat);
+			totalVitamin += parseInt(menu[i].cal) * parseInt(menu[i].vit);
 			foodList = foodList + menu[i].name + "+";
 		}
 		var totalTotal = totalCarb + totalProtein + totalFat + totalVitamin;
@@ -184,8 +187,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         
         partiteIdentical(items, groups);
         function partiteIdentical(items, groups, args = [0], index = 0) {
-            
-            
+
             if (groups === 0) {
                 
                 var argsTotal = args.reduce(function(a,b) { 
@@ -195,8 +197,11 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                     
                     var definitiveMenu = constructMenuFromArgs(args, getMenu().stomach);
                     
+                    if(totalCalorie == 0 && totalPrice == 0) {
+                        totalCalorie = 1;
+                    }
+
                     if((totalPrice <= budget) && (totalCalorie <= calorie) && ((totalCalorie/totalPrice) >= caloriePerDollar)) {
-                        
                         var result = calculateSP(definitiveMenu.all);
                         if (result.SP > bestSP && result.SP <= maxSp) {
                             bestSP = result.SP;

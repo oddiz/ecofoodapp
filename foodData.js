@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 var defaultFoods = [
     {
         "id": 12,
@@ -1326,4 +1325,4 @@ var defaultFoods = [
         "weight": 0.01,
         "price": 0
     }
-];
+]

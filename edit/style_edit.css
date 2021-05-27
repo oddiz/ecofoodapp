@@ -53,9 +53,9 @@ body {
 	
 }
 
-a {
-    all: unset;
-    text-decoration: none !important;
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
 }
 
 .hidden {
@@ -260,11 +260,14 @@ h2 {
     flex-direction: row;
     justify-content: center;
 
+    width: auto;
     position: relative;
 	height:100vh;
     padding-top: 0px;
 	padding-bottom:0px;
-	transition: transform 0.5s;
+    padding-left: 0px;
+
+    transition: transform 0.5s;
     z-index: 2;
 	
 }
@@ -289,6 +292,7 @@ body::after {
     background: linear-gradient(45deg,rgb(119, 168, 160) 0%, rgb(159, 197, 191) 51%, rgb(128, 185, 177) 100%);
     
     width:50%;
+    min-width: 800px;
     height:auto;
     
     transition: all 1s;
@@ -471,7 +475,7 @@ FOOD LIST - LIST 1
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 40px;
+    height: auto;
 
     margin-bottom: 1px;
 
