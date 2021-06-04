@@ -36,7 +36,7 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
 
 	function calculateSP(menu) {
 		//accepts an array of food objects
-
+        
 		var baseGain = 12;
 		var totalCarb = 0;
 		var totalProtein = 0;

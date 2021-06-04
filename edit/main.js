@@ -259,9 +259,13 @@ const controller= (function(FoodListController, UIController) {
                         `,
                         confirmButtonText: 'Save',
                         preConfirm: () => {
-                            const listName = Swal.getPopup().querySelector('#update__list__name').value || Swal.getPopup().querySelector('#update__list__name').placeholder;
+                            let listName = Swal.getPopup().querySelector('#update__list__name').value || Swal.getPopup().querySelector('#update__list__name').placeholder;
                             const listDesc = Swal.getPopup().querySelector('#update__list__desc').value || Swal.getPopup().querySelector('#update__list__desc').placeholder;
                             
+                            if (listName == "default") {
+                                listName = "my default";
+                            }
+
                             return {
                                 lName: listName,
                                 lDesc: listDesc
@@ -471,8 +475,10 @@ const controller= (function(FoodListController, UIController) {
                 if (result.isConfirmed) {
                     const pastedString = result.value;
                     const importedList = JSON.parse(atob(pastedString));
-
-                    FoodListController.addList("Imported List", "Press gear icon to change name and description.", importedList);
+                    if (importedList.listName == 'default') {
+                        importedList.listName = 'default copy';
+                    }
+                    FoodListController.addList(importedList.listName, importedList.listDesc, importedList);
                     UIController.updateList1(activeFoodListId);
                     UIController.updateList2(activeFoodListId);
                     UIController.updateList3(activeFoodListId,activeFoodId);
