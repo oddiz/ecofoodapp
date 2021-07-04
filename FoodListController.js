@@ -42,13 +42,12 @@ const FoodListController = (function() {
         init: function() {
             //check stored FoodLists, add server food list
             storedFoodLists = getStoredFoodLists();
-
             if(searchObjectInArray("listName", "default", getStoredFoodLists()) === null) {
                 //if nothing in local storage food lists
                 storedFoodLists.push(new FoodList("default", "This is the latest food list from Vanilla Eco.", serverFoodList));
                 saveStoredFoodLists();            
             } else {
-                console.log("there is already food list in.");
+                
 
                 //update default food list to latest
                 storedFoodLists.forEach((list, i) => {
@@ -114,7 +113,6 @@ const FoodListController = (function() {
                         });
                     }
                 });
-                console.log(storedFoodLists);
 
                 saveStoredFoodLists();
             } catch (error) {
@@ -124,7 +122,6 @@ const FoodListController = (function() {
         },
         deleteFood: function(listId, foodId){
             storedFoodLists = getStoredFoodLists();
-            console.log(storedFoodLists);
             try {
                 storedFoodLists.forEach((list,listindex) => {
                     if (list.id == listId) {
@@ -143,7 +140,6 @@ const FoodListController = (function() {
         },
         addFood: function(listId) {
             storedFoodLists = getStoredFoodLists();
-            console.log(storedFoodLists[0].foods);
             const d = new Date();
         
             const newFood = {
@@ -172,11 +168,9 @@ const FoodListController = (function() {
         deleteList: function(listID) {
             //delete list from stored food list array
             storedFoodLists = getStoredFoodLists();
-            console.log(storedFoodLists);
             storedFoodLists.forEach(function(flist, index) {
                 if (flist.id == listID) {
                     storedFoodLists.splice(index, 1);
-                    console.log(storedFoodLists);
                 }
 
             });
@@ -222,14 +216,17 @@ const FoodListController = (function() {
         importList: function(b64string) {
             importedList = JSON.parse(atob(b64string));
 
-            console.log(importedList);
         },
         importAllLists: function(base64) {
             //import a list from base64 string
             //ability to import multiple lists at a time
             var importedString = atob(base64);
             var parsedString = JSON.parse(importedString);
-            
+            console.log("parsedString")
+
+            parsedString.forEach(function(element) {
+                console.log("element")
+            })
             window.localStorage.removeItem("food_lists");
             window.localStorage.setItem("food_lists", parsedString);
 
@@ -237,7 +234,7 @@ const FoodListController = (function() {
         exportAllLists: function() {
             //export storeFoodLists array
             storedFoodLists = getStoredFoodLists();
-
+            console.log("object")
             return btoa(JSON.stringify(storedFoodLists));
         },
         getFoodLists: function() {
@@ -246,6 +243,8 @@ const FoodListController = (function() {
         },
         getListFromId: function(listId) {
             storedFoodLists = getStoredFoodLists();
+
+            
             const result = searchObjectInArray("id", listId, storedFoodLists);
 
             return result;
@@ -256,9 +255,8 @@ const FoodListController = (function() {
         },
         getActiveFoodList: function () {
             let activeFoodListId = window.localStorage.getItem("active_foodlist");
-            console.log(activeFoodListId);
 
-            if (activeFoodListId === null) {
+            if (!activeFoodListId) {
                 //if there is no active foodlist data in local storage, default to 1 and set local storage
                 activeFoodListId = 1;
                 window.localStorage.setItem("active_foodlist", 1);
@@ -306,7 +304,7 @@ class FoodList {
 
     exportList() {
         //generate base64 string for the list 
-        console.log(this);
+
 
         return this;
     }

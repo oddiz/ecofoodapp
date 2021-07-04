@@ -196,7 +196,6 @@ const controller= (function(FoodListController, UIController) {
     let activeFoodId = 0;
     let activeFoodListId = 1;
     const eventHandler = function(event) {
-        console.log(event);
         const target = event.target;
 
         ////// FOOD LISTS //////
@@ -446,8 +445,28 @@ const controller= (function(FoodListController, UIController) {
                 if (result.isConfirmed) {
                     const pastedString = result.value;
                     const importedLists = JSON.parse(atob(pastedString));
-                    console.log(importedLists);
+                    
 
+                    let verified = true
+                    try {
+                        for(const foodlist of importedLists) {
+                            
+                            if(!(foodlist.listName || foodlist.listName === "")) {
+                                verified = false
+                            }
+                        }                        
+                        
+                    } catch (error) {
+                        console.log("list cannot be verified")
+
+                        return
+                    }
+
+                    if (!verified) {
+                        console.log("list not verified")
+
+                        return
+                    }
                     window.localStorage.setItem("food_lists", JSON.stringify(importedLists));
                     UIController.updateList1(activeFoodListId);
                     UIController.updateList2(activeFoodListId);
@@ -518,7 +537,6 @@ const controller= (function(FoodListController, UIController) {
 
             const listid = window.localStorage.getItem("active_foodlist");
 
-            console.log(listid);
             
         },
         setActiveFoodListId(id) {

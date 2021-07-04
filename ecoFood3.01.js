@@ -376,7 +376,6 @@ var UIController = (function() {
                 caloriePerDollarInput = -Infinity;
             }
 
-            console.log(calorieInput);
 
             return {
 				foodInput: parseInt(foodInput.replace(regex, "")),
@@ -748,12 +747,18 @@ var UIController = (function() {
 })();
 
 var menuController = (function(UIController) {
-    var allFoodsArray = FoodListController.getActiveFoodList().foods;
+    var allFoodsArray;
+    console.log(allFoodsArray)
     var activeMenu = [];
     var stomachContent = [];
     var DOMStrings = UIController.getDOMStrings();
 
 	return {
+        init: function () {
+            allFoodsArray = FoodListController.getActiveFoodList().foods;
+            activeMenu = [];
+            stomachContent = [];
+        },
         storeStomachContent: function () {
             var stomachListContainer = document.querySelector(DOMStrings.stomachListContainer).childNodes;
             var stomachFoodList = [];
@@ -840,7 +845,7 @@ var menuController = (function(UIController) {
             });
         },
         getAllFoods: function () {
-            console.log(allFoodsArray)
+
             return allFoodsArray;
         }
 	};
@@ -1061,7 +1066,6 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
             if (parseInt(itemID)) {
                 //find the food
                 selectedFood = getFoodFromID(itemID);
-                console.log(selectedFood);
                 //add to selected food in UICtrl and remove from available foods
                 UICtrl.addToSelected(selectedFood);
                 //update active menu in menuCtrl
@@ -1394,7 +1398,9 @@ var controller = (function(UICtrl, menuCtrl, FoodListCtrl) {
 
 return {
     init: function() {
+        
         FoodListCtrl.init();
+        menuCtrl.init();
         UICtrl.initUI();
         setupEventListeners();
         console.log("Application has started.");

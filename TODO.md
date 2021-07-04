@@ -1,5 +1,9 @@
 dark mode
 animate buttons
+configure webpack
+make proper directory
+search bar for foods in edit page
+highscore categorize by max menu size
 
 tickbox to show ingredients or not
 
