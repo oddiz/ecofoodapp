@@ -2,14 +2,18 @@
   "name": "ecopage",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "src/ecodFood.3.0.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --config webpack.config.js"
   },
   "author": "Kaan",
   "license": "ISC",
   "devDependencies": {
+    "@webpack-cli/generators": "^1.1.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.5.0"
   }
 }

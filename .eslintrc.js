@@ -38,7 +38,7 @@ module.exports = {
             "never"
         ],
         "consistent-return": "off",
-        "consistent-this": ["error","self"],
+        "consistent-this": ["error", "self"],
         "curly": "error",
         "default-case": "error",
         "dot-location": "error",
@@ -190,7 +190,7 @@ module.exports = {
         "no-unmodified-loop-condition": "error",
         "no-unneeded-ternary": "error",
         "no-unused-expressions": "error",
-        "no-use-before-define": "off",
+        "no-use-before-define": "error",
         "no-useless-call": "error",
         "no-useless-catch": "error",
         "no-useless-computed-key": "error",

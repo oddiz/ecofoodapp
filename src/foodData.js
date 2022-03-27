@@ -1,5 +1,4 @@
-var defaultFoods = [
-    {
+module.exports = [{
         "id": 12,
         "name": "Fried Tomatoes",
         "type": "Campfire",
