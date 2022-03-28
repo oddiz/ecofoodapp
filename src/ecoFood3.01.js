@@ -2,7 +2,8 @@
 
 var getFoodFromID = require('./helpers').getFoodFromID;
 var FoodListController = require('./FoodListController');
-var Cleave = require('./vendor/js/cleave');
+var Cleave = require('../public/vendor/js/cleave');
+var indexCSS = require("./style.css")
 
 var UIController = (function () {
     var DOMStrings = {

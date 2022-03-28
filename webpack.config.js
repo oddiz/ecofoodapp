@@ -1,5 +1,6 @@
 // Webpack uses this to work with directories
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const path = require('path');
 
@@ -14,8 +15,8 @@ module.exports = {
     // Webpack will bundle all JavaScript into this file
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: './src/resources',
-        filename: 'bundle.js'
+        publicPath: './',
+        filename: 'bundle.[chunkhash].js'
     },
 
     // Default mode for Webpack is production.
@@ -24,7 +25,50 @@ module.exports = {
     // minifying and other things, so let's set mode to development
     mode: 'production',
 
-    plugins: [new HtmlWebpackPlugin({
-        template: './src/index.html'
-    })],
+    module: {
+        rules: [{
+            test: /\.css$/,
+            use: [{
+                    loader: 'style-loader'
+                },
+                {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                    }
+                }
+            ],
+            // Don't consider CSS imports dead code even if the
+            // containing package claims to have no side effects.
+            // Remove this when webpack adds a warning or an error for this.
+            // See https://github.com/webpack/webpack/issues/6571
+            sideEffects: true,
+        }]
+    },
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true
+            }
+        }),
+        new CopyWebpackPlugin({
+            patterns: [{
+                from: './public/**/*',
+                to: './dist/public'
+            }, ]
+        })
+    ],
+
 };
