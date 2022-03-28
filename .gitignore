@@ -2,6 +2,7 @@
 keys/
 
 #deploy folders
+dist/
 deploy/
 temp/
 
