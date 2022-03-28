@@ -1,16 +1,8 @@
 var defaultFoods = require('./foodData.js')
 
-
-/* eslint-disable no-undef */
+const searchObjectInArray = require('./helpers.js').searchObjectInArray
 /* jshint esversion:6 */
-/*
 
-Save system
-
-*/
-
-//Turn edit on off
-// eslint-disable-next-line no-unused-vars
 const FoodListController = (function () {
 
     function getStoredFoodLists() {
@@ -70,7 +62,7 @@ const FoodListController = (function () {
                             "November",
                             "December"
                         ];
-                        updatedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+                        const updatedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
                         storedFoodLists[i].date = updatedDate;
                         storedFoodLists[i].foods = serverFoodList;
                     }
@@ -181,7 +173,7 @@ const FoodListController = (function () {
             saveStoredFoodLists();
 
         },
-        addList: function (listName, listDesc, listObject) {
+        addList: function (listName, listDesc, listObject = []) {
             storedFoodLists = getStoredFoodLists();
 
             let newList;
@@ -211,13 +203,15 @@ const FoodListController = (function () {
         },
         exportList: function (listId) {
             //export base64 string from a list
-            selectedList = this.getListFromId(listId);
+            const selectedList = this.getListFromId(listId);
 
             return btoa(JSON.stringify(selectedList));
 
         },
         importList: function (b64string) {
-            importedList = JSON.parse(atob(b64string));
+            const importedList = JSON.parse(atob(b64string));
+
+            this.addList(importedList.listName, importedList.listDesc, importedList);
 
         },
         importAllLists: function (base64) {
@@ -225,11 +219,8 @@ const FoodListController = (function () {
             //ability to import multiple lists at a time
             var importedString = atob(base64);
             var parsedString = JSON.parse(importedString);
-            console.log("parsedString")
 
-            parsedString.forEach(function (element) {
-                console.log("element")
-            })
+
             window.localStorage.removeItem("food_lists");
             window.localStorage.setItem("food_lists", parsedString);
 

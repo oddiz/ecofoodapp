@@ -1,9 +1,10 @@
 /*jshint esversion: 6 */
+require("./style.css")
+require("./style-mobile.css")
 
-var getFoodFromID = require('./helpers').getFoodFromID;
 var FoodListController = require('./FoodListController');
-var Cleave = require('../public/vendor/js/cleave');
-var indexCSS = require("./style.css")
+var Cleave = require('./public/vendor/js/cleave');
+var Swal = require('sweetalert2');
 
 var UIController = (function () {
     var DOMStrings = {
@@ -52,7 +53,6 @@ var UIController = (function () {
     var lastResult;
     var highestResult;
     var isShowingHighest;
-    var isStomachMenuOpen = false;
 
     return {
         formatInputToNumber: function () {
@@ -149,7 +149,7 @@ var UIController = (function () {
 
         searchAvailable: function () {
 
-            userQuery = document.querySelector(DOMStrings.searchInput).value;
+            const userQuery = document.querySelector(DOMStrings.searchInput).value;
 
 
             //clear available list
@@ -167,7 +167,7 @@ var UIController = (function () {
 
             } else {
                 //escape special characters
-                userQuery = userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+                const userQuery = userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 
 
 
@@ -184,11 +184,11 @@ var UIController = (function () {
             }
         },
 
-        filterByFoodType: function (sortOption) {
+        filterByFoodType: function () {
             //filters available foods according to buttons
 
             //if search is active do nothing
-            userQuery = document.querySelector(DOMStrings.searchInput).value;
+            const userQuery = document.querySelector(DOMStrings.searchInput).value;
             if (userQuery !== "") {
 
                 return;
@@ -266,7 +266,7 @@ var UIController = (function () {
             infoButton = document.querySelector(DOMStrings.infoButton);
             infoButton.classList.toggle("clicked");
 
-            infoContainer = document.querySelector(DOMStrings.infoContainer);
+            const infoContainer = document.querySelector(DOMStrings.infoContainer);
             //if opening info
             if (content.classList.contains("hide__content")) {
                 setTimeout(function () {
@@ -291,7 +291,7 @@ var UIController = (function () {
             }
             //add food to selected list
             htmlTemplate =
-                `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><i class="ion-ios-close item__delete--btn"></i><img class="available__img" src="./resources/img/%imgid%.png" onerror="this.onerror=null; this.src='../resources/meaticon64.png'"><div class="item__price"><div class="item__price__container"><img src="resources/img/ptag.png"><input class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
+                `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><i class="ion-ios-close item__delete--btn"></i><img class="available__img" src="./public/img/%imgid%.png" onerror="this.onerror=null; this.src='../public/meaticon64.png'"><div class="item__price"><div class="item__price__container"><img src="public/img/ptag.png"><input class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./public/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
 
             newHtml = htmlTemplate.replace("%id%", foodObj.id);
             newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -334,7 +334,7 @@ var UIController = (function () {
             //add food to selected list
 
             htmlTemplate =
-                `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><div class="stomach__add"><img class="stomach__add--icon" src="./resources/stomach.svg"></div><i class="ion-android-add item__add--btn"></i><img class="available__img" src="./resources/img/%imgid%.png" onerror="this.onerror=null; this.src='../resources/meaticon64.png'"><div class="food__info"><div class="food__info__title"><img class="info__img" src="./resources/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
+                `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><div class="stomach__add"><img class="stomach__add--icon" src="./public/stomach.svg"></div><i class="ion-android-add item__add--btn"></i><img class="available__img" src="./public/img/%imgid%.png" onerror="this.onerror=null; this.src='../public/meaticon64.png'"><div class="food__info"><div class="food__info__title"><img class="info__img" src="./public/img/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
 
             newHtml = htmlTemplate.replace("%id%", foodObj.id);
             newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -389,8 +389,8 @@ var UIController = (function () {
         },
 
         displayResults: function (resultObject) {
-            var paperHtml, menuContent, line, menuObject, foundAt;
-            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./resources/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
+            var paperHtml, menuContent, line, foundAt;
+            paperHtml = '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./public/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
 
             if (resultObject.foundAt === 0) {
                 foundAt = 1;
@@ -409,7 +409,7 @@ var UIController = (function () {
             document.querySelector(DOMStrings.menuPaper).innerHTML = paperHtmlEdited;
             menuContent = document.querySelector(".menu__content");
 
-            menuNonStomach = resultObject.resultMenuNonStomach;
+            const menuNonStomach = resultObject.resultMenuNonStomach;
 
             for (var foodname in menuNonStomach) {
                 if ({}.hasOwnProperty.call(menuNonStomach, foodname)) {
@@ -418,8 +418,8 @@ var UIController = (function () {
 
                 }
             }
-            menuStomachContainer = document.querySelector(".menu__stomach__container");
-            menuStomach = resultObject.resultMenuStomach;
+            const menuStomachContainer = document.querySelector(".menu__stomach__container");
+            const menuStomach = resultObject.resultMenuStomach;
 
             if (Object.keys(menuStomach).length === 0) {
 
@@ -443,7 +443,7 @@ var UIController = (function () {
         },
 
         updateResults: function (resultObject) {
-            var menuResultHtml, menuContent, line, menuObject, foundAt;
+            var menuResultHtml, menuContent, line, foundAt;
 
             menuResultHtml = '<p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p>';
 
@@ -465,7 +465,7 @@ var UIController = (function () {
 
             menuContent.innerHTML = '<div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div>';
 
-            menuNonStomach = resultObject.resultMenuNonStomach;
+            const menuNonStomach = resultObject.resultMenuNonStomach;
 
             for (var foodname in menuNonStomach) {
                 if ({}.hasOwnProperty.call(menuNonStomach, foodname)) {
@@ -474,8 +474,8 @@ var UIController = (function () {
 
                 }
             }
-            menuStomachContainer = document.querySelector(".menu__stomach__container");
-            menuStomach = resultObject.resultMenuStomach;
+            const menuStomachContainer = document.querySelector(".menu__stomach__container");
+            const menuStomach = resultObject.resultMenuStomach;
 
             if (Object.keys(menuStomach).length === 0) {
 
@@ -563,7 +563,7 @@ var UIController = (function () {
             var Html, newHtml, highscoreContent, line;
 
 
-            menuObject = result.menu;
+            const menuObject = result.menu;
             line = "";
             for (var foodname in menuObject) {
                 if ({}.hasOwnProperty.call(menuObject, foodname)) {
@@ -584,7 +584,6 @@ var UIController = (function () {
 
         bestButtonClicked: function () {
 
-            var bestButtonClasses = document.querySelector(DOMStrings.highscoreBestButton).classList;
             if (isShowingHighest && lastResult) {
                 UIController.displayHighscore();
                 //bestButtonClasses.add("clicked")
@@ -706,6 +705,7 @@ var UIController = (function () {
             var stomachListContainer = document.querySelector(DOMStrings.stomachListContainer);
 
 
+            // eslint-disable-next-line no-useless-escape
             htmlTemplate = `<div class="item" food-id="%foodid%"><div class="item__description">%foodname%</div><input class="stomach__food__input" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\\..*)\\\./g, '$1');" placeholder="#"><i class="ion-close stomach__item__delete--btn"></i></div>`;
 
             newHtml = htmlTemplate.replace("%foodname%", foodObj.name);
@@ -777,7 +777,7 @@ var menuController = (function (UIController) {
                     }
 
                     nodeFood = getFoodFromID(node.getAttribute("food-id"));
-                    for (var i = 0; i < node.childNodes[1].value; i++) {
+                    for (var i = 0; i < nodeFoodAmount; i++) {
                         stomachFoodList.push(nodeFood);
                     }
                 }
@@ -814,7 +814,7 @@ var menuController = (function (UIController) {
             var availableFoods = [];
             var selectedFoods = this.showActive();
 
-            allFoods.forEach(function (food, index) {
+            allFoods.forEach(function (food) {
                 var found = false;
                 for (var i = 0; i < selectedFoods.length; i++) {
                     if (food.id == selectedFoods[i].id) {
@@ -901,11 +901,11 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
 
         //input formatting
 
-        var simInputFormat = new Cleave(".simulation__scale__input", {
+        new Cleave(".simulation__scale__input", {
             numeral: true,
             numeralThousandsGroupStyle: 'thousand'
         });
-        var dietInputFormat = new Cleave(".food__amount__input", {
+        new Cleave(".food__amount__input", {
             numeral: true,
             numeralThousandsGroupStyle: 'thousand'
         });
@@ -1129,10 +1129,9 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
     }
 
     function stomachContainerListener(event) {
-        var selectedFood;
 
         if (event.target.className.includes("stomach__item__delete--btn")) {
-            selectedFoodId = event.target.parentElement.getAttribute("food-id");
+            const selectedFoodId = event.target.parentElement.getAttribute("food-id");
 
             UICtrl.removeFromStomach(getFoodFromID(selectedFoodId));
         }
@@ -1150,7 +1149,7 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
         UICtrl.stomachApplyButton("press");
     }
 
-    highCountAdvisorShown = false;
+    let highCountAdvisorShown = false;
 
     function startWorkerSim() {
         //disable calculate button
@@ -1180,12 +1179,12 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
 
             return;
         }
-        var menuPaper;
         var stopBtn = document.querySelector(DOM.stopButton);
 
 
         console.log('Starting Worker.');
-        var work = new Worker('testMenuWorker.js');
+        var work = new Worker(new URL('./testMenuWorker.js',
+            import.meta.url).href);
 
         if (inputSim === "" || inputSim == 0) {
 
@@ -1419,4 +1418,33 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
     };
 })(UIController, menuController, FoodListController);
 
+
+function getFoodFromID(id) {
+
+    var selectedFood;
+    try {
+
+        selectedFood = menuController.getAllFoods().find((element) => element.id == id);
+        //returns food object
+
+        return selectedFood;
+    } catch (error) {
+        console.log("Couldn't get foods from menuController trying foodListController. Error: " + error);
+    }
+    try {
+        selectedFood = FoodListController.getActiveFoodList().foods.find((element) => element.id == id);
+        //returns food object
+
+        return selectedFood;
+    } catch (error) {
+        console.log("Couldn't get food list from FoodListController also. Error: " + error);
+    }
+
+}
+
 controller.init();
+
+module.exports = {
+    menuController: menuController,
+    getFoodFromID: getFoodFromID
+}

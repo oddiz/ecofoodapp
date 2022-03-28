@@ -107,7 +107,7 @@
         width: 100%;
         vertical-align: middle;
         padding: 20px 4px 20px 30px;
-        background-image: url(resources/img/paper.jpg);
+        background-image: url(public/img/paper.jpg);
         background-size: cover;
         color: rgba(46,46,46,0.90);
         box-shadow: 6px 6px 5px rgba(0, 0, 0, .5);
@@ -318,6 +318,7 @@
         display:block;
         right:0%;
         filter: blur(0px);
+    }
 
 
 
