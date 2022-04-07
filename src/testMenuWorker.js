@@ -21,6 +21,9 @@ onmessage = function (e) {
 
 
 function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie, caloriePerDollar, maxSp, stomachContent, option) {
+
+    console.time('Total_calculation_time')
+
     //randomizes and tests the active menu array
     "use strict";
 
@@ -38,12 +41,8 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
 
 
     function calculateSP(menu) {
-        //accepts an array of food objects
-        var foodlistName = JSON.stringify(processMenuNames(menu));
 
-        if (calculateSpMemo.has(foodlistName)) {
-            return calculateSpMemo.get(foodlistName);
-        }
+        //accepts an array of food objects
 
         var baseGain = 12;
         var totalCarb = 0;
@@ -79,8 +78,6 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         };
 
 
-
-        calculateSpMemo.set(foodlistName, result)
 
         return result
     }
@@ -120,36 +117,27 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
         for (var i = 0; i <= rollNumber; i++) {
             var randomMenu = [];
 
-
-
             totalPrice = 0;
             totalCalorie = 0;
 
-            if (option === "random") {
 
-                for (var q = 0; q < foodCount; q++) {
-                    randomizer = Math.floor(Math.random() * activeMenuArray.length);
-                    randomMenu.push(activeMenuArray[randomizer]);
-                    totalPrice += parseFloat(activeMenuArray[randomizer].price);
-                    totalCalorie += parseInt(activeMenuArray[randomizer].cal);
-                }
+            for (var q = 0; q < foodCount; q++) {
+                randomizer = Math.floor(Math.random() * activeMenuArray.length);
+                randomMenu.push(activeMenuArray[randomizer]);
+                totalPrice += parseFloat(activeMenuArray[randomizer].price);
+                totalCalorie += parseInt(activeMenuArray[randomizer].cal);
             }
-
-
 
 
             progressPercent = Math.floor(i / rollNumber * 100);
 
             if (progressPercent !== progressPercentOld) {
-
                 progressPercentOld = progressPercent;
-
 
                 postMessage({
                     type: "progress_percent",
                     percentage: progressPercent
                 });
-
             }
 
             if (
@@ -176,12 +164,6 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
                 bestMenuArray = randomMenu.concat(getMenu().stomach);
                 bestMenuNonStomachArray = randomMenu;
             }
-
-
-
-
-
-
         }
     }
 
@@ -338,10 +320,8 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             }
         }
         */
-        var arrayNames = [];
-        for (var i = 0; i < array.length; i++) {
-            arrayNames[i] = array[i].name;
-        }
+
+        var arrayNames = array.map((ele) => ele.name)
         //console.log(arrayNames, "non sorted")
         arrayNames.sort();
         //console.log(arrayNames, "sorted")
@@ -358,8 +338,10 @@ function testMenuWorker(activeMenuArray, rollNumber, foodCount, budget, calorie,
             }
         }
 
+
         return finalResult;
     }
+    console.timeEnd('Total_calculation_time')
     if (bestMenuNames) {
 
         /*
