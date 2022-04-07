@@ -749,7 +749,6 @@ var UIController = (function () {
 
 var menuController = (function (UIController) {
     var allFoodsArray;
-    console.log(allFoodsArray)
     var activeMenu = [];
     var stomachContent = [];
     var DOMStrings = UIController.getDOMStrings();
