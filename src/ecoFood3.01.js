@@ -798,12 +798,14 @@ var menuController = (function (UIController) {
         addActive: function (foodObj) {
             //add to active menu
             activeMenu.push(foodObj);
+            window.localStorage.setItem("activeMenu", JSON.stringify(activeMenu));
         },
         removeActive: function (foodObj) {
             activeMenu.forEach(function (ele, i) {
                 if (foodObj.id == ele.id) {
                     activeMenu.splice(i, 1);
                 }
+                window.localStorage.setItem("activeMenu", JSON.stringify(activeMenu));
             });
         },
         showActive: function () {
@@ -1056,6 +1058,29 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
         UICtrl.infoClicked();
     }
 
+    function addToSelected(itemID) {
+
+        if (Array.isArray(itemID)) {
+            itemID.forEach(function (item) {
+                addToSelected(item);
+            });
+
+            return
+        }
+        let itemId = itemID
+
+        if (typeof itemID === "string") {
+            itemId = parseInt(itemID);
+        }
+
+        const selectedFood = getFoodFromID(itemId);
+
+        UICtrl.addToSelected(selectedFood);
+
+        menuCtrl.addActive(selectedFood);
+
+    }
+
     function availableFoodListener(event) {
         var itemID, selectedFood;
         //get UI input
@@ -1064,16 +1089,7 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
         //if add button is clicked
         if (event.target.className.includes("item__add--btn")) {
             itemID = event.target.parentNode.id;
-            if (parseInt(itemID)) {
-                //find the food
-                selectedFood = getFoodFromID(itemID);
-                //add to selected food in UICtrl and remove from available foods
-                UICtrl.addToSelected(selectedFood);
-                //update active menu in menuCtrl
-                menuCtrl.addActive(selectedFood);
-
-
-            }
+            addToSelected(itemID)
         }
 
         //if stomach button is clicked
@@ -1407,6 +1423,14 @@ var controller = (function (UICtrl, menuCtrl, FoodListCtrl) {
             FoodListCtrl.init();
             menuCtrl.init();
             UICtrl.initUI();
+
+            const activeMenu = JSON.parse(window.localStorage.getItem("activeMenu"))
+
+            if (activeMenu) {
+                activeMenu.forEach(function (item) {
+                    addToSelected(item.id)
+                })
+            }
             setupEventListeners();
             console.log("Application has started.");
             getHighestScore();

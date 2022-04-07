@@ -29,7 +29,7 @@ module.exports = {
     // Depending on mode Webpack will apply different things
     // on the final bundle. For now, we don't need production's JavaScript 
     // minifying and other things, so let's set mode to development
-    mode: 'development',
+    mode: 'production',
     devtool: 'inline-source-map',
 
     module: {
