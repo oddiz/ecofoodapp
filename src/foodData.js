@@ -586,14 +586,14 @@ module.exports = [{
     },
     {
         "id": 211,
-        "name": "Macaroons",
+        "name": "Macarons",
         "type": "Bakery",
         "tier": 4,
         "carb": 20,
         "pro": 7,
         "fat": 14,
         "vit": 16,
-        "cal": 850,
+        "cal": 1000,
         "weight": 0.2,
         "price": 0
     },

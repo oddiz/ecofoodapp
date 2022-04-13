@@ -152,8 +152,8 @@ const FoodListController = (function () {
             };
 
             storedFoodLists.forEach((list, i) => {
-                if (list.id == listId) {
-                    storedFoodLists[i].foods.push(newFood);
+                if (list.id == listId && newFood) {
+                    list.foods.push(newFood);
                 }
             });
 
@@ -293,7 +293,7 @@ class FoodList {
         } else {
             this.id = d.getTime();
         }
-        this.foods = food;
+        this.foods = food || [];
     }
 
     exportList() {

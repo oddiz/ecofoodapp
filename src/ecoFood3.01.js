@@ -149,7 +149,7 @@ var UIController = (function () {
 
         searchAvailable: function () {
 
-            const userQuery = document.querySelector(DOMStrings.searchInput).value;
+            let userQuery = document.querySelector(DOMStrings.searchInput).value;
 
 
             //clear available list
@@ -167,7 +167,7 @@ var UIController = (function () {
 
             } else {
                 //escape special characters
-                const userQuery = userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+                userQuery = userQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 
 
 
@@ -842,7 +842,7 @@ var menuController = (function (UIController) {
             allFoodsArray.forEach(function (food, index) {
                 if (food.id == id) {
                     allFoodsArray[index].price = price;
-                    console.log(`Changed ${food.name} price to ${food.price}`)
+
                 }
             });
         },
