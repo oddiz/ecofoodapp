@@ -24,6 +24,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "Inter";
+    src: url(public/vendor/fonts/Inter.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -58,7 +65,9 @@ a, a:hover, a:visited, a:active {
     text-decoration: none;
 }
 
-
+.blurred {
+    filter: blur(3px);
+}
 .hidden {
     display:none;
 }
@@ -1277,6 +1286,29 @@ footer {
 .stomach__button:hover {
     background-color:rgb(247, 176, 115)
 }
+.taste__button {
+    font-size: 32px;
+    color: white;
+	display: inline-block;
+    position:inherit;
+    
+    padding-right:5px;
+	padding-top: 0px;
+
+    
+	background-color:rgb(233, 88, 88);
+	box-shadow: 0 5px #7E3E00;
+}
+
+.taste__button.clicked {
+    margin-top: 6px;
+    box-shadow: 0 2px #7E3E00;
+    background-color:rgb(247, 115, 115)
+}
+
+.taste__button:hover {
+    background-color:rgb(247, 115, 115)
+}
 
 /***********************************************
 ***STOMACH CONTAINER
@@ -1544,4 +1576,23 @@ footer {
 }
 .highscore__content p {
     font-size: 16px;
+}
+
+/**********************************************
+*** TASTE CONTAINER
+**********************************************/
+
+
+.taste__container {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    height: 500px;
+
+    background: black;
+
+    z-index: 9999;
 }
