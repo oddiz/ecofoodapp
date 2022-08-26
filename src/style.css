@@ -69,6 +69,14 @@ a, a:hover, a:visited, a:active {
 .hidden {
     display:none;
 }
+
+.taste_option:hover ~ .active {
+    opacity: 1 !important;
+}
+
+.swal2-container {
+    z-index: 20000 !important;
+}
 /**********************************************
 *** TOP PART
 **********************************************/
@@ -1592,5 +1600,5 @@ footer {
 
     background: black;
 
-    z-index: 9999;
+    z-index: 200;
 }

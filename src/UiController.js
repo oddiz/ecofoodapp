@@ -125,6 +125,7 @@ var UiController = function UiController(menuController, getFoodFromID) {
 
     var addToSelected = function (foodObj) {
         var htmlTemplate, newHtml;
+        console.log(foodObj);
         //remove it from available list first so no duplicate ids
         var el = document.getElementById(foodObj.id);
         if (el) {
@@ -152,6 +153,71 @@ var UiController = function UiController(menuController, getFoodFromID) {
         document.querySelector(DOMStrings.selectedFoods).insertAdjacentHTML("afterbegin", newHtml);
     };
 
+    var filterByFoodType = function () {
+        //filters available foods according to buttons
+
+        //if search is active do nothing
+        const userQuery = document.querySelector(DOMStrings.searchInput).value;
+        if (userQuery !== "") {
+            return;
+        }
+        //get which buttons are active
+        var activeButtons = [];
+        document.querySelector(".foodtype__container").childNodes.forEach(function (node) {
+            if (typeof node.classList !== "undefined" && node.classList.contains("active")) {
+                activeButtons.push(node.id.slice(0, -8));
+            }
+        });
+
+        //process names
+        activeButtons.forEach(function (ele, i) {
+            if (ele === "campfire") {
+                activeButtons[i] = "Campfire";
+            } else if (ele === "bakeryoven") {
+                activeButtons[i] = "Bakery";
+            } else if (ele === "castironstove") {
+                activeButtons[i] = "Cast iron stove";
+            } else if (ele === "kitchen") {
+                activeButtons[i] = "Kitchen";
+            } else if (ele === "stove") {
+                activeButtons[i] = "Stove";
+            } else if (ele === "raw") {
+                activeButtons[i] = "Raw";
+            } else {
+                console.log("something's wrong man...");
+            }
+        });
+
+        //do magic according to active buttons
+        var availableFoodArray = menuController.showInactive();
+
+        if (activeButtons.length > 0) {
+            //clear available list
+            clearLists(document.querySelector(DOMStrings.availableFoods));
+
+            availableFoodArray.forEach(function (foodObject) {
+                if (confirmFoodType(foodObject)) {
+                    addToAvailable(foodObject);
+                }
+            });
+        } else {
+            availableFoodArray.forEach(function (ele) {
+                addToAvailable(ele);
+            });
+        }
+
+        function confirmFoodType(foodObject) {
+            var confirmed = false;
+            for (var i = 0; i < activeButtons.length; i++) {
+                if (activeButtons[i] === foodObject.type) {
+                    confirmed = true;
+                    break;
+                }
+            }
+
+            return confirmed;
+        }
+    };
     return {
         formatInputToNumber: function () {
             this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
@@ -189,7 +255,8 @@ var UiController = function UiController(menuController, getFoodFromID) {
         getAvailableList: getAvailableList,
 
         getSortSelection: function () {
-            var sortOptions = document.querySelector(".sort__options").childNodes[1].children;
+            var sortNode = document.querySelector(".sort__options");
+            var sortOptions = sortNode.childNodes[0].children;
             var selectedSort = "";
             for (var i = 0; i < sortOptions.length; i++) {
                 if (sortOptions[i].classList.contains("active")) {
@@ -206,7 +273,7 @@ var UiController = function UiController(menuController, getFoodFromID) {
             let userQuery = document.querySelector(DOMStrings.searchInput).value;
 
             //clear available list
-            UiController.clearLists(document.querySelector(DOMStrings.availableFoods));
+            clearLists(document.querySelector(DOMStrings.availableFoods));
 
             //adds all non selected foods to active menu
             var availableFoodArray = menuController.showInactive();
@@ -229,77 +296,13 @@ var UiController = function UiController(menuController, getFoodFromID) {
                         searchRegExp.test("tier " + foodObj.tier + "$");
 
                     if (isThereMatch == true) {
-                        UiController.addToAvailable(foodObj);
+                        addToAvailable(foodObj);
                     }
                 });
             }
         },
 
-        filterByFoodType: function () {
-            //filters available foods according to buttons
-
-            //if search is active do nothing
-            const userQuery = document.querySelector(DOMStrings.searchInput).value;
-            if (userQuery !== "") {
-                return;
-            }
-            //get which buttons are active
-            var activeButtons = [];
-            document.querySelector(".foodtype__container").childNodes.forEach(function (node) {
-                if (typeof node.classList !== "undefined" && node.classList.contains("active")) {
-                    activeButtons.push(node.id.slice(0, -8));
-                }
-            });
-
-            //process names
-            activeButtons.forEach(function (ele, i) {
-                if (ele === "campfire") {
-                    activeButtons[i] = "Campfire";
-                } else if (ele === "bakeryoven") {
-                    activeButtons[i] = "Bakery";
-                } else if (ele === "castironstove") {
-                    activeButtons[i] = "Cast iron stove";
-                } else if (ele === "kitchen") {
-                    activeButtons[i] = "Kitchen";
-                } else if (ele === "stove") {
-                    activeButtons[i] = "Stove";
-                } else if (ele === "raw") {
-                    activeButtons[i] = "Raw";
-                } else {
-                    console.log("something's wrong man...");
-                }
-            });
-
-            //do magic according to active buttons
-            var availableFoodArray = menuController.showInactive();
-
-            if (activeButtons.length > 0) {
-                //clear available list
-                UiController.clearLists(document.querySelector(DOMStrings.availableFoods));
-
-                availableFoodArray.forEach(function (foodObject) {
-                    if (confirmFoodType(foodObject)) {
-                        UiController.addToAvailable(foodObject);
-                    }
-                });
-            } else {
-                availableFoodArray.forEach(function (ele) {
-                    UiController.addToAvailable(ele);
-                });
-            }
-
-            function confirmFoodType(foodObject) {
-                var confirmed = false;
-                for (var i = 0; i < activeButtons.length; i++) {
-                    if (activeButtons[i] === foodObject.type) {
-                        confirmed = true;
-                        break;
-                    }
-                }
-
-                return confirmed;
-            }
-        },
+        filterByFoodType: filterByFoodType,
 
         infoClicked: function () {
             var content, infoButton;
@@ -374,7 +377,7 @@ var UiController = function UiController(menuController, getFoodFromID) {
         displayResults: function (resultObject) {
             var paperHtml, menuContent, line, foundAt;
             paperHtml =
-                '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./public/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
+                '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./public/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>Taste Mult:</strong>    %tasteMult%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
 
             if (resultObject.foundAt === 0) {
                 foundAt = 1;
@@ -388,7 +391,8 @@ var UiController = function UiController(menuController, getFoodFromID) {
                 .replace("%simcount%", resultObject.totalIterations)
                 .replace("%price%", resultObject.totalPrice)
                 .replace("%calories%", resultObject.totalCalorie)
-                .replace("%caloriesperdollar%", resultObject.caloriePerDollar.toFixed(2));
+                .replace("%caloriesperdollar%", resultObject.caloriePerDollar.toFixed(2))
+                .replace("%tasteMult%", resultObject.tasteMultiplier.toFixed(2));
 
             document.querySelector(DOMStrings.menuPaper).innerHTML = paperHtmlEdited;
             menuContent = document.querySelector(".menu__content");
@@ -425,7 +429,7 @@ var UiController = function UiController(menuController, getFoodFromID) {
             var menuResultHtml, menuContent, line, foundAt;
 
             menuResultHtml =
-                "<p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p>";
+                "<p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>Taste Mult:</strong>    %tasteMult%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p>";
 
             if (resultObject.foundAt === 0) {
                 foundAt = 1;
@@ -439,7 +443,8 @@ var UiController = function UiController(menuController, getFoodFromID) {
                 .replace("%index%", foundAt)
                 .replace("%simcount%", resultObject.totalIterations)
                 .replace("%price%", resultObject.totalPrice)
-                .replace("%calories%", resultObject.totalCalorie);
+                .replace("%calories%", resultObject.totalCalorie)
+                .replace("%tasteMult%", resultObject.tasteMultiplier.toFixed(2));
 
             menuContent = document.querySelector(".menu__content");
 
@@ -483,84 +488,12 @@ var UiController = function UiController(menuController, getFoodFromID) {
             progressBar.textContent = percentage + "%";
         },
 
-        displayHighscore: function (result) {
-            var Html, newHtml, highscoreContent, line, menuObject;
-            highscoreContent = document.querySelector(DOMStrings.highscoreContent);
-
-            document.querySelector(DOMStrings.highscoreBestButton).classList.remove("clicked");
-
-            if (result) {
-                lastResult = result;
-            } else {
-                result = lastResult;
-            }
-
-            if (result.currentHighscore) {
-                //if server responds with a highscore
-
-                Html =
-                    "<p>%message%</p><br><h2>Best diet with %foodqty% meals. </h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>";
-
-                menuObject = result.currentHighscore[0].menu;
-                line = "";
-                for (var foodname in menuObject) {
-                    if ({}.hasOwnProperty.call(menuObject, foodname)) {
-                        line += `<p>${menuObject[foodname]}x   ${foodname}</p>`;
-                    }
-                }
-                newHtml = Html.replace("%message%", result.message);
-                newHtml = newHtml.replace("%menu%", line);
-                newHtml = newHtml.replace("%SP%", result.currentHighscore[0].sp);
-                newHtml = newHtml.replace("%foodqty%", result.currentHighscore[0].foodQty);
-            } else {
-                //if server responds with only a message
-                Html = "<p>%message%</p>";
-                newHtml = Html.replace("%message%", result.message);
-            }
-            highscoreContent.innerHTML = newHtml;
-
-            isShowingHighest = false;
-        },
-
-        displayHighest: function (result) {
-            //button clicked effect
-            document.querySelector(DOMStrings.highscoreBestButton).classList.add("clicked");
-            if (!highestResult) {
-                highestResult = result;
-            }
-
-            if (!result) {
-                result = highestResult;
-            }
-
-            var Html, newHtml, highscoreContent, line;
-
-            const menuObject = result.menu;
-            line = "";
-            for (var foodname in menuObject) {
-                if ({}.hasOwnProperty.call(menuObject, foodname)) {
-                    line += `<p>${menuObject[foodname]}x   ${foodname}</p>`;
-                }
-            }
-
-            highscoreContent = document.querySelector(DOMStrings.highscoreContent);
-            Html =
-                "<p>This app, stores the best SP combinations and categorize them by food number.</p><br><h2>Highest SP across all categories so far:</h2><p><b>Menu: </b>%menu%</p><p><b>Daily SP: </b>%SP%</p>";
-
-            newHtml = Html.replace("%menu%", line);
-            newHtml = newHtml.replace("%SP%", result.sp);
-
-            highscoreContent.innerHTML = newHtml;
-
-            isShowingHighest = true;
-        },
-
         bestButtonClicked: function () {
             if (isShowingHighest && lastResult) {
-                UiController.displayHighscore();
+                displayHighscore();
                 //bestButtonClasses.add("clicked")
             } else if (!isShowingHighest) {
-                UiController.displayHighest();
+                displayHighest();
                 //bestButtonClasses.remove("clicked")
             }
         },

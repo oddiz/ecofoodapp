@@ -16,9 +16,9 @@ export const TasteButton = ({ controller }: ITBProps) => {
                     setActive(false);
                     setBlurred(false);
                 }}
-                width="540px"
+                width="740px"
                 css={{
-                    background: "linear-gradient(45deg, rgba(91, 16, 16, 0.6) 67%, rgba(190, 85, 25, 0.6) 100%)",
+                    background: "#e95858",
                 }}
                 noPadding
             >
@@ -28,7 +28,7 @@ export const TasteButton = ({ controller }: ITBProps) => {
                         color="white"
                         style={{ fontSize: "30px", margin: "3px 0px" }}
                     >
-                        Modify Taste Preference
+                        Taste Preference
                     </Text>
                 </Modal.Header>
                 <Modal.Body>

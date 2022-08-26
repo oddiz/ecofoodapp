@@ -130,6 +130,8 @@ const UIController = (function (FoodListController) {
             //highlights selected food and draws food info to list3
             const activeFoodList = FoodListController.getListFromId(listid);
             const selectedFood = searchObjectInArray("id", foodid, activeFoodList.foods);
+
+            if (!selectedFood) return;
             document.querySelectorAll(".food").forEach((node) => {
                 //remove any active classes
                 if (node.classList.contains("active")) {

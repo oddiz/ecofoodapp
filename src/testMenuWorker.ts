@@ -55,6 +55,7 @@ function testMenuWorker({
 
     //randomizes and tests the active menu array
     ("use strict");
+    console.log(activeMenuArray[0].tasteMult);
 
     function calculateSP(menu: FoodObject[]) {
         //accepts an array of food objects

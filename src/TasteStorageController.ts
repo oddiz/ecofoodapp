@@ -1,20 +1,17 @@
 import { FoodObject } from "./types";
 
-
-interface TasteData {
+export interface TasteData {
     [foodId: number]: number;
 }
-export class TasteController {
+export class TasteStorageController {
     private MenuController: any;
-    private foods: FoodObject[];
     constructor(MenuController: any) {
-        this.foods = MenuController.getAllFoods();
         this.MenuController = MenuController;
     }
 
     storeTasteData = (data: TasteData) => {
-        window.localStorage.setItem("taste_multipliers",(JSON.stringify(data)))
-    }
+        window.localStorage.setItem("taste_multipliers", JSON.stringify(data));
+    };
 
     getTasteData = (): TasteData => {
         return JSON.parse(window.localStorage.getItem("taste_multipliers")) || {};
@@ -26,11 +23,14 @@ export class TasteController {
         tasteData[foodId] = taste;
 
         this.storeTasteData(tasteData);
-    }
+
+        console.info("Taste data stored.");
+
+        this.MenuController.updateFoodTasteMults();
+    };
 
     clearTasteData = () => {
-        this.storeTasteData({})
-    }
-
-
+        this.storeTasteData({});
+        this.MenuController.updateFoodTasteMults();
+    };
 }

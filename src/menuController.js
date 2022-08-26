@@ -16,13 +16,26 @@ module.exports = function (FoodListController) {
                 tasteMult: tasteMults[food.id] || 1,
             };
         });
+    }
 
+    function getAllFoods() {
+        updateFoodTasteMults();
+        return allFoodsArray;
+    }
+    function getFoodFromID(id) {
+        var selectedFood;
+        try {
+            selectedFood = getAllFoods().find((element) => element.id == id);
+            //returns food object
+
+            return selectedFood;
+        } catch (error) {
+            console.error("Couldn't get foods from menuController trying foodListController. Error: " + error);
+        }
     }
     return {
         init: function () {
             allFoodsArray = FoodListController.getActiveFoodList().foods;
-            updateFoodTasteMults();
-            updateFoodTasteMults();
             updateFoodTasteMults();
             activeMenu = [];
             stomachContent = [];
@@ -70,10 +83,10 @@ module.exports = function (FoodListController) {
             });
         },
         showActive: function () {
-            return activeMenu;
+            return activeMenu.map((menuItem) => getFoodFromID(menuItem.id));
         },
         showInactive: function () {
-            var allFoods = menuController.getAllFoods();
+            var allFoods = getAllFoods();
             var availableFoods = [];
             var selectedFoods = this.showActive();
 
@@ -85,7 +98,7 @@ module.exports = function (FoodListController) {
                     }
                 }
                 if (found === false) {
-                    availableFoods.push(food);
+                    availableFoods.push(getFoodFromID(food.id));
                 }
             });
 
@@ -106,9 +119,7 @@ module.exports = function (FoodListController) {
         },
         getTasteMults: getTasteMults,
         updateFoodTasteMults: updateFoodTasteMults,
-        getAllFoods: function () {
-            updateFoodTasteMults();
-            return allFoodsArray;
-        },
+        getAllFoods: getAllFoods,
+        getFoodFromID: getFoodFromID,
     };
 };

@@ -1,0 +1,43 @@
+{
+    "options": {
+        "ignored_foods": [
+            "AcornPowder",
+            "AmanitaMushrooms",
+            "BeanPaste",
+            "BeanSprout",
+            "CamasPaste",
+            "CampfireSalad",
+            "CampfireStew",
+            "CerealGerm",
+            "CO2Canister",
+            "Cornmeal",
+            "CornStarch",
+            "Ecoylent",
+            "Flour",
+            "HuckleberryExtract",
+            "Hydrocolloids",
+            "InfusedOil",
+            "LeavenedDough",
+            "LiquidNitrogen",
+            "Maltodextrin",
+            "MeatStock",
+            "Milk",
+            "PastryDough",
+            "PreparedMeat",
+            "PrimeCut",
+            "RawBacon",
+            "RawFish",
+            "RawRoast",
+            "RawSausage",
+            "RiceFlour",
+            "SimpleSyrup",
+            "Sugar",
+            "SunButter",
+            "SunCheese",
+            "Sunflower",
+            "Transglutaminase",
+            "Yeast"
+        ]
+    }
+
+}

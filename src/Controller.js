@@ -1,5 +1,5 @@
 var HIGHSCORE_ENABLED = false;
-module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
+module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, TasteStorageCtrl, getFoodFromID) {
     var DOMStrings = require("./domStrings");
     var setupEventListeners = function () {
         //after pressing add to menu
@@ -181,7 +181,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
         availList.forEach(function (ele) {
             if (ele.tier === tier) {
                 MenuCtrl.addActive(ele);
-                UIController.addToSelected(ele);
+                UICtrl.addToSelected(ele);
             }
         });
     }
@@ -488,60 +488,21 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
         }
     }
 
-    function sendPostRequest(message) {
-        if (!HIGHSCORE_ENABLED) return;
-        fetch("http://api.kaansarkaya.com:8000/highscore", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(message),
-        })
-            .then((res) => res.json())
-            .then((json) => {
-                //console.log("Request complete! response:", json);
-                UICtrl.displayHighscore(json);
-
-                return json;
-            });
-    }
-
-    function getHighestScore() {
-        //console.log(isShowingHighestScore);
-        if (!HIGHSCORE_ENABLED) return;
-        fetch("http://api.kaansarkaya.com:8000/gethighest", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((res) => res.json())
-            .then((json) => {
-                console.log("Highest score get:" + json.sp);
-                UICtrl.displayHighest(json);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-
     return {
         init: function () {
             FoodListCtrl.init();
             MenuCtrl.init();
             UICtrl.initUI();
-
+            const TasteStorageController = TasteStorageCtrl;
             const activeMenu = JSON.parse(window.localStorage.getItem("activeMenu"));
 
-            if (activeMenu) {
+            if (activeMenu && JSON.parse(window.localStorage.getItem("active_foodlist")) == 1) {
                 activeMenu.forEach(function (item) {
                     addToSelected(item.id);
                 });
             }
             setupEventListeners();
             console.log("Application has started.");
-
-            getHighestScore();
         },
         showHighestScore: function () {
             if (!HIGHSCORE_ENABLED) return;
@@ -552,6 +513,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
                 UIController: UICtrl,
                 MenuController: MenuCtrl,
                 FoodListController: FoodListCtrl,
+                TasteStorageController: TasteStorageCtrl,
             };
         },
         getFoodFromID: getFoodFromID,
