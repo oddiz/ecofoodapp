@@ -7,7 +7,7 @@ function searchObjectInArray(property, key, array) {
 
         return result
     } catch (error) {
-        console.log("Error while searching object in array: " + error);
+        console.error("Error while searching object in array: " + error);
     }
 }
 

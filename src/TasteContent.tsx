@@ -73,7 +73,6 @@ export const TasteContent = ({ controller }: TCProps) => {
     };
 
     const handleResetButton = () => {
-        console.log("asd");
 
         Swal.fire({
             icon: "warning",
@@ -130,7 +129,7 @@ export const TasteContent = ({ controller }: TCProps) => {
                             css={{
                                 width: "44px",
                                 height: "44px",
-                                background: "#f31260",
+                                background: "#f3126047",
                                 overflow: "hidden",
                                 margin: "0 5px",
                                 display: "flex",

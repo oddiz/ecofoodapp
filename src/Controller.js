@@ -244,7 +244,6 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, TasteStorageCtrl, get
         var itemID, selectedFood;
         //get UI input for which one pressed
         if (event.target.className.includes("item__delete--btn")) {
-            //console.log(event);
         }
         itemID = event.target.parentNode.id;
         if (parseInt(itemID)) {
@@ -313,7 +312,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, TasteStorageCtrl, get
         }
         var stopBtn = document.querySelector(DOMStrings.stopButton);
 
-        console.log("Starting Worker.");
+        console.info("Starting Worker.");
         const workerUrl = new URL("/temp/testMenuWorker.js", import.meta.url).href;
         var worker = new Worker(workerUrl, { type: "module" });
 
@@ -415,7 +414,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, TasteStorageCtrl, get
         }
 
         function terminateWorker() {
-            console.log("Terminating Worker.");
+            console.info("Terminating Worker.");
             worker.terminate();
             //enable calculate button
             document.querySelector(DOMStrings.calculateButton).addEventListener("click", startWorkerSim);
@@ -445,36 +444,14 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, TasteStorageCtrl, get
                 UICtrl.updateResults(message.data.result);
             }
 
-            /*
-            if (typeof message.data === 'number') {
-                UICtrl.setPercentage(message.data)
-            } else if (message.data === 'error') {
-                showError("not_found")
-                document.querySelector(DOMStrings.menuPaper).style.webkitFilter = "blur(0)"
-                terminateWorker();
-
-            } else {
-                //var outputList = document.querySelector(DOMStrings.rightContainer);
-                
-                
-                setTimeout(function() {
-                    //remove blur
-                    document.querySelector(DOMStrings.menuPaper).style.webkitFilter = "";      
-                    UICtrl.displayResults(message.data);
-                },500)
-
-                sendPostRequest(message.data);
-                //console.log(result.data)
-                terminateWorker();
-            }
-            */
+            
         };
     }
 
     function showError(type) {
         switch (type) {
             default:
-                console.log("no error type found");
+                console.warn("no error type found");
                 break;
             case "not_found":
                 Swal.fire("No diets found with specified limits.", "", "error");
@@ -502,7 +479,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, TasteStorageCtrl, get
                 });
             }
             setupEventListeners();
-            console.log("Application has started.");
+            console.info("Application has started.");
         },
         showHighestScore: function () {
             if (!HIGHSCORE_ENABLED) return;

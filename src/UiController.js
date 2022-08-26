@@ -125,7 +125,6 @@ var UiController = function UiController(menuController, getFoodFromID) {
 
     var addToSelected = function (foodObj) {
         var htmlTemplate, newHtml;
-        console.log(foodObj);
         //remove it from available list first so no duplicate ids
         var el = document.getElementById(foodObj.id);
         if (el) {
@@ -184,7 +183,7 @@ var UiController = function UiController(menuController, getFoodFromID) {
             } else if (ele === "raw") {
                 activeButtons[i] = "Raw";
             } else {
-                console.log("something's wrong man...");
+                console.error("something's wrong man...");
             }
         });
 

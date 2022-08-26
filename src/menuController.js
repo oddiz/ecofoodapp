@@ -60,7 +60,6 @@ module.exports = function (FoodListController) {
                     }
                 }
             });
-            //console.log(stomachFoodList);
 
             stomachContent = stomachFoodList;
         },

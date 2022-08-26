@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "tsc -p ./tsconfig.build.json",
     "prebuild": "rimraf ./dist && tsc -p ./tsconfig.build.json",
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack --config webpack.prod.config.js",
     "dev": "webpack-dev-server --config webpack.config.js --hot",
     "start": "npx http-server ./dist/index.html -p 8080 ",
     "serve": "yarn build && node serve.js",

@@ -21,7 +21,7 @@ var getFoodFromID = function (id) {
 
         return selectedFood;
     } catch (error) {
-        console.log("Couldn't get foods from id . Error: " + error);
+        console.error("Couldn't get foods from id . Error: " + error);
     }
     
 };

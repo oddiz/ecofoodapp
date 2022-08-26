@@ -105,7 +105,7 @@ const UIController = (function (FoodListController) {
                     }
                 });
             } catch (error) {
-                console.log("Tried to populate list1, error occured: " + error);
+                console.error("Tried to populate list1, error occured: " + error);
             }
         },
         updateList2: function (activeFoodListId) {
@@ -191,12 +191,10 @@ const controller = (function (FoodListController, UIController) {
 
         ////// FOOD LISTS //////
         if (target.classList.contains("food__list") || target.parentNode.classList.contains("food__list")) {
-            console.log("Food list clicked.");
             const listId = target.id || target.parentNode.id;
 
             // DELETE LIST BUTTON //
             if (target.classList.contains("foodlist__delete__button")) {
-                console.log("Delete button clicked. ID: " + listId);
                 if (listId == 1) {
                     Swal.fire({
                         icon: "error",
@@ -226,7 +224,6 @@ const controller = (function (FoodListController, UIController) {
             }
             // UPDATE LIST BUTTON //
             if (target.classList.contains("foodlist__update__button")) {
-                console.log("Update button clicked. ID " + listId);
                 if (listId == 1) {
                     Swal.fire({
                         icon: "error",
@@ -278,7 +275,6 @@ const controller = (function (FoodListController, UIController) {
             }
             // EXPORT LIST BUTTON //
             if (target.classList.contains("foodlist__export__button")) {
-                console.log("Export list button clicked. ID: " + listId);
                 const listb64 = FoodListController.exportList(listId);
 
                 Swal.fire({
@@ -318,7 +314,6 @@ const controller = (function (FoodListController, UIController) {
         }
         ////// FOODS //////
         if (target.classList.contains("food") || target.parentNode.classList.contains("food")) {
-            console.log("Food clicked.");
             const foodid = target.id || target.parentNode.id;
             activeFoodId = foodid;
             UIController.updateList3(activeFoodListId, activeFoodId);
@@ -327,7 +322,6 @@ const controller = (function (FoodListController, UIController) {
         }
         ////// ADD FOOD BUTTON //////
         if (target.id === "food__add__button") {
-            console.log("Add food button clicked.");
 
             if (activeFoodListId == 1) {
                 Swal.fire({
@@ -344,7 +338,6 @@ const controller = (function (FoodListController, UIController) {
 
         //// APPLY BUTTON /////
         if (target.parentNode.id === "apply__button") {
-            console.log("Apply button clicked.");
 
             if (activeFoodListId == 1) {
                 Swal.fire({
@@ -364,7 +357,6 @@ const controller = (function (FoodListController, UIController) {
 
         ///// DELETE FOOD BUTTON ////
         if (target.parentNode.id === "delete__button" || target.id === "delete__button") {
-            console.log("Delete button clicked.");
             if (activeFoodListId == 1) {
                 Swal.fire({
                     icon: "warning",
@@ -383,7 +375,6 @@ const controller = (function (FoodListController, UIController) {
         ///// SIDEBAR BUTTONS //////
         // ADD LIST //
         if (target.parentNode.id === "sidebar__button--add__list") {
-            console.log("Add list button clicked.");
             FoodListController.addList("New List", "Press gear icon to change name and description.");
             UIController.updateList1(activeFoodListId);
 
@@ -391,7 +382,6 @@ const controller = (function (FoodListController, UIController) {
         }
         // EXPORT ALL //
         if (target.parentNode.id === "sidebar__button--export__all") {
-            console.log("Export all clicked.");
 
             const listb64 = FoodListController.exportAllLists();
             Swal.fire({
@@ -421,7 +411,6 @@ const controller = (function (FoodListController, UIController) {
         }
         // IMPORT ALL //
         if (target.parentNode.id === "sidebar__button--import__all") {
-            console.log("Import all clicked.");
 
             Swal.fire({
                 input: "textarea",
@@ -444,13 +433,12 @@ const controller = (function (FoodListController, UIController) {
                             }
                         }
                     } catch (error) {
-                        console.log("list cannot be verified");
 
                         return;
                     }
 
                     if (!verified) {
-                        console.log("list not verified");
+                        console.error("list not verified");
 
                         return;
                     }
@@ -465,7 +453,6 @@ const controller = (function (FoodListController, UIController) {
 
         ///// IMPORT LIST
         if (target.parentNode.id === "import__list__button") {
-            console.log("Import list clicked.");
 
             //import sweetalert prompt
 
@@ -493,7 +480,6 @@ const controller = (function (FoodListController, UIController) {
 
         //// EXPORT LIST
         if (target.parentNode.id === "export__list__button") {
-            console.log("Export list clicked.");
         }
     };
 
@@ -509,10 +495,10 @@ const controller = (function (FoodListController, UIController) {
             try {
                 UIController.init(activeFoodListId);
             } catch (error) {
-                console.log(
+                console.error(
                     `Unable to initialize UIController with give active list id. ID: ${activeFoodListId} Error: ${error}`
                 );
-                console.log(`Reverting to default`);
+                console.info(`Reverting to default`);
                 this.setActiveFoodListId(1);
                 UIController.init(activeFoodListId);
             }

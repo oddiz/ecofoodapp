@@ -16,7 +16,7 @@ const FoodListController = (function () {
             return foodLists;
 
         } catch (error) {
-            console.log("Error getting stored food lists");
+            console.error("Error getting stored food lists");
 
             return [];
         }
@@ -83,7 +83,7 @@ const FoodListController = (function () {
                 saveStoredFoodLists();
             } else {
                 //if list with same name exists
-                console.log("Same name exist.");
+                console.warn("Same name exist.");
             }
 
         },
@@ -111,7 +111,7 @@ const FoodListController = (function () {
 
                 saveStoredFoodLists();
             } catch (error) {
-                console.log("Error while updating food.", error);
+                console.error("Error while updating food.", error);
             }
 
         },
@@ -130,7 +130,7 @@ const FoodListController = (function () {
                 });
                 saveStoredFoodLists();
             } catch (error) {
-                console.log("Tried to delete food from list. Error: " + error, listId, foodId);
+                console.error("Tried to delete food from list. Error: " + error, listId, foodId);
             }
         },
         addFood: function (listId) {
@@ -158,7 +158,6 @@ const FoodListController = (function () {
             });
 
             saveStoredFoodLists();
-            console.log(storedFoodLists[0].foods);
         },
         deleteList: function (listID) {
             //delete list from stored food list array
@@ -228,7 +227,6 @@ const FoodListController = (function () {
         exportAllLists: function () {
             //export storeFoodLists array
             storedFoodLists = getStoredFoodLists();
-            console.log("object")
             return btoa(JSON.stringify(storedFoodLists));
         },
         getFoodLists: function () {

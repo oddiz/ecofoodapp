@@ -55,7 +55,6 @@ function testMenuWorker({
 
     //randomizes and tests the active menu array
     ("use strict");
-    console.log(activeMenuArray[0].tasteMult);
 
     function calculateSP(menu: FoodObject[]) {
         //accepts an array of food objects
@@ -106,7 +105,6 @@ function testMenuWorker({
             multiplier: balancedMultiplier,
             tasteMult: tasteMultiplier,
         };
-        console.log(result);
         return result;
     }
 
@@ -131,7 +129,6 @@ function testMenuWorker({
     var bestMenuStomachArray = getMenu().stomach;
     var bestMenuNonStomachArray: FoodObject[] = [];
     var totalIterations = 0;
-    //console.log("usedFoods check " + activeMenuArray);
 
     var progressPercent = 0;
     var progressPercentOld = 0;
@@ -140,7 +137,7 @@ function testMenuWorker({
 
     if (option === "random" || !option) {
         totalIterations = rollNumber;
-        console.log("Starting random");
+        console.info("Starting random");
         for (var i = 0; i <= rollNumber; i++) {
             var randomMenu = [];
 
@@ -194,7 +191,7 @@ function testMenuWorker({
     }
 
     if (option === "definitive") {
-        console.log("Starting definitive");
+        console.info("Starting definitive");
         calculateAllIterations();
     }
 
@@ -311,32 +308,9 @@ function testMenuWorker({
     }
 
     function processMenuNames(array: FoodObject[]) {
-        /*
-        //"3+1+2+4" => [3,1,2,4]
-        var listSplit = bestMenuNames.split("+");
-        //[3,1,2,4] => [1,2,3,4]
-        listSplit.sort();
-    
-        listSplit.shift();
-        //console.log(listSplit);
-        console.log(listSplit)
-        var finalResult = {};
-        var foodName = "";
-        for (var b = 0; b < listSplit.length; b++) {
-            foodName = listSplit[b];
-    
-            if (finalResult[foodName] >= 0) {
-                finalResult[foodName] += 1;
-            } else {
-                finalResult[foodName] = 1;
-            }
-        }
-        */
 
         var arrayNames = array.map((ele: FoodObject) => ele.name);
-        //console.log(arrayNames, "non sorted")
         arrayNames.sort();
-        //console.log(arrayNames, "sorted")
 
         var finalResult: { [foodName: string]: number } = {};
         var foodName = "";
@@ -354,9 +328,7 @@ function testMenuWorker({
     }
     console.timeEnd("Total_calculation_time");
     if (bestMenuNames) {
-        /*
-         *console.log(bestSP + " found at " + bestIndex + ". try.");
-         */
+       
         postMessage({
             type: "menu_found",
             result: {
@@ -381,6 +353,5 @@ function testMenuWorker({
         postMessage({
             type: "not_found",
         });
-        //return console.log("error");
     }
 }
