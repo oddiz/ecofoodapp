@@ -2,6 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 
 import { TasteButton } from "./TasteButton";
+import { Dropdown } from "@nextui-org/react"
 /*jshint esversion: 6 */
 require("./style.css");
 require("./style-mobile.css");
@@ -43,5 +44,6 @@ import { NextUIProvider } from "@nextui-org/react";
 root.render(
     <NextUIProvider disableBaseline>
         <TasteButton controller={controller} />
+        
     </NextUIProvider>
 );

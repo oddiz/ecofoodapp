@@ -2,8 +2,9 @@ import React, { Dispatch, useState } from "react";
 import styled from "styled-components";
 //@ts-ignore
 import { CSSGrid, layout } from "react-stonecutter";
-import { Card, Grid, Input, Text } from "@nextui-org/react";
+import { Card, Dropdown, Grid, Input, Text } from "@nextui-org/react";
 import { useFoodSearch } from "./hooks";
+import { FoodObject } from "./types";
 const ContentWrapper = styled.div`
     height: 100%;
     width: 100%;
@@ -73,51 +74,64 @@ export const TasteContent = ({ controller }: TCProps) => {
     );
 };
 
-export type FoodObject = {
-    id: number;
-    name: string;
-    type: string;
-    tier: number;
-    carb: number;
-    pro: number;
-    fat: number;
-    vit: number;
-    cal: number;
-    weight: number;
-    price: number;
-};
-
+const FoodCardWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
 type IFCProps = {
     foodObject: FoodObject;
 };
 const FoodCard = ({ foodObject }: IFCProps) => {
+    const TASTE_DESCRIPTIONS = ["Worst, Horrible, Bad, Ok, Good, Delicious, Favorite"];
+    const TASTE_MULTS = [0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3];
     return (
-        <Card
-            css={{ p: "$6", mw: "240px", height: "80px", display: "flex", flexDirection: "row", alignItems: "center" }}
-        >
-            <Card.Header>
-                <img
-                    alt="food logo"
-                    src={`public/img/${foodObject.id}.png`}
-                    width="50px"
-                    height="50px"
+        <FoodCardWrapper>
+            <Card
+                css={{
+                    p: "$6",
+                    w: "220px",
+                    h: "70px",
+                    display: "flex",
+                    flexDirection: "row",
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                }}
+            >
+                <Card.Header css={{ padding: "0px" }}>
+                    <img
+                        alt="food logo"
+                        src={`public/img/${foodObject.id}.png`}
+                        width="50px"
+                        height="50px"
+                        style={{ marginLeft: "3px" }}
+                    />
+                    <Grid.Container css={{ pl: "$6" }}>
+                        <Grid xs={12}>
+                            <Text
+                                h4
+                                css={{ lineHeight: "$xs" }}
+                            >
+                                {foodObject.name}
+                            </Text>
+                        </Grid>
+                        <Grid xs={12}>
+                            <Text css={{ fontWeight: "$light", color: "$accents8" }}>{foodObject.type}</Text>
+                        </Grid>
+                    </Grid.Container>
+                </Card.Header>
+            </Card>
+            <Dropdown closeOnSelect>
+                <Dropdown.Button
+                    flat
+                    css={{ width: "20px", height: "70px", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                    color="success"
                 />
-                <Grid.Container css={{ pl: "$6" }}>
-                    <Grid xs={12}>
-                        <Text
-                            h3
-                            css={{ lineHeight: "$xs" }}
-                        >
-                            {foodObject.name}
-                        </Text>
-                    </Grid>
-                    <Grid xs={12}>
-                        <Text css={{ color: "$accents8" }}>{foodObject.type}</Text>
-                    </Grid>
-                </Grid.Container>
-            </Card.Header>
-            <Card.Body css={{ py: "$2" }}></Card.Body>
-        </Card>
+                <Dropdown.Menu>
+                    <Dropdown.Item key="testts">Testing</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </FoodCardWrapper>
     );
 };
 

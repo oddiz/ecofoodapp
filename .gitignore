@@ -1,6 +1,7 @@
 
 dist/
 keys/
+temp/
 
 .vscode/
 #deploy folders

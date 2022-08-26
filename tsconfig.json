@@ -1,13 +1,20 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        "outDir": "./temp/",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": ["es2016", "esnext", "dom"],
         "noImplicitAny": true,
-        "module": "es6",
-        "sourceMap": true,
-        "target": "es5",
+        "sourceMap": false,
+        "module": "esnext",
+        "moduleResolution": "Node",
+        "target": "es6",
+        "allowJs": false,
         "jsx": "react",
-        "allowJs": true,
-        "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true
-    }
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
+    },
+
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
 }

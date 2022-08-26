@@ -17,14 +17,16 @@ export const TasteButton = ({ controller }: ITBProps) => {
                     setBlurred(false);
                 }}
                 width="540px"
-                css={{ background: "rgb(90 16 16 / 66%)" }}
+                css={{
+                    background: "linear-gradient(45deg, rgba(91, 16, 16, 0.6) 67%, rgba(190, 85, 25, 0.6) 100%)",
+                }}
                 noPadding
             >
                 <Modal.Header>
                     <Text
                         h1
                         color="white"
-                        style={{ fontSize: "34px" }}
+                        style={{ fontSize: "30px", margin: "3px 0px" }}
                     >
                         Modify Taste Preference
                     </Text>

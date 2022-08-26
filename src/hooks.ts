@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FoodObject } from "./TasteContent";
+import { FoodObject } from "./types";
 
 export const useFoodSearch = (foods: FoodObject[]) => {
     const [query, setQuery] = useState("");

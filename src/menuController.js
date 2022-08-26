@@ -4,9 +4,26 @@ module.exports = function (FoodListController) {
     var activeMenu = [];
     var stomachContent = [];
 
+    function getTasteMults() {
+        return JSON.parse(window.localStorage.getItem("taste_multipliers")) || {};
+    }
+
+    function updateFoodTasteMults() {
+        var tasteMults = getTasteMults();
+        allFoodsArray = allFoodsArray.map((food) => {
+            return {
+                ...food,
+                tasteMult: tasteMults[food.id] || 1,
+            };
+        });
+
+    }
     return {
         init: function () {
             allFoodsArray = FoodListController.getActiveFoodList().foods;
+            updateFoodTasteMults();
+            updateFoodTasteMults();
+            updateFoodTasteMults();
             activeMenu = [];
             stomachContent = [];
         },
@@ -78,7 +95,7 @@ module.exports = function (FoodListController) {
             activeMenu = [];
         },
         addActiveAll: function () {
-            activeMenu = menuController.getAllFoods();
+            activeMenu = allFoodsArray;
         },
         updatePrice: function (id, price) {
             allFoodsArray.forEach(function (food, index) {
@@ -87,7 +104,10 @@ module.exports = function (FoodListController) {
                 }
             });
         },
+        getTasteMults: getTasteMults,
+        updateFoodTasteMults: updateFoodTasteMults,
         getAllFoods: function () {
+            updateFoodTasteMults();
             return allFoodsArray;
         },
     };

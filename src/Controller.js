@@ -314,7 +314,8 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
         var stopBtn = document.querySelector(DOMStrings.stopButton);
 
         console.log("Starting Worker.");
-        var work = new Worker(new URL("./testMenuWorker.js", import.meta.url).href);
+        const workerUrl = new URL("/temp/testMenuWorker.js", import.meta.url).href;
+        var worker = new Worker(workerUrl, { type: "module" });
 
         if (inputSim === "" || inputSim == 0) {
             var iterationCount = Math.pow(inputFood + 1, activeMenu.length);
@@ -337,7 +338,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
                         uiStartWorker();
                         //work.postMessage([activeMenu,inputSim,inputFood,inputBudget, inputCalorie, stomachContent, "definitive"])
 
-                        work.postMessage({
+                        worker.postMessage({
                             origin: "ecoFood",
                             activeMenu: activeMenu,
                             simScale: inputSim,
@@ -359,7 +360,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
                 });
             } else {
                 uiStartWorker();
-                work.postMessage({
+                worker.postMessage({
                     origin: "ecoFood",
                     activeMenu: activeMenu,
                     simScale: inputSim,
@@ -374,7 +375,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
             }
         } else {
             uiStartWorker();
-            work.postMessage({
+            worker.postMessage({
                 origin: "ecoFood",
                 activeMenu: activeMenu,
                 simScale: inputSim,
@@ -415,7 +416,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
 
         function terminateWorker() {
             console.log("Terminating Worker.");
-            work.terminate();
+            worker.terminate();
             //enable calculate button
             document.querySelector(DOMStrings.calculateButton).addEventListener("click", startWorkerSim);
             //disable stop button
@@ -424,7 +425,7 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
             document.querySelector(".spinner").classList.remove("visible");
         }
 
-        work.onmessage = function (message) {
+        worker.onmessage = function (message) {
             if (message.data.type === "progress_percent") {
                 UICtrl.setPercentage(message.data.percentage);
             } else if (message.data.type === "not_found") {
@@ -551,8 +552,8 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, getFoodFromID) {
                 UIController: UICtrl,
                 MenuController: MenuCtrl,
                 FoodListController: FoodListCtrl,
-            }
+            };
         },
-        getFoodFromID: getFoodFromID
+        getFoodFromID: getFoodFromID,
     };
 };

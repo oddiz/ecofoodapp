@@ -344,12 +344,12 @@ var UiController = function UiController(menuController, getFoodFromID) {
 
         getInput: function () {
             var regex = /,/gm;
-            var foodInput = document.querySelector(DOMStrings.foodAmountInput).value;
-            var simInput = document.querySelector(DOMStrings.simScaleInput).value;
+            var foodInput = parseInt(document.querySelector(DOMStrings.foodAmountInput).value.replace(regex, ""));
+            var simInput = parseInt(document.querySelector(DOMStrings.simScaleInput).value.replace(regex, "")) || 0;
             var budgetInput = parseInt(document.querySelector(DOMStrings.budgetInput).value);
             var calorieInput = parseInt(document.querySelector(DOMStrings.calorieInput).value);
             var caloriePerDollarInput = parseFloat(document.querySelector(DOMStrings.caloriePerDollarInput).value);
-            var maxSpInput = parseInt(document.querySelector(DOMStrings.maxSpInput).value);
+            var maxSpInput = parseInt(document.querySelector(DOMStrings.maxSpInput).value) || Infinity;
             if (budgetInput === 0 || budgetInput === -1 || isNaN(budgetInput)) {
                 budgetInput = Infinity;
             }
@@ -360,14 +360,15 @@ var UiController = function UiController(menuController, getFoodFromID) {
                 caloriePerDollarInput = -Infinity;
             }
 
-            return {
-                foodInput: parseInt(foodInput.replace(regex, "")),
-                simInput: simInput.replace(regex, ""),
+            const result = {
+                foodInput: foodInput,
+                simInput: simInput,
                 budgetInput: budgetInput,
                 calorieInput: calorieInput,
                 caloriePerDollarInput: caloriePerDollarInput,
                 maxSpInput: maxSpInput,
             };
+            return result;
         },
 
         displayResults: function (resultObject) {
