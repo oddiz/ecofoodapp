@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "outDir": "./temp/",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": ["es2016", "esnext", "DOM", "DOM.Iterable"],
+        "noImplicitAny": true,
+        "sourceMap": false,
+        "module": "esnext",
+        "moduleResolution": "Node",
+        "target": "es6",
+        "allowJs": false,
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
+    },
+
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
+}

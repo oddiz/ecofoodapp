@@ -3,8 +3,8 @@
 **********************************************/
 @font-face {
     font-family: 'NexaRustSlab-BlackShadow01-Free';
-    src: url('vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff2') format('woff2'),
-         url('vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff') format('woff');
+    src: url('public/vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff2') format('woff2'),
+         url('public/vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -12,16 +12,21 @@
 
 @font-face {
 	font-family: 'Milkshake';
-	src: url(vendor/fonts/Milkshake.ttf);
+	src: url(public/vendor/fonts/Milkshake.ttf);
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
     font-family: 'abel';
-    src: url(vendor/fonts/Abel-Regular.ttf);
+    src: url(public/vendor/fonts/Abel-Regular.ttf);
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url(public/vendor/fonts/Inter.ttf);
 }
 
 * {
@@ -58,9 +63,19 @@ a, a:hover, a:visited, a:active {
     text-decoration: none;
 }
 
-
+.blurred {
+    filter: blur(3px);
+}
 .hidden {
     display:none;
+}
+
+.taste_option:hover ~ .active {
+    opacity: 1 !important;
+}
+
+.swal2-container {
+    z-index: 20000 !important;
 }
 /**********************************************
 *** TOP PART
@@ -68,7 +83,7 @@ a, a:hover, a:visited, a:active {
 
 .top {
     height: 200px;
-    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(resources/back.jpg);
+    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(public/back.jpg);
 	background-attachment: scroll;
 	background-size: cover;
    
@@ -134,7 +149,7 @@ a, a:hover, a:visited, a:active {
 	vertical-align: middle;
 	padding: 20px 4px 20px 30px;
 	
-	background-image: url(resources/img/paper.jpg); 
+	background-image: url(public/img/paper.jpg); 
 	background-size: cover; 
 	
 	color: rgba(46,46,46,0.90);
@@ -185,7 +200,7 @@ body::after {
   	position: fixed;
   	top: 0; left: 0;
   	width: 100%; min-height: 100%;
-	background-image: url(resources/img/cocina.gif);
+	background-image: url(public/img/cocina.gif);
 	opacity: 0.05;
 	filter: saturate(100%);
 	
@@ -1083,7 +1098,7 @@ MENU PAPER
 	min-width:263px;
 	min-height:250px;
 	
-	background-image: url(resources/img/paper.jpg); 
+	background-image: url(public/img/paper.jpg); 
 	background-size: cover;
 	
 	box-shadow: 6px 6px 10px rgba(109, 114, 116, 0.9);
@@ -1276,6 +1291,29 @@ footer {
 
 .stomach__button:hover {
     background-color:rgb(247, 176, 115)
+}
+.taste__button {
+    font-size: 32px;
+    color: white;
+	display: inline-block;
+    position:inherit;
+    
+    padding-right:5px;
+	padding-top: 0px;
+
+    
+	background-color:rgb(233, 88, 88);
+	box-shadow: 0 5px #7E3E00;
+}
+
+.taste__button.clicked {
+    margin-top: 6px;
+    box-shadow: 0 2px #7E3E00;
+    background-color:rgb(247, 115, 115)
+}
+
+.taste__button:hover {
+    background-color:rgb(247, 115, 115)
 }
 
 /***********************************************
@@ -1544,4 +1582,23 @@ footer {
 }
 .highscore__content p {
     font-size: 16px;
+}
+
+/**********************************************
+*** TASTE CONTAINER
+**********************************************/
+
+
+.taste__container {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    height: 500px;
+
+    background: black;
+
+    z-index: 200;
 }

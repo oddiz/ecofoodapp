@@ -10,7 +10,9 @@
 
             gtag('config', 'UA-131544596-2');
             </script>
-        
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5536186665437668"
+            crossorigin="anonymous"></script>
+            
             <meta charset="UTF-8">
             <meta name="description" content="An interactive calculator to find the best food combination to achieve highest SP gain in Eco game, find your best food combo now! You can also include your stomach content, set budget or calorie limit and see highscores too!" />
             <meta name="keywords" content="best food in eco, best diet in eco, eco best food combo, eco game food, eco game best food, eco best food, eco food calculator, eco game food calculator, eco game diet calculator, eco diet calculator, best food eco, best diet eco" />
@@ -20,23 +22,20 @@
             <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
             <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
             
-            <link type="text/css" rel="stylesheet" href="style.css">
-            <link type="text/css" rel="stylesheet" href="style-mobile.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
             <title>Eco Diet Calculator</title>
-            <link rel="icon" href="resources/meaticon.png" type="image/png" sizes="16x16">
+            <link rel="icon" href="public/meaticon.png" type="image/png" sizes="16x16">
     </head>
     <body>
-        
-		<div class="top">
-			<div class="top__title">
+        <div class="top">
+            <div class="top__title">
                 <h1 class="page__title">Eco Diet Calculator</h1>
-                <p class="update__info">Updated for 9.3.4 - Let me know if there are wrong values or features you'd like to be added. Discord: oddiz#9659
-                    <br>Now you can create and use your own lists!
+                <p class="update__info">Updated for 9.5
+                    <br>Taste feature is finally in! 
                 </p>
-			</div>
-		</div>
+            </div>
+        </div>
         
         <div class="calculate">
             
@@ -44,7 +43,7 @@
             <div class="navbar__container">
                 <div class="navbar__content">
                     <i class="ion-ios-home-outline"></i>
-                    <a href="/edit"><i class="ion-ios-compose-outline" href="test"></i></a>
+                    <a href="./edit/index.html"><i class="ion-ios-compose-outline" ></i></a>
                 </div>
             </div>
             <div class="input__container clearfix">
@@ -120,63 +119,63 @@
         </div>	   
         
         <div class="info__container">
-         <div class="info">
-         
-             <p>This app helps you find the best food combos in Eco game to maximise your daily SP gain from food. You can also check the highscore tab below to see the best diet found so far across all calculations.  </p>
-             <p><i>Menu Size</i> input determines the diet size for testing. Each diet will be filled with randomly selected foods from <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span> list if <i>Calculation Scale</i> input is entered.</p>
-             <p><i>Calculation Scale</i> input determines the number of random diets to generate, if left empty algorithm will try to test every possible combination.</p>
-             <p>After a calculation has been made. The output is then stored in highscore database, which will be compared with all previous results.</p>
-             <p>Highscores are categorised by <i>Menu Size</i>. Also you can see the best diet accross all categories by clicking #1 button.</p>
-             <span style="margin-top:40px;"><p>NEW: Now you can also specify prices for food and set a budget limit to generate results less than or equal to your specified budget. The prices are saved automatically with cookies so you don't have to write them every time.</p></span>
-         
-         </div>
-         <div class="formula__info clearfix">
-             <p><span style="font-size: 130%">SP calculation is made as follows:</span></p>
-             <table>
-                 <tbody>
-                     <tr>
-                         <td><span style="font-size:500%">[</span></td>
-                         <td><span style="line-height:50%;"><center>( N<sub>1</sub> × C<sub>1</sub> ) + ( N<sub>2</sub> × C<sub>2</sub> ) + ( N<sub>3</sub> × C<sub>3</sub> )
-                         <p style="letter-spacing: -3px;">——————————————————————
-                         </p>
-                         <span style="position:relative; top:10px;">C<sub>1</sub> + C<sub>2</sub> + C<sub>3</sub></center></span> </span>
-                         </td>
-                         <td><span style="font-size:500%">]</span></td>
-                         <td><span style="font-size:300%">×</span></td>
-                         <td>Balance Modifier</td>
-                         <td><span style="font-size:300%">×</span></td>
-                         <td>Skill Gain Multiplier</td>
-                         <td><span style="font-size:300%">+</span></td>
-                         <td>Base Skill Gain</td>
-                         <td><span style="font-size:300%">=</span></td>
-                         <td>SP/Day</td>
-                     </tr>
-                 </tbody>
-             </table>
-         
-             <ul>
-                 <li>"N" represents total nutrients of each food. Simply add up all 4 nutrient values. N<sub>1</sub> is first food, N<sub>2</sub> is second food, etc.</li>
-                 <li>"C" represents calories of each food. C<sub>1</sub> is first food, C<sub>2</sub> is second food, etc.</li>
-                 <li>Balance modifier ranges from 0.5 to 2, with 0.5 being no balance, and 2 being a perfect balance.</li>
-                 <li>Skill gain multiplier is configurable in the server difficulty settings. It has different default values depending on the collaboration preset.</li>
-                 <li>Base skill gain can be modified in EcoSim.eco. It defaults to 12.</li>
-             </ul>
-             <p style="font-size: 12px;"><i>Source: https://eco.gamepedia.com/Skill_Points</i></p>
-         </div>
-         <div class="info" style="margin-top:100px ;">
-             <p> My SP algorithm and inspiration for this project is based from <a href="https://docs.google.com/spreadsheets/d/1-rWq6R3mqnbKuB-VtQXYACS-2FexyxzR3okeMhz1Wjc/edit#gid=189984926">this spreadsheet</a>.</p>
-         </div>
-         
-         <div class="info" style="margin-top:250px;">
-             <p>This project is made by Kaan "oddiz" Sarkaya.<br> If you have any suggestions or feed back, you can find me on discord <span style="color:rgba(50,57,63,1.00)"><strong>@oddiz#9659</strong></span></p>
-             <p>You can also email me at <strong>kaansarkaya@gmail.com</strong></p>
-         </div>
-         
+            <div class="info">
+            
+                <p>This app helps you find the best food combos in Eco game to maximise your daily SP gain from food. You can also check the highscore tab below to see the best diet found so far across all calculations.  </p>
+                <p><i>Menu Size</i> input determines the diet size for testing. Each diet will be filled with randomly selected foods from <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span> list if <i>Calculation Scale</i> input is entered.</p>
+                <p><i>Calculation Scale</i> input determines the number of random diets to generate, if left empty algorithm will try to test every possible combination.</p>
+                <p>After a calculation has been made. The output is then stored in highscore database, which will be compared with all previous results.</p>
+                <p>Highscores are categorised by <i>Menu Size</i>. Also you can see the best diet accross all categories by clicking #1 button.</p>
+                <span style="margin-top:40px;"><p>NEW: Now you can also specify prices for food and set a budget limit to generate results less than or equal to your specified budget. The prices are saved automatically with cookies so you don't have to write them every time.</p></span>
+            
+            </div>
+            <div class="formula__info clearfix">
+                <p><span style="font-size: 130%">SP calculation is made as follows:</span></p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><span style="font-size:500%">[</span></td>
+                            <td><span style="line-height:50%;"><center>( N<sub>1</sub> × C<sub>1</sub> ) + ( N<sub>2</sub> × C<sub>2</sub> ) + ( N<sub>3</sub> × C<sub>3</sub> )
+                            <p style="letter-spacing: -3px;">——————————————————————
+                            </p>
+                            <span style="position:relative; top:10px;">C<sub>1</sub> + C<sub>2</sub> + C<sub>3</sub></center></span> </span>
+                            </td>
+                            <td><span style="font-size:500%">]</span></td>
+                            <td><span style="font-size:300%">×</span></td>
+                            <td>Balance Modifier</td>
+                            <td><span style="font-size:300%">×</span></td>
+                            <td>Skill Gain Multiplier</td>
+                            <td><span style="font-size:300%">+</span></td>
+                            <td>Base Skill Gain</td>
+                            <td><span style="font-size:300%">=</span></td>
+                            <td>SP/Day</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+                <ul>
+                    <li>"N" represents total nutrients of each food. Simply add up all 4 nutrient values. N<sub>1</sub> is first food, N<sub>2</sub> is second food, etc.</li>
+                    <li>"C" represents calories of each food. C<sub>1</sub> is first food, C<sub>2</sub> is second food, etc.</li>
+                    <li>Balance modifier ranges from 0.5 to 2, with 0.5 being no balance, and 2 being a perfect balance.</li>
+                    <li>Skill gain multiplier is configurable in the server difficulty settings. It has different default values depending on the collaboration preset.</li>
+                    <li>Base skill gain can be modified in EcoSim.eco. It defaults to 12.</li>
+                </ul>
+                <p style="font-size: 12px;"><i>Source: https://eco.gamepedia.com/Skill_Points</i></p>
+            </div>
+            <div class="info" style="margin-top:100px ;">
+                <p> My SP algorithm and inspiration for this project is based from <a href="https://docs.google.com/spreadsheets/d/1-rWq6R3mqnbKuB-VtQXYACS-2FexyxzR3okeMhz1Wjc/edit#gid=189984926">this spreadsheet</a>.</p>
+            </div>
+            
+            <div class="info" style="margin-top:250px;">
+                <p>This project is made by Kaan "oddiz" Sarkaya.<br> If you have any suggestions or feed back, you can find me on discord <span style="color:rgba(50,57,63,1.00)"><strong>@oddiz#9659</strong></span></p>
+                <p>You can also email me at <strong>kaansarkaya@gmail.com</strong></p>
+            </div>
+            
         </div>
 
         <div class="content clearfix">
-			
-			<div class="lists__container clearfix">
+            
+            <div class="lists__container clearfix">
                 <div class="sort__bar">
                     <div class="sort__title">
                         <p><strong>Sort by:</strong></p>
@@ -195,9 +194,9 @@
                         </ul>
                     </div>
                 </div>
-			
-			
-			
+            
+            
+            
                 <div class="available__food__container">
                     <div class="available__food__header">
                         <h2 class="available__food__title">Available foods</h2>
@@ -209,12 +208,12 @@
                             <div class="t1__add">Tier 1   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
                         </div>
                         <div class="foodtype__container">
-                            <img class="circle__button" id="raw__button" src="/resources/imgWebP/raw.png">
-                            <img class="circle__button" id="campfire__button" src="/resources/imgWebP/campfire.png">
-                            <img class="circle__button" id="bakeryoven__button" src="/resources/imgWebP/bakeryoven.png">
-                            <img class="circle__button" id="castironstove__button" src="/resources/imgWebP/castironstove.png">
-                            <img class="circle__button" id="kitchen__button" src="/resources/imgWebP/kitchen.png">
-                            <img class="circle__button" id="stove__button" src="/resources/imgWebP/stove.png">
+                            <img class="circle__button" id="raw__button" src="./public/imgWebP/raw.png">
+                            <img class="circle__button" id="campfire__button" src="./public/imgWebP/campfire.png">
+                            <img class="circle__button" id="bakeryoven__button" src="./public/imgWebP/bakeryoven.png">
+                            <img class="circle__button" id="castironstove__button" src="./public/imgWebP/castironstove.png">
+                            <img class="circle__button" id="kitchen__button" src="./public/imgWebP/kitchen.png">
+                            <img class="circle__button" id="stove__button" src="./public/imgWebP/stove.png">
                         </div>
                         <div class="search_bar_container">
                             <div class="search_bar_icon">
@@ -232,10 +231,10 @@
                             <div class="item__add">
                                 <button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
                             </div>
-                            <div class="stomach__add"><img class="stomach__add--icon" src="./resources/stomach.svg"></div>
+                            <div class="stomach__add"><img class="stomach__add--icon" src="./public/stomach.svg"></div>
                             <div class="food__info">
                                 <div class="food__info__title">
-                                    <img class="info__img" src="./resources/img/56.png">
+                                    <img class="info__img" src="./public/img/56.png">
                                     <h5>%name%</h5>
                                 </div>
                                 <div class="food__info__nutrition">
@@ -264,13 +263,13 @@
                 </div>
 
                 <div class="selected__food__container">
-					<div class="selected__food__header">
-						<i class="ion-cash cash__icon"></i>
-	                    <div class="remove__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>				
-						<h2 class="selected__title">Selected foods</h2>
-						
-					</div>
-						
+                    <div class="selected__food__header">
+                        <i class="ion-cash cash__icon"></i>
+                        <div class="remove__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>				
+                        <h2 class="selected__title">Selected foods</h2>
+                        
+                    </div>
+                        
                     <div class="selected__food__list">
                     <!--list starts here-->  
 
@@ -282,11 +281,11 @@
                             <div class="item__delete">
                                 <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
                             </div>
-							<div class="item__price">
-								<div class="item__price__container">
-									<img src="resources/imgWebP/ptag.png">								
-									<input class="item__price__input" type="number" value="0"><p>$</p>
-								</div>
+                            <div class="item__price">
+                                <div class="item__price__container">
+                                    <img src="public/imgWebP/ptag.png">								
+                                    <input class="item__price__input" type="number" value="0"><p>$</p>
+                                </div>
                             </div>
                         </div>
 
@@ -298,11 +297,11 @@
                                 <div class="item__delete">
                                     <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
                                 </div>
-							<div class="item__price">
-								<div class="item__price__container">
-									<img src="resources/img/ptag.png">								
-									<input type="number" value="0"><p>$</p>
-								</div>
+                            <div class="item__price">
+                                <div class="item__price__container">
+                                    <img src="public/img/ptag.png">								
+                                    <input type="number" value="0"><p>$</p>
+                                </div>
                             </div>
                         </div>
                         <!--list ends here -->				
@@ -313,7 +312,7 @@
                 <h1>Menu</h1>
                 <div class="horizontal__line"></div>
                 <div class="spinner">
-                    <img src="./resources/spinner.svg">
+                    <img src="./public/spinner.svg">
                 </div>
                 <div class="menu__content">
                     <div class ="menu__stomach__container">
@@ -338,13 +337,15 @@
         <footer>
             <div class="footer__buttons__container">
                 <div class="footer__button stomach__button">
-                    <img src="resources/stomach.svg" height="35px">
+                    <img src="public/stomach.svg" height="35px">
                 </div>
                 
                 <div class="footer__button highscore__button">
                     <div class="trophy__icon"> <i class="ion-trophy"></i></div>   
                     
                 </div>
+                <div id="taste__button"></div>
+
             </div>
         </footer>
         <div class="highscore__container">
@@ -355,7 +356,7 @@
             
             <div class="highscore__content">
                 <!--<p><i>Run the sim to see highscores</i></p>-->
-                <p><i>If you are seeing this, that means the highscore database is currently not online or still loading.<br></i></p>
+                <p><i>Highscore database is currently offline.<br></i></p>
             </div>
         </div>
         <div class="stomach__container">
@@ -371,15 +372,10 @@
                 </div>
             </div>
         </div>
-        
-		<script src="vendor/js/cleave.js"></script>
-        <script src="helpers.js"></script>
-        <script src="foodData.js"></script>
-        <script src="testMenuWorker.js"></script>
-        <script src="FoodListController.js"></script>
-        <script src="ecoFood3.01.js"></script>
+        <div id="taste__container"> </div>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.7/dist/sweetalert2.all.min.js"></script>
-            
+        
 		
     </body>
 </html>

@@ -1,27 +1,22 @@
-/* eslint-disable no-undef */
+var defaultFoods = require('./foodData.js')
+
+const searchObjectInArray = require('./helpers.js').searchObjectInArray
 /* jshint esversion:6 */
-/*
 
-Save system
+const FoodListController = (function () {
 
-*/
-
-//Turn edit on off
-// eslint-disable-next-line no-unused-vars
-const FoodListController = (function() {
-    
     function getStoredFoodLists() {
         try {
             let foodLists = JSON.parse(window.localStorage.getItem("food_lists"));
-    
-            if(foodLists === null) {
+
+            if (foodLists === null) {
                 foodLists = [];
             }
-    
+
             return foodLists;
-            
+
         } catch (error) {
-            console.log("Error getting stored food lists");
+            console.error("Error getting stored food lists");
 
             return [];
         }
@@ -30,7 +25,7 @@ const FoodListController = (function() {
     function saveStoredFoodLists() {
         window.localStorage.setItem("food_lists", JSON.stringify(storedFoodLists));
     }
-    
+
 
     //will return array of foodlist into storedFoodLists
     let storedFoodLists = [];
@@ -39,15 +34,15 @@ const FoodListController = (function() {
 
 
     return {
-        init: function() {
+        init: function () {
             //check stored FoodLists, add server food list
             storedFoodLists = getStoredFoodLists();
-            if(searchObjectInArray("listName", "default", getStoredFoodLists()) === null) {
+            if (searchObjectInArray("listName", "default", getStoredFoodLists()) === null) {
                 //if nothing in local storage food lists
                 storedFoodLists.push(new FoodList("default", "This is the latest food list from Vanilla Eco.", serverFoodList));
-                saveStoredFoodLists();            
+                saveStoredFoodLists();
             } else {
-                
+
 
                 //update default food list to latest
                 storedFoodLists.forEach((list, i) => {
@@ -67,7 +62,7 @@ const FoodListController = (function() {
                             "November",
                             "December"
                         ];
-                        updatedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+                        const updatedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
                         storedFoodLists[i].date = updatedDate;
                         storedFoodLists[i].foods = serverFoodList;
                     }
@@ -77,22 +72,22 @@ const FoodListController = (function() {
                 //this.updateList("default");
                 //window.localStorage.setItem(storedFoodLists);
             }
-            
-            
-            
+
+
+
         },
-        saveNewList: function(listName, listDesc, foods) {
-            
+        saveNewList: function (listName, listDesc, foods) {
+
             if (searchObjectInArray("listName", listName, getStoredFoodLists()) === null) {
                 storedFoodLists.push(new FoodList(listName, listDesc, foods));
                 saveStoredFoodLists();
             } else {
                 //if list with same name exists
-                console.log("Same name exist.");
+                console.warn("Same name exist.");
             }
-            
+
         },
-        updateFood: function(listId, foodId, properties) {
+        updateFood: function (listId, foodId, properties) {
             //find the list
             storedFoodLists = getStoredFoodLists();
             try {
@@ -116,14 +111,14 @@ const FoodListController = (function() {
 
                 saveStoredFoodLists();
             } catch (error) {
-                console.log("Error while updating food.", error);
+                console.error("Error while updating food.", error);
             }
-        
+
         },
-        deleteFood: function(listId, foodId){
+        deleteFood: function (listId, foodId) {
             storedFoodLists = getStoredFoodLists();
             try {
-                storedFoodLists.forEach((list,listindex) => {
+                storedFoodLists.forEach((list, listindex) => {
                     if (list.id == listId) {
                         list.foods.forEach((food, index) => {
                             if (food.id == foodId) {
@@ -135,13 +130,13 @@ const FoodListController = (function() {
                 });
                 saveStoredFoodLists();
             } catch (error) {
-                console.log("Tried to delete food from list. Error: " + error, listId, foodId);
+                console.error("Tried to delete food from list. Error: " + error, listId, foodId);
             }
         },
-        addFood: function(listId) {
+        addFood: function (listId) {
             storedFoodLists = getStoredFoodLists();
             const d = new Date();
-        
+
             const newFood = {
                 "id": d.getTime(),
                 "name": "New Food",
@@ -157,18 +152,17 @@ const FoodListController = (function() {
             };
 
             storedFoodLists.forEach((list, i) => {
-                if (list.id == listId) {
-                    storedFoodLists[i].foods.push(newFood);
+                if (list.id == listId && newFood) {
+                    list.foods.push(newFood);
                 }
             });
 
             saveStoredFoodLists();
-            console.log(storedFoodLists[0].foods);
         },
-        deleteList: function(listID) {
+        deleteList: function (listID) {
             //delete list from stored food list array
             storedFoodLists = getStoredFoodLists();
-            storedFoodLists.forEach(function(flist, index) {
+            storedFoodLists.forEach(function (flist, index) {
                 if (flist.id == listID) {
                     storedFoodLists.splice(index, 1);
                 }
@@ -176,9 +170,9 @@ const FoodListController = (function() {
             });
             //update session storage
             saveStoredFoodLists();
-            
+
         },
-        addList: function(listName, listDesc, listObject) {
+        addList: function (listName, listDesc, listObject = []) {
             storedFoodLists = getStoredFoodLists();
 
             let newList;
@@ -187,7 +181,7 @@ const FoodListController = (function() {
             } else {
                 newList = new FoodList(listName, listDesc, []);
             }
-            
+
             storedFoodLists.push(newList);
 
             saveStoredFoodLists();
@@ -195,9 +189,9 @@ const FoodListController = (function() {
         },
         updateList: function (listId, newName, newDesc) {
             storedFoodLists = getStoredFoodLists();
-            
+
             storedFoodLists.forEach((list, index) => {
-                if(list.id == listId) {
+                if (list.id == listId) {
                     storedFoodLists[index].listName = newName;
                     storedFoodLists[index].listDesc = newDesc;
                 }
@@ -206,45 +200,43 @@ const FoodListController = (function() {
             saveStoredFoodLists();
 
         },
-        exportList: function(listId) {
+        exportList: function (listId) {
             //export base64 string from a list
-            selectedList = this.getListFromId(listId);
+            const selectedList = this.getListFromId(listId);
 
             return btoa(JSON.stringify(selectedList));
 
         },
-        importList: function(b64string) {
-            importedList = JSON.parse(atob(b64string));
+        importList: function (b64string) {
+            const importedList = JSON.parse(atob(b64string));
+
+            this.addList(importedList.listName, importedList.listDesc, importedList);
 
         },
-        importAllLists: function(base64) {
+        importAllLists: function (base64) {
             //import a list from base64 string
             //ability to import multiple lists at a time
             var importedString = atob(base64);
             var parsedString = JSON.parse(importedString);
-            console.log("parsedString")
 
-            parsedString.forEach(function(element) {
-                console.log("element")
-            })
+
             window.localStorage.removeItem("food_lists");
             window.localStorage.setItem("food_lists", parsedString);
 
         },
-        exportAllLists: function() {
+        exportAllLists: function () {
             //export storeFoodLists array
             storedFoodLists = getStoredFoodLists();
-            console.log("object")
             return btoa(JSON.stringify(storedFoodLists));
         },
-        getFoodLists: function() {
+        getFoodLists: function () {
             //returns all saved food lists
             return getStoredFoodLists();
         },
-        getListFromId: function(listId) {
+        getListFromId: function (listId) {
             storedFoodLists = getStoredFoodLists();
 
-            
+
             const result = searchObjectInArray("id", listId, storedFoodLists);
 
             return result;
@@ -262,7 +254,7 @@ const FoodListController = (function() {
                 window.localStorage.setItem("active_foodlist", 1);
             }
             const activeFoodList = this.getListFromId(activeFoodListId);
-            
+
             return activeFoodList;
         }
 
@@ -272,8 +264,8 @@ const FoodListController = (function() {
 
 
 class FoodList {
-    constructor(listName, description, food){
-        
+    constructor(listName, description, food) {
+
         this.listName = listName;
         this.listDesc = description;
         const d = new Date();
@@ -299,7 +291,7 @@ class FoodList {
         } else {
             this.id = d.getTime();
         }
-        this.foods = food;
+        this.foods = food || [];
     }
 
     exportList() {
@@ -308,5 +300,6 @@ class FoodList {
 
         return this;
     }
-
 }
+
+module.exports = FoodListController

@@ -1,15 +1,20 @@
 
+dist/
 keys/
+temp/
 
+.vscode/
 #deploy folders
 dist/
 deploy/
 temp/
 
+s3log.json
+
+
+
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
-
-
 
 ### Node ###
 # Logs
@@ -99,3 +104,4 @@ TODO.md
 
 # jshintrc
 .jshintrc
+
