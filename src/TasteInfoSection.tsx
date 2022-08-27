@@ -71,6 +71,7 @@ export const TasteInfoSection = ({
             <Collapse
                 key={category}
                 title={category + ` - ${members.length} Items`}
+                expanded
             >
                 {members}
             </Collapse>

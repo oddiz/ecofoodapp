@@ -3,8 +3,7 @@
 **********************************************/
 @font-face {
     font-family: 'NexaRustSlab-BlackShadow01-Free';
-    src: url('../public/vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff2') format('woff2'),
-         url('../public/vendor/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff') format('woff');
+    src: url('../public/fonts/NexaRustSlab-BlackShadow01-Free-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 
@@ -12,14 +11,14 @@
 
 @font-face {
 	font-family: 'Milkshake';
-	src: url(../public/vendor/fonts/Milkshake.ttf);
+	src: url(../public/fonts/Milkshake.ttf);
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
     font-family: 'abel';
-    src: url(../public/vendor/fonts/Abel-Regular.ttf);
+    src: url(../public/fonts/Abel-Regular.ttf);
     font-weight: normal;
     font-style: normal;
 }
@@ -67,7 +66,7 @@ a, a:hover, a:visited, a:active {
 
 .top {
     height: 200px;
-    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(../public/back.jpg);
+    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.65), rgba(0,0,0,0.3), rgba(0, 0, 0, 0.65)), url(../public/img/back.jpg);
 	background-attachment: scroll;
 	background-size: cover;
    

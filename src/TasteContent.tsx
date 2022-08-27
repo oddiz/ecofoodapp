@@ -306,7 +306,7 @@ const FoodCard = ({ foodObject, controller, tasteChangeHandler }: IFCProps) => {
                 <Card.Header css={{ padding: "0px" }}>
                     <img
                         alt="food logo"
-                        src={`public/img/${foodObject.id}.png`}
+                        src={`public/img/foods/${foodObject.id}.png`}
                         width="50px"
                         height="50px"
                         style={{ marginLeft: "3px" }}

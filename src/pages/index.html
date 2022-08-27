@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544596-2"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-131544596-2');
+            </script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5536186665437668"
+            crossorigin="anonymous"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+
+            <meta charset="UTF-8">
+            <meta name="description" content="An interactive calculator to find the best food combination to achieve highest SP gain in Eco game, find your best food combo now! You can also include your stomach content, set budget or calorie limit and see highscores too!" />
+            <meta name="keywords" content="best food in eco, best diet in eco, eco best food combo, eco game food, eco game best food, eco best food, eco food calculator, eco game food calculator, eco game diet calculator, eco diet calculator, best food eco, best diet eco" />
+            <meta name="robots" content="index">
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+            <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
+            
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <title>Eco Diet Calculator</title>
+            <link rel="icon" href="public/img/meaticon.png" type="image/png" sizes="16x16">
+    </head>
+    <body>
+        <div class="top">
+            <div class="top__title">
+                <h1 class="page__title">Eco Diet Calculator</h1>
+                <p class="update__info">Updated for 9.5
+                    <br>Taste feature is finally in! 
+                </p>
+            </div>
+        </div>
+        
+        <div class="calculate">
+            
+            <div class="info__button"><i class="ion-ios-information-outline"></i></div>
+            <div class="navbar__container">
+                <div class="navbar__content">
+                    <i class="ion-ios-home-outline"></i>
+                    <a href="./edit/index.html"><i class="ion-ios-compose-outline" ></i></a>
+                </div>
+            </div>
+            <div class="input__container clearfix">
+                <div class="food__amount">
+                    <div class= "info__text">
+                        <span style ="font-size: 20px">Desired number of food in menu calculation</span> 
+                        <div class ="menu__size__example"> <span style="font-weight: 600; font-size: 1.2em;">Example:</span> 
+                            <br><span style="font-size:1.1em;">Menu size:</span> 10 
+                            <br><span style="font-size:1.1em;">Output:</span> 
+                            <br> 3 x Wheat Porrige 
+                            <br> 5 x Baked Meat 
+                            <br> 2 x Corn Fritters 
+                            <br>+ Stomach content if you specifed 
+                        </div> 
+                    </div>
+                    <input pattern="\d*" inputmode="numeric" class="food__amount__input" placeholder="Menu Size" autofocus>
+                </div>
+                <div class="sim__amount">
+                    <div class= "info__text">
+                        <span style ="font-size: 20px">Calculation cycle amount (Optional)</span>
+                        <br>
+                        <br>If left empty or set to 0, simulation will test all the combinations resulting in best menu possible.
+                        <br>
+                        <br>If not, it'll test randomly generated menus times the amount you enter here and try to find the best combination of foods based on your <span style="color: #FF5049">SELECTED FOOD</span>s.
+                        <br>
+                        <br>Higher number = better results<br><br></div>
+                    <input pattern="\d*" inputmode="numeric" class="simulation__scale__input"  placeholder="Calc. Scale">
+                </div>
+                <div class="budget__amount">
+                    <div class= "info__text"><span style ="font-size: 20px">Budget <i>(Optional)</i></span>
+                        <br>
+                        <br>If you specify prices for foods, you can use this option to set a budget limit.
+                        <br>
+                        <br>Only the best menu less than your budget will be shown.
+                        <br>
+                        <br>To specify prices for foods, add them to the selected food list and a price tag will appear.
+                        <br>Prices are stored in cookies so they are saved across sessions.
+                    </div>
+                    <input pattern="\d*" inputmode="numeric" class="budget__amount__input" placeholder="Budget">
+                
+                </div>
+                <div class="calorieperdollar__amount">
+                    <div class= "info__text"><span style ="font-size: 20px">Minimum Calories per Dollar <i>(Optional)</i></span>
+                        <br>
+                        <br>If you specify prices for foods, you can use this option to set a minimum limit for calories you gain per a dollar you spend.
+                        <br>
+                        <br>Only the best menu more than your limit will be shown.
+                        <br>
+                        <br>To specify prices for foods, add them to the selected food list and a price tag will appear.
+                        <br>Prices are stored in cookies so they are saved across sessions.
+                    </div>
+                    <input pattern="\d*" inputmode="numeric" class="calorieperdollar__amount__input" placeholder="Cal./$">
+                
+                </div>
+                <div class="calorie__amount">
+                    <div class= "info__text"><span style ="font-size: 20px">Calorie Limit <i>(Optional)</i></span><br><br>Only the best menu less than your calorie limit will be shown.</div>
+                    <input pattern="\d*" inputmode="numeric" class="calorie__amount__input" placeholder="Calorie">
+                
+                </div>
+                <div class="maxSP__amount">
+                    <div class= "info__text"><span style ="font-size: 20px">Max SP <i>(Optional)</i></span><br><br>Only the best menu less than your SP limit will be shown.</div>
+                    <input pattern="\d*" inputmode="numeric" class="maxSP__amount__input" placeholder="Max SP">
+
+
+                </div>
+            </div>
+            
+            <div class="calculate__container">
+                <button class="calculate__btn"><div class="calculate__btn--text">Calculate</div> <em class="ion-ios-checkmark-outline"></em></button>
+                    <div id="progress__bar"><div id="inner__bar">%0</div></div>
+                    <div class="stop__button"><em class="ion-android-hand"></em></div>
+            </div>
+        </div>	   
+        
+        <div class="info__container">
+            <div class="info">
+            
+                <p>This app helps you find the best food combos in Eco game to maximise your daily SP gain from food. You can also check the highscore tab below to see the best diet found so far across all calculations.  </p>
+                <p><i>Menu Size</i> input determines the diet size for testing. Each diet will be filled with randomly selected foods from <span style ="color: rgba(255,80,73,1.00)">Selected Foods</span> list if <i>Calculation Scale</i> input is entered.</p>
+                <p><i>Calculation Scale</i> input determines the number of random diets to generate, if left empty algorithm will try to test every possible combination.</p>
+                <p>After a calculation has been made. The output is then stored in highscore database, which will be compared with all previous results.</p>
+                <p>Highscores are categorised by <i>Menu Size</i>. Also you can see the best diet accross all categories by clicking #1 button.</p>
+                <span style="margin-top:40px;"><p>NEW: Now you can also specify prices for food and set a budget limit to generate results less than or equal to your specified budget. The prices are saved automatically with cookies so you don't have to write them every time.</p></span>
+            
+            </div>
+            <div class="formula__info clearfix">
+                <p><span style="font-size: 130%">SP calculation is made as follows:</span></p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><span style="font-size:500%">[</span></td>
+                            <td><span style="line-height:50%;"><center>( N<sub>1</sub> × C<sub>1</sub> ) + ( N<sub>2</sub> × C<sub>2</sub> ) + ( N<sub>3</sub> × C<sub>3</sub> )
+                            <p style="letter-spacing: -3px;">——————————————————————
+                            </p>
+                            <span style="position:relative; top:10px;">C<sub>1</sub> + C<sub>2</sub> + C<sub>3</sub></center></span> </span>
+                            </td>
+                            <td><span style="font-size:500%">]</span></td>
+                            <td><span style="font-size:300%">×</span></td>
+                            <td>Balance Modifier</td>
+                            <td><span style="font-size:300%">×</span></td>
+                            <td>Skill Gain Multiplier</td>
+                            <td><span style="font-size:300%">+</span></td>
+                            <td>Base Skill Gain</td>
+                            <td><span style="font-size:300%">=</span></td>
+                            <td>SP/Day</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+                <ul>
+                    <li>"N" represents total nutrients of each food. Simply add up all 4 nutrient values. N<sub>1</sub> is first food, N<sub>2</sub> is second food, etc.</li>
+                    <li>"C" represents calories of each food. C<sub>1</sub> is first food, C<sub>2</sub> is second food, etc.</li>
+                    <li>Balance modifier ranges from 0.5 to 2, with 0.5 being no balance, and 2 being a perfect balance.</li>
+                    <li>Skill gain multiplier is configurable in the server difficulty settings. It has different default values depending on the collaboration preset.</li>
+                    <li>Base skill gain can be modified in EcoSim.eco. It defaults to 12.</li>
+                </ul>
+                <p style="font-size: 12px;"><i>Source: https://eco.gamepedia.com/Skill_Points</i></p>
+            </div>
+            <div class="info" style="margin-top:100px ;">
+                <p> My SP algorithm and inspiration for this project is based from <a href="https://docs.google.com/spreadsheets/d/1-rWq6R3mqnbKuB-VtQXYACS-2FexyxzR3okeMhz1Wjc/edit#gid=189984926">this spreadsheet</a>.</p>
+            </div>
+            
+            <div class="info" style="margin-top:250px;">
+                <p>This project is made by Kaan "oddiz" Sarkaya.<br> If you have any suggestions or feed back, you can find me on discord <span style="color:rgba(50,57,63,1.00)"><strong>@oddiz#9659</strong></span></p>
+                <p>You can also email me at <strong>kaansarkaya@gmail.com</strong></p>
+            </div>
+            
+        </div>
+
+        <div class="content clearfix">
+            
+            <div class="lists__container clearfix">
+                <div class="sort__bar">
+                    <div class="sort__title">
+                        <p><strong>Sort by:</strong></p>
+                    </div>
+                    <div class="sort__options">
+                        <ul>
+                            <li>Type</li>
+                            <li>Name</li>
+                            <li class="active">Tier</li>
+                            <li>Weight</li>
+                            <li>Cal</li>
+                            <li>Carb</li>
+                            <li>Protein</li>
+                            <li>Vitamin</li>
+                            <li>Fat</li>
+                        </ul>
+                    </div>
+                </div>
+            
+            
+            
+                <div class="available__food__container">
+                    <div class="available__food__header">
+                        <h2 class="available__food__title">Available foods</h2>
+                        <div class="quick__add">
+                            <div class="add__all">All   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                            <div class="t4__add">Tier 4   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                            <div class="t3__add">Tier 3   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                            <div class="t2__add">Tier 2   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>						
+                            <div class="t1__add">Tier 1   <span class="double__chevron"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></span></div>
+                        </div>
+                        <div class="foodtype__container">
+                            <img class="circle__button" id="raw__button" src="./public/img/raw.png">
+                            <img class="circle__button" id="campfire__button" src="./public/img/campfire.png">
+                            <img class="circle__button" id="bakeryoven__button" src="./public/img/bakeryoven.png">
+                            <img class="circle__button" id="castironstove__button" src="./public/img/castironstove.png">
+                            <img class="circle__button" id="kitchen__button" src="./public/img/kitchen.png">
+                            <img class="circle__button" id="stove__button" src="./public/img/stove.png">
+                        </div>
+                        <div class="search_bar_container">
+                            <div class="search_bar_icon">
+                                <i class="ion-ios-search"></i>
+                            </div>
+                            <div class="search_bar_input_wrapper">
+                                <input type="search" class="search_bar_input"  placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="available__food__list">
+                        
+                        <div class="item clearfix" id="46">
+                            <div class="item__description">Bear Supreme</div>
+                            <div class="item__add">
+                                <button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
+                            </div>
+                            <div class="stomach__add"><img class="stomach__add--icon" src="./public/img/stomach.svg"></div>
+                            <div class="food__info">
+                                <div class="food__info__title">
+                                    <img class="info__img" src="./public/img/56.png">
+                                    <h5>%name%</h5>
+                                </div>
+                                <div class="food__info__nutrition">
+                                    <h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6>
+                                    <h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6>
+                                    <h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6>
+                                    <h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6>
+                                    <h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6>
+                                    <h6>Calories: %calorie% kcal</h6>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    
+                
+                        <div class="item clearfix" id="22">
+                            <div class="item__description">Sweet Salad</div>
+                                <div class="item__add">
+                                    <button class="item__add--btn"> <i class="ion-ios-close-outline"></i></button>
+                                </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="selected__food__container">
+                    <div class="selected__food__header">
+                        <i class="ion-cash cash__icon"></i>
+                        <div class="remove__all"><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i></div>				
+                        <h2 class="selected__title">Selected foods</h2>
+                        
+                    </div>
+                        
+                    <div class="selected__food__list">
+                    <!--list starts here-->  
+
+
+                        <div class="item clearfix" id="44">
+                            
+                            <div class="item__description">Elk Taco</div>
+                
+                            <div class="item__delete">
+                                <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
+                            </div>
+                            <div class="item__price">
+                                <div class="item__price__container">
+                                    <img src="public/img/ptag.png">								
+                                    <input class="item__price__input" type="number" value="0"><p>$</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="item clearfix" id="23">
+                            <div class="item__description">Crimson Salad</div>
+                            
+                                <div class="item__delete">
+                                    <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
+                                </div>
+                            <div class="item__price">
+                                <div class="item__price__container">
+                                    <img src="public/img/ptag.png">								
+                                    <input type="number" value="0"><p>$</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--list ends here -->				
+                    </div>
+                </div>
+            </div>
+            <div class="menu__paper clearfix">
+                <h1>Menu</h1>
+                <div class="horizontal__line"></div>
+                <div class="spinner">
+                    <img src="./public/img/spinner.svg">
+                </div>
+                <div class="menu__content">
+                    <div class ="menu__stomach__container">
+                        <div class = "menu__stomach__title">Stomach</div>
+                    </div>
+                </div>
+                <div class="horizontal__line"></div>
+                <div class="menu__result">
+                    <p><strong>Daily SP:</strong>             %sp%</p>
+                    <p><strong>Multiplier:</strong>    %multiplier%</p>
+                    <p><strong>No:</strong>    %index% / %simcount% </p>
+                    <p><strong>Price:</strong>    %price%$</p>
+                    <p><strong>Calories:</strong>    %calories%</p>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+
+        
+        <footer>
+            <div class="footer__buttons__container">
+                <div class="footer__button stomach__button">
+                    <img src="public/img/stomach.svg" height="35px">
+                </div>
+                
+                <div class="footer__button highscore__button">
+                    <div class="trophy__icon"> <i class="ion-trophy"></i></div>   
+                    
+                </div>
+                <div id="taste__button"></div>
+
+            </div>
+        </footer>
+        <div class="highscore__container">
+            <div class="highscore__title">
+                <h1>Highscore</h1>
+                <div class ="best__button"><div class="best__text"># 1</div></div>
+            </div>
+            
+            <div class="highscore__content">
+                <!--<p><i>Run the sim to see highscores</i></p>-->
+                <p><i>Highscore database is currently offline.<br></i></p>
+            </div>
+        </div>
+        <div class="stomach__container">
+            <h1>Stomach Contents</h1>
+            <div class="stomach__list__container">
+            
+
+            </div>
+            <div class="stomach__apply__button__container">
+                <div class="stomach__apply__button__flipper">
+                    <div class="stomach__apply__button__front-face">Apply Changes</div>
+                    <div class="stomach__apply__button__back-face">Saved</div>
+                </div>
+            </div>
+        </div>
+        <div id="taste__container"> </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.7/dist/sweetalert2.all.min.js"></script>
+        
+		
+    </body>
+</html>

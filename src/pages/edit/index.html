@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544596-2"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-131544596-2');
+		</script>
+	   
+        <meta charset="UTF-8">
+        <meta name="description" content="An interactive calculator to find the best food combination to achieve highest SP gain in Eco game, find your best food combo now! You can also include your stomach content, set budget or calorie limit and see highscores too!" />
+        <meta name="keywords" content="best food in eco, best diet in eco, eco best food combo, eco game food, eco game best food, eco best food, eco food calculator, eco game food calculator, eco game diet calculator, eco diet calculator, best food eco, best diet eco" />
+        <meta name="robots" content="index">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Eco Diet Calculator</title>
+        <link rel="icon" href="../public/img/meaticon.png" type="image/png" sizes="16x16">
+   </head>
+<body>
+        
+<div class="top">
+			<div class="top__title">
+                <h1 class="page__title"><em><strong></strong></em>Eco Diet Calculator</h1>
+                <p class="update__info">Updated for 9.5 - Let me know if there are wrong values. Discord: oddiz#9659
+                    <br>Now you can create and use your own lists!
+                </p>
+			</div>
+		</div>
+        
+        
+	<div class="calculate">
+            
+		<div class="info__button"><i class="ion-ios-information-outline"></i></div>
+        <div class="navbar__container">
+            <div class="navbar__content">
+                <a href="/"><i class="ion-ios-home-outline"></i></a>
+                <a href="/edit"><i class="ion-ios-compose-outline" href="test"></i></a>
+            </div>
+        </div>
+		<div class="calculate__container">
+            <button class="calculate__btn"> </button>
+	  	</div>
+	</div>
+        
+	
+	<div class="content clearfix">
+        <div class="sidebar__container">
+            <div class="sidebar__content">
+                <div class="button" id="sidebar__button--add__list">
+                    <i class="ion-android-add"></i>
+                </div>                                  
+                <div class="button" id="sidebar__button--export__all">
+                    <i class="ion-ios-cloud-download-outline"></i>
+                </div>                  
+                <div class="button" id="sidebar__button--import__all">
+                    <i class="ion-ios-cloud-upload-outline"></i>
+                </div>
+            </div>
+        </div>
+		<div class="lists__container">
+			<div class="list1">
+                <div class="list1__header">
+                    <div class="title"><h1>Saved Lists</h1></div>
+                    
+                    <div class="button" id="import__list__button">
+                        <i class="ion-ios-download-outline"></i>
+                    </div>
+                </div>
+                <div class="list1__content">
+                    <div class="food__list" id ="1">
+                        <i class="ion-gear-a update__button"></i>
+                        <i class="ion-ios-trash-outline delete__button"></i>
+                        <div class="list__name">default</div>
+                        <div class="list__description">This is default food list for vanilla Eco.</div>
+                        <div class="list__date">23 May 2021</div>
+                    </div>
+                    <div class="food__list">
+                        <div class="list__name">default</div>
+                        <div class="list__description">This is default food list for vanilla Eco.</div>
+                        <div class="list__date">23 May 2021</div>
+                    </div>
+                    <div class="food__list">
+                        <div class="list__name">default</div>
+                        <div class="list__description">This is default food list for vanilla Eco.</div>
+                        <div class="list__date">23 May 2021</div>
+                    </div>
+                    <div class="food__list">
+                        <div class="list__name">default</div>
+                        <div class="list__description">This is default food list for vanilla Eco.</div>
+                        <div class="list__date">23 May 2021</div>
+                    </div>
+                    <div class="food__list">
+                        <div class="list__name">default</div>
+                        <div class="list__description">This is default food list for vanilla Eco.</div>
+                        <div class="list__date">23 May 2021</div>
+                    </div>
+                    <div class="food__list">
+                        <div class="list__name">default</div>
+                        <div class="list__description">This is default food list for vanilla Eco.</div>
+                        <div class="list__date">23 May 2021</div>
+                    </div>
+                </div>
+            </div>
+			<div class="list2">
+                <div class="list2__header">
+                    <div class="title"><h1>Foods</h1></div>
+                    <i class="ion-android-add" id="food__add__button"></i>
+                </div>
+                <div class="list2__content">
+                    <div class="food" id="22">
+                        <div class="food__name">Bear S U P R E M E</div>
+                        <img src="../public/img/22.png">
+                    </div>
+                    <div class="food" id="22">
+                        <div class="food__name">Bear S U P R E M E</div>
+                        <img src="../public/img/22.png">
+                    </div>
+                </div>
+            </div>
+			<div class="list3">
+                <div class="list3__header">
+                    <div class="title"><h1>Nutrition</h1></div>
+
+                </div>
+                <div class="list3__content">
+                    <div class="nutrition">
+                        <div class="nutrition__header">
+                            <div class="nutrition__title"><input type="text" id="nutrition__title--input" value="Bear S U P R E M E"></div>
+                            <div class="nutrition__image"><img src="../public/img/22.png"></div>
+                        </div>
+                        <div class="nutrition__content">
+                            
+                            <div class="line">
+                                <p style="color: #e64b17">Carb: </p>
+                                <input type="text" id="carb--input" value="3">
+                            </div>
+                            <div class="line">
+                                <p style="color: #cd8c11">Protein: </p>
+                                <input type="text" id="protein--input" value="">
+                            </div>
+                            <div class="line">
+                                <p style="color: #ffd21c">Fat: </p>
+                                <input type="text" id="fat--input" value="">
+                            </div>
+                            <div class="line">
+                                <p style="color: #7b9a18">Vitamin: </p>
+                                <input type="text" id="vitamin--input" value="">
+                            </div>
+                            <div class="line">
+                                <p style="color:#005592">Calorie: </p>
+                                <input type="text" id="calorie--input" value="">
+                            </div>
+                            <div class="line">
+                                <p style="color:#0067b1">Weight: </p>
+                                <input type="text" id="weight--input" value="">
+                            </div>
+                            <div class="line">
+                                <p style="color: #007ed8">Food Type: </p> 
+                                <input type="text" id="food__type--input" value="">
+                            </div>
+                            <div class="line">
+                                <p style="color: #0092f8">Tier: </p> 
+                                <input type="text" id="tier--input" value="">
+                            </div>
+                        </div>
+                        <div class="button__container">
+                            <div class="apply__button__flipper" id="apply__button">
+                                <div class="apply__button__front-face">Apply Changes</div>
+                                <div class="apply__button__back-face">Saved</div>
+                            </div>
+                            <div class="delete__button" id="delete__button">
+                                <i class="ion-ios-trash-outline"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+	</div>
+
+
+	<footer> </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.7/dist/sweetalert2.all.min.js"></script>
+            
+		
+</body>
+</html>

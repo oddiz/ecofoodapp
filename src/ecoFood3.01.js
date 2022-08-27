@@ -7,8 +7,6 @@ import { Dropdown } from "@nextui-org/react";
 require("./style.css");
 require("./style-mobile.css");
 
-var Cleave = require("./public/vendor/js/cleave");
-var Swal = require("sweetalert2");
 
 var FoodListController = require("./FoodListController");
 
@@ -16,14 +14,15 @@ var menuController = require("./menuController")(FoodListController);
 var getFoodFromID = function (id) {
     var selectedFood;
     try {
-        selectedFood = menuController.getAllFoods().find((element) => element.id == id) || FoodListController.getActiveFoodList().foods.find((element) => element.id == id);
+        selectedFood =
+            menuController.getAllFoods().find((element) => element.id == id) ||
+            FoodListController.getActiveFoodList().foods.find((element) => element.id == id);
         //returns food object
 
         return selectedFood;
     } catch (error) {
         console.error("Couldn't get foods from id . Error: " + error);
     }
-    
 };
 var UIController = require("./UiController")(menuController, getFoodFromID);
 

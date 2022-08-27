@@ -17,14 +17,14 @@ const UIController = (function (FoodListController) {
     const foodHtml = `
     <div class="food" id="%foodid%">
         <div class="food__name">%foodname%</div>
-        <img src="../public/img/%foodimgid%.png" onerror="this.onerror=null; this.src='../public/meaticon64.png'">
+        <img src="../public/img/foods/%foodimgid%.png" onerror="this.onerror=null; this.src='../public/img/meaticon64.png'">
     </div>
     `;
     const nutritionHtml = `
     <div class="nutrition">
         <div class="nutrition__header">
                 <div class="nutrition__title"><input type="text" id="nutrition__title--input" value="%foodname%"></div>
-                <div class="nutrition__image"><img src="../public/img/%foodimgid%.png" onerror="this.onerror=null; this.src='../public/meaticon64.png'"></div>
+                <div class="nutrition__image"><img src="../public/img/foods/%foodimgid%.png" onerror="this.onerror=null; this.src='../public/img/meaticon64.png'"></div>
         </div>
         <div class="nutrition__content">
             
