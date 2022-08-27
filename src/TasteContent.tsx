@@ -73,7 +73,6 @@ export const TasteContent = ({ controller }: TCProps) => {
     };
 
     const handleResetButton = () => {
-
         Swal.fire({
             icon: "warning",
             title: "Are you sure?",
@@ -269,7 +268,7 @@ const FoodCard = ({ foodObject, controller, tasteChangeHandler }: IFCProps) => {
                 onMouseDown={handleTastinessClick}
                 hideArrow
                 css={{
-                    zIndex: "888",
+                    zIndex: "9999",
                     background: TASTE_COLORS[i],
                     color: "black",
                     fontWeight: 800,

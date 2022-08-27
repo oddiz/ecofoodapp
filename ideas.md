@@ -3,4 +3,6 @@ Input individual shops
 
 
 OMEGA idea
-    - Make shop owners log in and 
+    - Make shop owners log in and define products + prices
+
+best labor menu (best cal per dollar ), best student menu (best sp dollar)
