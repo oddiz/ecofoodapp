@@ -38,10 +38,7 @@ function uploadAndGzip() {
 }
 
 exports.publish = series(optimizeImages, uploadAndGzip);
-exports.checkcss = () => {
-    const checkCSS = require("gulp-check-unused-css");
-    gulp.src(["src/*.css", "src/public/*.html", "src/edit/index.html"]).pipe(checkCSS());
-};
+
 exports.default = () => {};
 // async task sample
 async function asyncAwaitTask() {

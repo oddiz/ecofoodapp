@@ -39,7 +39,6 @@
     "file-loader": "^6.2.0",
     "gulp": "^4.0.2",
     "gulp-awspublish": "^6.0.2",
-    "gulp-check-unused-css": "^2.1.4",
     "gulp-imagemin": "7.1.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "html-webpack-plugin": "^5.5.0",
