@@ -67,7 +67,7 @@ a, a:hover, a:visited, a:active {
 }
 .hidden {
     display:none;
-}
+} 
 
 .taste_option:hover ~ .active {
     opacity: 1 !important;
@@ -75,6 +75,12 @@ a, a:hover, a:visited, a:active {
 
 .swal2-container {
     z-index: 20000 !important;
+}
+
+.app__link {
+    font-size: 24px;
+    font-weight: 700;
+   
 }
 /**********************************************
 *** TOP PART

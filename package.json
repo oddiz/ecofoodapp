@@ -10,7 +10,8 @@
     "postbuild": "rimraf ./temp/*",
     "dev": "webpack-dev-server --config webpack.config.cjs --hot",
     "start": "npx http-server ./dist/index.html -p 8080 ",
-    "serve": "yarn build && gulp publish",
+    "serve": "yarn build && firebase deploy",
+    "awsserve": "yarn build && gulp publish",
     "verify": "node ./verify/extractJson.js && python ./verify/main.py"
   },
   "author": "Kaan",
