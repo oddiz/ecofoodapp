@@ -3,6 +3,7 @@ dist/
 keys/
 temp/
 
+.firebase/
 .vscode/
 #deploy folders
 dist/
@@ -104,4 +105,3 @@ TODO.md
 
 # jshintrc
 .jshintrc
-
