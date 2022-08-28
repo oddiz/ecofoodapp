@@ -13,7 +13,7 @@ const optimizeImages = (done) => {
 };
 
 function uploadAndGzip() {
-    const ecoBucket = "test.kaansarkaya.com";
+    const ecoBucket = "ecodiet.kaansarkaya.com";
     const awspublish = require("gulp-awspublish");
     const publisher = awspublish.create({
         region: "eu-west-2",

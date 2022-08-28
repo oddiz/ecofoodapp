@@ -1,4 +1,5 @@
 import os
+from cv2 import exp
 from termcolor import colored, cprint
 import re
 import json
@@ -38,9 +39,10 @@ def main():
             vitamin = int(FoodObj["vit"])
             calorie = int(FoodObj["cal"])
             weight = float(FoodObj["weight"]) * 1000
-        except:
+        except Exception as err:
             cprint(
                 "Unable to get nutrition values for {} from foodData.js.".format(name), "red")
+            cprint("Error: {}".format(err), "white", "on_red")
 
         foodFound = False
         serverFoodContent = ""
@@ -127,4 +129,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    input("Press Enter to exit.")
