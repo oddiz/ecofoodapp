@@ -7,7 +7,6 @@ import { Dropdown } from "@nextui-org/react";
 require("./style.css");
 require("./style-mobile.css");
 
-
 var FoodListController = require("./FoodListController");
 
 var menuController = require("./menuController")(FoodListController);

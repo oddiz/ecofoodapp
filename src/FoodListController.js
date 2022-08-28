@@ -1,10 +1,9 @@
-var defaultFoods = require('./foodData.js')
+var defaultFoods = require("./foodData.js");
 
-const searchObjectInArray = require('./helpers.js').searchObjectInArray
+const searchObjectInArray = require("./helpers.js").searchObjectInArray;
 /* jshint esversion:6 */
 
 const FoodListController = (function () {
-
     function getStoredFoodLists() {
         try {
             let foodLists = JSON.parse(window.localStorage.getItem("food_lists"));
@@ -14,7 +13,6 @@ const FoodListController = (function () {
             }
 
             return foodLists;
-
         } catch (error) {
             console.error("Error getting stored food lists");
 
@@ -26,12 +24,9 @@ const FoodListController = (function () {
         window.localStorage.setItem("food_lists", JSON.stringify(storedFoodLists));
     }
 
-
     //will return array of foodlist into storedFoodLists
     let storedFoodLists = [];
     const serverFoodList = defaultFoods;
-
-
 
     return {
         init: function () {
@@ -39,11 +34,11 @@ const FoodListController = (function () {
             storedFoodLists = getStoredFoodLists();
             if (searchObjectInArray("listName", "default", getStoredFoodLists()) === null) {
                 //if nothing in local storage food lists
-                storedFoodLists.push(new FoodList("default", "This is the latest food list from Vanilla Eco.", serverFoodList));
+                storedFoodLists.push(
+                    new FoodList("default", "This is the latest food list from Vanilla Eco.", serverFoodList)
+                );
                 saveStoredFoodLists();
             } else {
-
-
                 //update default food list to latest
                 storedFoodLists.forEach((list, i) => {
                     if (list.id == 1) {
@@ -60,7 +55,7 @@ const FoodListController = (function () {
                             "September",
                             "October",
                             "November",
-                            "December"
+                            "December",
                         ];
                         const updatedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
                         storedFoodLists[i].date = updatedDate;
@@ -72,12 +67,8 @@ const FoodListController = (function () {
                 //this.updateList("default");
                 //window.localStorage.setItem(storedFoodLists);
             }
-
-
-
         },
         saveNewList: function (listName, listDesc, foods) {
-
             if (searchObjectInArray("listName", listName, getStoredFoodLists()) === null) {
                 storedFoodLists.push(new FoodList(listName, listDesc, foods));
                 saveStoredFoodLists();
@@ -85,7 +76,6 @@ const FoodListController = (function () {
                 //if list with same name exists
                 console.warn("Same name exist.");
             }
-
         },
         updateFood: function (listId, foodId, properties) {
             //find the list
@@ -113,7 +103,6 @@ const FoodListController = (function () {
             } catch (error) {
                 console.error("Error while updating food.", error);
             }
-
         },
         deleteFood: function (listId, foodId) {
             storedFoodLists = getStoredFoodLists();
@@ -124,7 +113,6 @@ const FoodListController = (function () {
                             if (food.id == foodId) {
                                 storedFoodLists[listindex].foods.splice(index, 1);
                             }
-
                         });
                     }
                 });
@@ -138,17 +126,17 @@ const FoodListController = (function () {
             const d = new Date();
 
             const newFood = {
-                "id": d.getTime(),
-                "name": "New Food",
-                "type": "Food type (Kitchen, Veggy...)",
-                "tier": 9001,
-                "carb": 0,
-                "pro": 0,
-                "fat": 0,
-                "vit": 0,
-                "cal": 0,
-                "weight": 0,
-                "price": 0
+                id: d.getTime(),
+                name: "New Food",
+                type: "Food type (Kitchen, Veggy...)",
+                tier: 9001,
+                carb: 0,
+                pro: 0,
+                fat: 0,
+                vit: 0,
+                cal: 0,
+                weight: 0,
+                price: 0,
             };
 
             storedFoodLists.forEach((list, i) => {
@@ -166,11 +154,9 @@ const FoodListController = (function () {
                 if (flist.id == listID) {
                     storedFoodLists.splice(index, 1);
                 }
-
             });
             //update session storage
             saveStoredFoodLists();
-
         },
         addList: function (listName, listDesc, listObject = []) {
             storedFoodLists = getStoredFoodLists();
@@ -185,7 +171,6 @@ const FoodListController = (function () {
             storedFoodLists.push(newList);
 
             saveStoredFoodLists();
-
         },
         updateList: function (listId, newName, newDesc) {
             storedFoodLists = getStoredFoodLists();
@@ -198,20 +183,17 @@ const FoodListController = (function () {
             });
 
             saveStoredFoodLists();
-
         },
         exportList: function (listId) {
             //export base64 string from a list
             const selectedList = this.getListFromId(listId);
 
             return btoa(JSON.stringify(selectedList));
-
         },
         importList: function (b64string) {
             const importedList = JSON.parse(atob(b64string));
 
             this.addList(importedList.listName, importedList.listDesc, importedList);
-
         },
         importAllLists: function (base64) {
             //import a list from base64 string
@@ -219,10 +201,8 @@ const FoodListController = (function () {
             var importedString = atob(base64);
             var parsedString = JSON.parse(importedString);
 
-
             window.localStorage.removeItem("food_lists");
             window.localStorage.setItem("food_lists", parsedString);
-
         },
         exportAllLists: function () {
             //export storeFoodLists array
@@ -235,7 +215,6 @@ const FoodListController = (function () {
         },
         getListFromId: function (listId) {
             storedFoodLists = getStoredFoodLists();
-
 
             const result = searchObjectInArray("id", listId, storedFoodLists);
 
@@ -256,16 +235,12 @@ const FoodListController = (function () {
             const activeFoodList = this.getListFromId(activeFoodListId);
 
             return activeFoodList;
-        }
-
+        },
     };
-
 })();
-
 
 class FoodList {
     constructor(listName, description, food) {
-
         this.listName = listName;
         this.listDesc = description;
         const d = new Date();
@@ -281,7 +256,7 @@ class FoodList {
             "September",
             "October",
             "November",
-            "December"
+            "December",
         ];
 
         this.date = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
@@ -295,11 +270,10 @@ class FoodList {
     }
 
     exportList() {
-        //generate base64 string for the list 
-
+        //generate base64 string for the list
 
         return this;
     }
 }
 
-module.exports = FoodListController
+module.exports = FoodListController;

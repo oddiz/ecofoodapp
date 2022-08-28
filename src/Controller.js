@@ -443,8 +443,6 @@ module.exports = function (UICtrl, MenuCtrl, FoodListCtrl, TasteStorageCtrl, get
                 document.querySelector(DOMStrings.menuPaper).style.webkitFilter = "";
                 UICtrl.updateResults(message.data.result);
             }
-
-            
         };
     }
 
