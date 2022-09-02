@@ -2,32 +2,29 @@
 <html lang="en">
     <head>
             <!-- Google tag (gtag.js) -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KF1KVW04C"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0WDFH55QB"></script>
             <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
 
-                gtag('config', 'G-2KF1KVW04C');
+                gtag('config', 'G-P0WDFH55QB');
             </script>
 
             <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
-
+           
             <meta charset="UTF-8">
             <meta name="description" content="An interactive calculator to find the best food combination to achieve highest SP gain in Eco game, find your best food combo now! You can also include your stomach content, set budget or calorie limit and see highscores too!" />
             <meta name="keywords" content="best food in eco, best diet in eco, eco best food combo, eco game food, eco game best food, eco best food, eco food calculator, eco game food calculator, eco game diet calculator, eco diet calculator, best food eco, best diet eco" />
             <meta name="robots" content="index">
-            <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
-            <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
             <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
-            <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap" rel="stylesheet"> 
             
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <title>Eco Diet Calculator</title>
+            <title>Eco Food App</title>
             <link rel="icon" href="public/img/meaticon.png" type="image/png" sizes="16x16">
     </head>
-    <body>
+    <body style="opacity: 0;">
         <div class="top">
             <div class="top__title">
                 <h1 class="page__title">Eco Food App</h1>
@@ -344,12 +341,12 @@
                 <div class="footer__button stomach__button">
                     <img src="public/img/stomach.svg" height="35px">
                 </div>
+                <div id="taste__button"></div>
                 
-                <div class="footer__button highscore__button">
+                <div class="footer__button highscore__button" style="display: none;">
                     <div class="trophy__icon"> <i class="ion-trophy"></i></div>   
                     
                 </div>
-                <div id="taste__button"></div>
 
             </div>
         </footer>

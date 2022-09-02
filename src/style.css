@@ -50,9 +50,8 @@ body {
     font-size: 16px;
     position: relative;
     height:100%;
-    
     font-weight: 400;
-
+    transition: opacity .5s ease;
     overflow-x: hidden;
 	
 }
@@ -94,7 +93,6 @@ a, a:hover, a:visited, a:active {
    
     position: relative;
     
-    transition: all 0.3s;
 }
 
 .top__title {
@@ -188,7 +186,6 @@ a, a:hover, a:visited, a:active {
     min-height: 420px;
     padding-top: 55px;
 	padding-bottom:150px;
-	transition: transform 0.5s;
     z-index: 2;
     overflow-x: hidden;
 	
@@ -224,7 +221,7 @@ body::after {
     min-width: 610px;
     
     
-    transition: all 1s;
+    transition: margin 1s;
 
     
     
@@ -268,7 +265,7 @@ body::after {
     -webkit-transform: translateZ(0);
     z-index: 999;
 
-    transition: all 0.4s;
+    transition: transform 0.4s;
 }
 
     /****NAVBAR ****/
@@ -321,7 +318,7 @@ body::after {
 	font-size: 38px;
 	color: #28B9B5;
 	
-	transition: all 0.5s;
+	transition: transform 0.5s;
 	cursor: pointer;
 }
 
@@ -371,7 +368,6 @@ body::after {
     font-size: 16px;
     font-family:inherit;
 	
-	transition: all 0.5s;
 }
 
 .food__amount__input {	
@@ -593,7 +589,7 @@ content: "";
     background: #f7f7f754;
     border-top: 1px solid rgba(117, 117, 117, 0.212);
     border-bottom: 1px solid rgba(117, 117, 117, 0.212);
-    transition: all 0.5s;
+    transition: transform 0.5s;
     cursor: pointer;
 }
 
@@ -680,7 +676,7 @@ content: "";
     background: #a0dddb;
     box-shadow: 0px 4px 0px #1a6462;
 
-    transition: all, 0.2s;
+    transition: border-color 0.2s, transform 0.2s;
 }
 
 .circle__button.active {
@@ -710,7 +706,6 @@ content: "";
         border-radius: 20px;
         padding-left: 10px;
         padding-bottom: 1px;
-        transition: all 0.5s;
     }
 
     .search_bar_input:focus {
@@ -881,7 +876,7 @@ h2 {
     display: inline-block;
     line-height: 0;
 
-    transition: all 0.3s;
+    transition: transform 0.1s;
 
 }
 
@@ -892,7 +887,7 @@ h2 {
     display: inline-block;
     position:relative;
     filter: brightness(1.1);
-    transition: all 0.2s;
+    transition: filter 0.2s;
 }
 
 .item .available__img:hover {
@@ -1063,7 +1058,7 @@ content: "";
 	background: rgba(185,245,120,0.16);
 	z-index:6;
 	outline:none;
-	font-family: dosis;
+	font-family: "Inter", sans-serif;
 	font-size: 16px;
 	border: 1px rgba(247,247,247,1.00);
 	border-radius: 5px;
@@ -1099,7 +1094,6 @@ MENU PAPER
 
 .menu__paper {
 	position: absolute;
-	
 	min-width:263px;
 	min-height:250px;
 	
@@ -1109,7 +1103,7 @@ MENU PAPER
 	box-shadow: 6px 6px 10px rgba(109, 114, 116, 0.9);
 	border-radius: 3px;
 	
-	transition: all 0.5s;
+	transition: right 0.5s, transform 0.2s, filter 0.2s;
     right:-270px;
 
 	transform: translateX(0%);
@@ -1251,7 +1245,7 @@ footer {
 
     border-radius: 10px;
 
-    transition: background-color 0.4s ease-out;
+    transition: background-color 0.2s ease-out;
 }
 .highscore__button {
 
@@ -1277,9 +1271,6 @@ footer {
     
 }
 .stomach__button {
-	display: inline-block;
-    position:inherit;
-    
     padding-right:5px;
 	padding-top: 0px;
 
@@ -1300,8 +1291,6 @@ footer {
 .taste__button {
     font-size: 32px;
     color: white;
-	display: inline-block;
-    position:inherit;
     
     padding-right:5px;
 	padding-top: 0px;
@@ -1347,7 +1336,7 @@ footer {
 	border: 4px double rgb(255, 200, 137);
     border-radius: 20px;
     
-    transition: all 0.4s;
+    transition: bottom 0.4s;
 
     z-index: 1000;
 }
@@ -1390,7 +1379,7 @@ footer {
     width: 11em; height: 2.5em;
     background-color: rgb(241, 198, 161);
     box-shadow: 0 3px 5px rgb(238, 166, 104);
-    transition: all 0.6s cubic-bezier(.36,.65,.37,1.39);
+    transition: transform 0.6s cubic-bezier(.36,.65,.37,1.39);
     transform-style: preserve-3d;
     
     cursor:pointer;
@@ -1535,7 +1524,7 @@ footer {
     color: #64707B;
     font-family: inherit;
 
-    transition: all 0.5s;
+    transition: bottom 0.5s;
 
 	z-index: 999;
 }

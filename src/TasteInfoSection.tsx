@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import React, { useState } from "react";
-import { Badge, Collapse, Text } from "@nextui-org/react";
+import React from "react";
+import { Badge, Collapse } from "@nextui-org/react";
 import { TasteData } from "./TasteStorageController";
 import { TASTE_DESCRIPTIONS, TASTE_MULTS, TIER_COLORS } from "./constants";
 import { FoodObject } from "./types";
-import { useFoodSearch } from "./hooks";
 
 const InfoSectionWrapper = styled.div`
     width: 200px;

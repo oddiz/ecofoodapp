@@ -18,21 +18,22 @@ var UiController = function UiController(menuController, getFoodFromID) {
         }
         //add food to selected list
 
-        htmlTemplate = `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><div class="stomach__add"><img class="stomach__add--icon" src="./public/img/stomach.svg"></div><i class="ion-android-add item__add--btn"></i><img class="available__img" src="./public/img/foods/%imgid%.png" onerror="this.onerror=null; this.src='../public/img/meaticon64.png'"><div class="food__info"><div class="food__info__title"><img class="info__img" src="./public/img/foods/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
+        htmlTemplate = `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><div class="stomach__add"><img loading="lazy" class="stomach__add--icon" src="./public/img/stomach.svg"></div><i class="ion-android-add item__add--btn"></i><img loading="lazy" class="available__img" src="./public/img/foods/%imgid%.png" onerror="this.onerror=null; this.src='../public/img/meaticon64.png'"><div class="food__info"><div class="food__info__title"><img loading="lazy" class="info__img" src="./public/img/foods/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
 
-        newHtml = htmlTemplate.replace("%id%", foodObj.id);
-        newHtml = newHtml.replace("%foodname%", foodObj.name);
-        newHtml = newHtml.replace("%imgid%", foodObj.id);
-        newHtml = newHtml.replace("%foodtier%", foodObj.tier);
-        newHtml = newHtml.replace("%infoimgid%", foodObj.id);
-        newHtml = newHtml.replace("%name%", foodObj.name);
-        newHtml = newHtml.replace("%weight%", foodObj.weight);
-        newHtml = newHtml.replace("%carb%", foodObj.carb);
-        newHtml = newHtml.replace("%protein%", foodObj.pro);
-        newHtml = newHtml.replace("%fat%", foodObj.fat);
-        newHtml = newHtml.replace("%vit%", foodObj.vit);
-        newHtml = newHtml.replace("%calorie%", foodObj.cal);
-        newHtml = newHtml.replace("%foodtype%", foodObj.type);
+        newHtml = htmlTemplate
+            .replace("%id%", foodObj.id)
+            .replace("%foodname%", foodObj.name)
+            .replace("%imgid%", foodObj.id)
+            .replace("%foodtier%", foodObj.tier)
+            .replace("%infoimgid%", foodObj.id)
+            .replace("%name%", foodObj.name)
+            .replace("%weight%", foodObj.weight)
+            .replace("%carb%", foodObj.carb)
+            .replace("%protein%", foodObj.pro)
+            .replace("%fat%", foodObj.fat)
+            .replace("%vit%", foodObj.vit)
+            .replace("%calorie%", foodObj.cal)
+            .replace("%foodtype%", foodObj.type);
 
         document.querySelector(DOMStrings.availableFoods).insertAdjacentHTML("afterbegin", newHtml);
     };
@@ -132,7 +133,7 @@ var UiController = function UiController(menuController, getFoodFromID) {
             el.parentNode.removeChild(el);
         }
         //add food to selected list
-        htmlTemplate = `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><i class="ion-ios-close item__delete--btn"></i><img class="available__img" src="./public/img/foods/%imgid%.png" onerror="this.onerror=null; this.src='../public/img/meaticon64.png'"><div class="item__price"><div class="item__price__container"><img src="public/img/ptag.png"><input class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img class="info__img" src="./public/img/foods/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
+        htmlTemplate = `<div class="item clearfix" id="%id%"><div class="item__description">%foodname%<i><span class="tier__info">Tier: %foodtier%</span></i></div><i class="ion-ios-close item__delete--btn"></i><img loading="lazy" class="available__img" src="./public/img/foods/%imgid%.png" onerror="this.onerror=null; this.src='../public/img/meaticon64.png'"><div class="item__price"><div class="item__price__container"><img loading="lazy" src="public/img/ptag.png"><input class="item__price__input" value="%price%"><p>$</p></div></div><div class="food__info"><div class="food__info__title"><img loading="lazy" class="info__img" src="./public/img/foods/%infoimgid%.png"><h5>%name%</h5></div><div class="food__info__nutrition"><h6>Weight:<span style="color: #0092f8;">%weight%</span> kg</h6><h6>-<span style="color: #e64b17">Carbs: %carb%</span></h6><h6>-<span style="color: #cd8c11">Protein: %protein%</span></h6><h6>-<span style="color: #ffd21c">Fat: %fat%</span></h6><h6>-<span style="color: #7b9a18">Vitamins: %vit%</span></h6><h6>Calories: %calorie% kcal</h6><h6>Made in: %foodtype%</h6></div></div></div>`;
 
         newHtml = htmlTemplate.replace("%id%", foodObj.id);
         newHtml = newHtml.replace("%foodname%", foodObj.name);
@@ -376,7 +377,7 @@ var UiController = function UiController(menuController, getFoodFromID) {
         displayResults: function (resultObject) {
             var paperHtml, menuContent, line, foundAt;
             paperHtml =
-                '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img src="./public/img/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>Taste Mult:</strong>    %tasteMult%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
+                '<h1>Menu</h1><div class="horizontal__line"></div><div class="spinner"><img loading="lazy" src="./public/img/spinner.svg"></div><div class="menu__content"><div class ="menu__stomach__container hidden"><div class = "menu__stomach__title">Stomach</div></div></div><div class="horizontal__line"></div><div class="menu__result"><p><strong>Daily SP:</strong>             %sp%</p><p><strong>Multiplier:</strong>    %multiplier%</p><p><strong>Taste Mult:</strong>    %tasteMult%</p><p><strong>No:</strong>    %index% / %simcount% </p><p><strong>Price:</strong>    %price%$</p><p><strong>Calories:</strong>    %calories%</p><p><strong>Calories per 1$:</strong>    %caloriesperdollar%</p></div>';
 
             if (resultObject.foundAt === 0) {
                 foundAt = 1;

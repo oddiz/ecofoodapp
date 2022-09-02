@@ -1,11 +1,10 @@
+require("./style.css");
+require("./style-mobile.css");
 import React from "react";
 import { createRoot } from "react-dom/client";
 
 import { TasteButton } from "./TasteButton";
-import { Dropdown } from "@nextui-org/react";
 /*jshint esversion: 6 */
-require("./style.css");
-require("./style-mobile.css");
 
 var FoodListController = require("./FoodListController");
 
@@ -36,7 +35,12 @@ var Controller = require("./Controller")(
     getFoodFromID
 );
 
-Controller.init();
+window.onload = function () {
+    Controller.init();
+    setTimeout(function () {
+        document.body.style.opacity = "100";
+    }, 500);
+};
 
 const root = createRoot(document.getElementById("taste__button"));
 import { NextUIProvider } from "@nextui-org/react";

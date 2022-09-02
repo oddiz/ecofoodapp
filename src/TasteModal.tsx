@@ -1,5 +1,4 @@
-import React, { PropsWithChildren } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import styled from "styled-components";
 import { TasteContent } from "./TasteContent";
 
