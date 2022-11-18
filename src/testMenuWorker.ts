@@ -206,10 +206,10 @@ function testMenuWorker({
         partiteIdentical(items, groups);
 
         function partiteIdentical(items: number, groups: number, args = [0], index = 0) {
+            var argsTotal = args.reduce(function (a, b) {
+                return a + b;
+            });
             if (groups === 0) {
-                var argsTotal = args.reduce(function (a, b) {
-                    return a + b;
-                });
                 if (argsTotal === items) {
                     var definitiveMenu = constructMenuFromArgs(args, getMenu().stomach);
 
@@ -265,11 +265,11 @@ function testMenuWorker({
                         });
                     }
                 }
-            } else {
+            } else if (argsTotal <= items) {
                 var groupRest = groups - 1;
 
                 for (args[index] = 0; args[index] < items + 1; ++args[index]) {
-                    partiteIdentical(items, groupRest, args, index + 1);
+                    partiteIdentical(items, groupRest, [...args], index + 1);
                 }
             }
         }
@@ -328,7 +328,7 @@ function testMenuWorker({
     }
     console.timeEnd("Total_calculation_time");
     if (bestMenuNames) {
-       
+
         postMessage({
             type: "menu_found",
             result: {
